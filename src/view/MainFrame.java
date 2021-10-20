@@ -1,8 +1,14 @@
+package view;
+
+import controller.ActionManager;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
     private static MainFrame instance = null;
+    private ActionManager actionManager;
+    private JMenuBar menuBar;
 
     private MainFrame(){}
 
@@ -17,6 +23,11 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        actionManager = new ActionManager();
+        menuBar = new MyMenuBar();
+
+        setJMenuBar(menuBar);
+
 
 
     }
@@ -27,5 +38,13 @@ public class MainFrame extends JFrame {
             instance.initialize();
         }
         return instance;
+    }
+
+    public ActionManager getActionManager() {
+        return actionManager;
+    }
+
+    public void setActionManager(ActionManager actionManager) {
+        this.actionManager = actionManager;
     }
 }
