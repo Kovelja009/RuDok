@@ -9,6 +9,8 @@ public class MainFrame extends JFrame {
     private static MainFrame instance = null;
     private ActionManager actionManager;
     private JMenuBar menuBar;
+    private JToolBar toolBar;
+    private JSplitPane centralniSplitPane;
 
     private MainFrame(){}
 
@@ -24,9 +26,15 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         actionManager = new ActionManager();
-        menuBar = new MyMenuBar();
 
+        menuBar = new MyMenuBar();
         setJMenuBar(menuBar);
+
+        toolBar = new MyToolBar();
+        add(toolBar, BorderLayout.NORTH);
+
+        centralniSplitPane = new CentralniSplitPanel();
+        add(centralniSplitPane, BorderLayout.CENTER);
 
 
 
