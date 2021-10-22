@@ -19,7 +19,7 @@ public class MainFrame extends JFrame {
         Dimension dim = kit.getScreenSize();
         setSize(dim.width/2, dim.height/2);
 
-        Image img = kit.getImage("src/images/icon_main.jpg");
+        Image img = kit.getImage("src/controller/images/icon_main.jpg");
         setIconImage(img);
         setTitle("RuDok");
         setLocationRelativeTo(null);
