@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 public class InfoAction extends AbstractRudokAction{
     public InfoAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
-        putValue(SMALL_ICON, loadIcon("images/info_img.png"));
+        putValue(SMALL_ICON, loadIcon("src/images/info_img.png"));
         putValue(NAME, "Info");
         putValue(SHORT_DESCRIPTION, "About me");
     }
@@ -20,7 +20,7 @@ public class InfoAction extends AbstractRudokAction{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        ImageIcon imageIcon = new ImageIcon("images/about_me.png");
+        ImageIcon imageIcon = new ImageIcon("src/images/about_me.png");
         Image image = imageIcon.getImage();
         Image newimg = image.getScaledInstance(200, 120,  java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);  // transform it back

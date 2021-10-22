@@ -7,7 +7,7 @@ public abstract class AbstractRudokAction extends AbstractAction {
 
     public Icon loadIcon(String fileName){
         URL imageURL = getClass().getResource(fileName);
-        Icon icon = new ImageIcon(fileName);
+        Icon icon = null;
 
         if(imageURL != null){
             icon = new ImageIcon(imageURL);
