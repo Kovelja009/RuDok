@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class RuNodeComposite extends RuNode {
-    private String name;
-    private RuNodeComposite parent;
     private List<RuNode> children;
 
     public RuNodeComposite(String name, RuNodeComposite parent) {
