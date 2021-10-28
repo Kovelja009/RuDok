@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
 
     private MainFrame(){}
 
-    public void initialize(){
+    private void initialize(){
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension dim = kit.getScreenSize();
         setSize(dim.width/2, dim.height/2);

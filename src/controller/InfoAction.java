@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-// resiti problem images not found
+
 
 public class InfoAction extends AbstractRudokAction{
     public InfoAction(){
