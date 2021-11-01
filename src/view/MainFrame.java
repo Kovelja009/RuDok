@@ -36,8 +36,6 @@ public class MainFrame extends JFrame {
         centralniSplitPane = new CentralniSplitPanel();
         add(centralniSplitPane, BorderLayout.CENTER);
 
-
-
     }
 
     public static MainFrame getInstance(){
