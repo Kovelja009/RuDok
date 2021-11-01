@@ -3,6 +3,8 @@ package model;
 import java.util.List;
 
 public class Prezentacija extends RuNodeComposite{
+    private String autor;
+    private String urlPozadina;
 
     public Prezentacija(String name, RuNodeComposite parent) {
         super(name, parent);
@@ -30,5 +32,21 @@ public class Prezentacija extends RuNodeComposite{
             }
         }
         super.setChildren(children);
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getUrlPozadina() {
+        return urlPozadina;
+    }
+
+    public void setUrlPozadina(String urlPozadina) {
+        this.urlPozadina = urlPozadina;
     }
 }
