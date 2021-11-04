@@ -3,12 +3,12 @@ package model;
 public class Slide extends RuNode{
     private int redniBroj;
 
-    public Slide(String name, RuNodeComposite parent) {
+    public Slide(String name, RuNode parent) {
         super(name, parent);
     }
 
     @Override
-    public void setParent(RuNodeComposite parent) {
+    public void setParent(RuNode parent) {
         if(parent instanceof Prezentacija){
             super.setParent(parent);
         }

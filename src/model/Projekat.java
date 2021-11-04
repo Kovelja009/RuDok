@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 
 public class Projekat extends RuNodeComposite{
-    public Projekat(String name, RuNodeComposite parent) {
+    public Projekat(String name, RuNode parent) {
         super(name, parent);
     }
 
@@ -15,7 +15,7 @@ public class Projekat extends RuNodeComposite{
     }
 
     @Override
-    public void setParent(RuNodeComposite parent) {
+    public void setParent(RuNode parent) {
         if(parent instanceof Workspace){
         super.setParent(parent);
         }

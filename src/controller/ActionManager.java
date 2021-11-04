@@ -7,12 +7,14 @@ public class ActionManager {
     private NewAction newAction;
     private PopupAutorAction popupAutorAction;
     private PopupPozadinaAction popupPozadinaAction;
+    private NewProjekatAction newProjekatAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
         newAction = new NewAction();
         popupAutorAction = new PopupAutorAction();
         popupPozadinaAction = new PopupPozadinaAction();
+        newProjekatAction = new NewProjekatAction();
 
     }
 
@@ -46,5 +48,13 @@ public class ActionManager {
 
     public void setPopupPozadinaAction(PopupPozadinaAction popupPozadinaAction) {
         this.popupPozadinaAction = popupPozadinaAction;
+    }
+
+    public NewProjekatAction getNewProjekatAction() {
+        return newProjekatAction;
+    }
+
+    public void setNewProjekatAction(NewProjekatAction newProjekatAction) {
+        this.newProjekatAction = newProjekatAction;
     }
 }

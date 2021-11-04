@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 public class MyMenuBar extends JMenuBar {
         private JMenu FileMenu;
         private JMenu HelpMenu;
+        private JMenu EditMenu;
 
         public MyMenuBar(){
             FileMenu = new JMenu("File");
@@ -19,7 +20,14 @@ public class MyMenuBar extends JMenuBar {
             HelpMenu.setMnemonic(KeyEvent.VK_H);
 
 
+            EditMenu = new JMenu("Edit");
+            EditMenu.add(MainFrame.getInstance().getActionManager().getPopupAutorAction());
+            EditMenu.add(MainFrame.getInstance().getActionManager().getPopupPozadinaAction());
+            EditMenu.add(MainFrame.getInstance().getActionManager().getNewProjekatAction());
+            EditMenu.setMnemonic(KeyEvent.VK_E);
+
             add(FileMenu);
+            add(EditMenu);
             add(HelpMenu);
     }
 }

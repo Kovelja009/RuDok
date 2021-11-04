@@ -16,7 +16,7 @@ public class Workspace extends RuNodeComposite{
     }
 
     @Override
-    public void setParent(RuNodeComposite parent) {
+    public void setParent(RuNode parent) {
         super.setParent(null);
     }
 

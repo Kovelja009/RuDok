@@ -2,9 +2,9 @@ package model;
 
 public abstract class RuNode {
     private String name;
-    private RuNodeComposite parent;
+    private RuNode parent;
 
-    public RuNode(String name, RuNodeComposite parent) {
+    public RuNode(String name, RuNode parent) {
         this.name = name;
         this.parent = parent;
     }
@@ -17,11 +17,11 @@ public abstract class RuNode {
         this.name = name;
     }
 
-    public RuNodeComposite getParent() {
+    public RuNode getParent() {
         return parent;
     }
 
-    public void setParent(RuNodeComposite parent) {
+    public void setParent(RuNode parent) {
         this.parent = parent;
     }
 }

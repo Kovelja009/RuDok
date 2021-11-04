@@ -6,7 +6,7 @@ public class Prezentacija extends RuNodeComposite{
     private String autor;
     private String urlPozadina;
 
-    public Prezentacija(String name, RuNodeComposite parent) {
+    public Prezentacija(String name, RuNode parent) {
         super(name, parent);
     }
 
@@ -18,7 +18,7 @@ public class Prezentacija extends RuNodeComposite{
     }
 
     @Override
-    public void setParent(RuNodeComposite parent) {
+    public void setParent(RuNode parent) {
         if(parent instanceof Projekat){
             super.setParent(parent);
         }

@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension dim = kit.getScreenSize();
-        setSize(dim.width/2, dim.height/2);
+        setSize(dim.width/2 + 200, dim.height/2 + 200);
 
         Image img = kit.getImage("src/controller/images/icon_main.jpg");
         setIconImage(img);
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 
 
         leviScrollPane = new JScrollPane(myTree,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        leviScrollPane.setMinimumSize(new Dimension(200,200));
+        leviScrollPane.setMinimumSize(new Dimension(250,200));
 
         JPanel obican = new JPanel();
         obican.setBackground(Color.gray);
@@ -87,5 +87,21 @@ public class MainFrame extends JFrame {
 
     public void setActionManager(ActionManager actionManager) {
         this.actionManager = actionManager;
+    }
+
+    public MyTreeModel getMyTreeModel() {
+        return myTreeModel;
+    }
+
+    public void setMyTreeModel(MyTreeModel myTreeModel) {
+        this.myTreeModel = myTreeModel;
+    }
+
+    public MyTree getMyTree() {
+        return myTree;
+    }
+
+    public void setMyTree(MyTree myTree) {
+        this.myTree = myTree;
     }
 }
