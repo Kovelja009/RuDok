@@ -20,6 +20,9 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getPopupPozadinaAction());
         addSeparator();
         add(MainFrame.getInstance().getActionManager().getNewProjekatAction());
+        addSeparator();
+        add(MainFrame.getInstance().getActionManager().getNewPrezentacijaAction());
+
 
     }
 }

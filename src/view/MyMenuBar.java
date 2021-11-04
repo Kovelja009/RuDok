@@ -24,6 +24,7 @@ public class MyMenuBar extends JMenuBar {
             EditMenu.add(MainFrame.getInstance().getActionManager().getPopupAutorAction());
             EditMenu.add(MainFrame.getInstance().getActionManager().getPopupPozadinaAction());
             EditMenu.add(MainFrame.getInstance().getActionManager().getNewProjekatAction());
+            EditMenu.add(MainFrame.getInstance().getActionManager().getNewPrezentacijaAction());
             EditMenu.setMnemonic(KeyEvent.VK_E);
 
             add(FileMenu);

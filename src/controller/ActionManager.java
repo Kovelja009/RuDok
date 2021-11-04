@@ -8,6 +8,7 @@ public class ActionManager {
     private PopupAutorAction popupAutorAction;
     private PopupPozadinaAction popupPozadinaAction;
     private NewProjekatAction newProjekatAction;
+    private NewPrezentacijaAction newPrezentacijaAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -15,6 +16,7 @@ public class ActionManager {
         popupAutorAction = new PopupAutorAction();
         popupPozadinaAction = new PopupPozadinaAction();
         newProjekatAction = new NewProjekatAction();
+        newPrezentacijaAction = new NewPrezentacijaAction();
 
     }
 
@@ -56,5 +58,13 @@ public class ActionManager {
 
     public void setNewProjekatAction(NewProjekatAction newProjekatAction) {
         this.newProjekatAction = newProjekatAction;
+    }
+
+    public NewPrezentacijaAction getNewPrezentacijaAction() {
+        return newPrezentacijaAction;
+    }
+
+    public void setNewPrezentacijaAction(NewPrezentacijaAction newPrezentacijaAction) {
+        this.newPrezentacijaAction = newPrezentacijaAction;
     }
 }
