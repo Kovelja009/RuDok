@@ -1,6 +1,9 @@
 package controller;
 
+import model.Prezentacija;
+import model.RuNode;
 import view.MainFrame;
+import view.tree.MyTreeNode;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,17 +20,25 @@ public class PopupAutorAction extends AbstractRudokAction{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        Object input = JOptionPane.showInputDialog(MainFrame.getInstance(), "Unesi autora", "Odabir autora", JOptionPane.QUESTION_MESSAGE);
-        String autor = "";
-        if(input != null){
-            try {
-                autor = input.toString();
+        Object o = MainFrame.getInstance().getMyTree().getLastSelectedPathComponent();
+        if (o instanceof MyTreeNode && ((MyTreeNode) o).getNode() instanceof Prezentacija) {
 
-            }catch (Exception ex){
-                ex.printStackTrace();
+            Prezentacija prez = (Prezentacija) ((MyTreeNode) o).getNode();
+
+            Object input = JOptionPane.showInputDialog(MainFrame.getInstance(), "Unesi autora", "Odabir autora", JOptionPane.QUESTION_MESSAGE);
+            String autorStr = "";
+            if (input != null) {
+                    autorStr = input.toString();
             }
-
+            System.out.println("Stari autor: " + prez.getAutor());
+            if(!autorStr.equals("")){
+                prez.setAutor(autorStr);
+            }
+            System.out.println("Novi autor: " + prez.getAutor());
+            return;
         }
-        System.out.println("Autor: " + autor);
+        System.out.println("Selektovan je " + ((MyTreeNode) o).getNode());
+
     }
+
 }

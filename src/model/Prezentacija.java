@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 
 public class Prezentacija extends RuNodeComposite{
-    private String autor;
+    private String autor = "";
     private String urlPozadina;
 
     public Prezentacija(String name, RuNode parent) {

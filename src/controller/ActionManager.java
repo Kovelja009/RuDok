@@ -7,18 +7,14 @@ public class ActionManager {
     private NewAction newAction;
     private PopupAutorAction popupAutorAction;
     private PopupPozadinaAction popupPozadinaAction;
-    private NewProjekatAction newProjekatAction;
-    private NewPrezentacijaAction newPrezentacijaAction;
-    private NewSlideAction newSlideAction;
+    private DeleteAction deleteAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
         newAction = new NewAction();
         popupAutorAction = new PopupAutorAction();
         popupPozadinaAction = new PopupPozadinaAction();
-        newProjekatAction = new NewProjekatAction();
-        newPrezentacijaAction = new NewPrezentacijaAction();
-        newSlideAction = new NewSlideAction();
+        deleteAction = new DeleteAction();
 
     }
 
@@ -54,27 +50,11 @@ public class ActionManager {
         this.popupPozadinaAction = popupPozadinaAction;
     }
 
-    public NewProjekatAction getNewProjekatAction() {
-        return newProjekatAction;
+    public DeleteAction getDeleteAction() {
+        return deleteAction;
     }
 
-    public void setNewProjekatAction(NewProjekatAction newProjekatAction) {
-        this.newProjekatAction = newProjekatAction;
-    }
-
-    public NewPrezentacijaAction getNewPrezentacijaAction() {
-        return newPrezentacijaAction;
-    }
-
-    public void setNewPrezentacijaAction(NewPrezentacijaAction newPrezentacijaAction) {
-        this.newPrezentacijaAction = newPrezentacijaAction;
-    }
-
-    public NewSlideAction getNewSlideAction() {
-        return newSlideAction;
-    }
-
-    public void setNewSlideAction(NewSlideAction newSlideAction) {
-        this.newSlideAction = newSlideAction;
+    public void setDeleteAction(DeleteAction deleteAction) {
+        this.deleteAction = deleteAction;
     }
 }
