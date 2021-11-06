@@ -1,8 +1,10 @@
 package view;
 
 import controller.ActionManager;
-import view.tree.MyTree;
-import view.tree.MyTreeModel;
+import model.workspace.Projekat;
+import view.tree.view.MyTree;
+import view.tree.model.MyTreeModel;
+import view.workspaceView.ProjekatView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +16,7 @@ public class MainFrame extends JFrame {
     private JToolBar toolBar;
     private JScrollPane leviScrollPane;
     private JSplitPane centralniSplitPane;
+    private ProjekatView mainProjectView;
 
     private MyTreeModel myTreeModel;
     private MyTree myTree;
@@ -46,12 +49,12 @@ public class MainFrame extends JFrame {
         leviScrollPane = new JScrollPane(myTree,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         leviScrollPane.setMinimumSize(new Dimension(250,200));
 
-        JPanel obican = new JPanel();
-        obican.setBackground(Color.gray);
+        mainProjectView = new ProjekatView();
+        mainProjectView.setBackground(Color.gray);
 
         centralniSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         centralniSplitPane.add(leviScrollPane);
-        centralniSplitPane.add(obican);
+        centralniSplitPane.add(mainProjectView);
 
         centralniSplitPane.setOneTouchExpandable(true);
 
@@ -103,5 +106,13 @@ public class MainFrame extends JFrame {
 
     public void setMyTree(MyTree myTree) {
         this.myTree = myTree;
+    }
+
+    public ProjekatView getMainProjectView() {
+        return mainProjectView;
+    }
+
+    public void setMainProjectView(ProjekatView mainProjectView) {
+        this.mainProjectView = mainProjectView;
     }
 }

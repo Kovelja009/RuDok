@@ -1,9 +1,8 @@
 package controller;
 
-import model.Prezentacija;
-import model.RuNode;
+import model.workspace.Prezentacija;
 import view.MainFrame;
-import view.tree.MyTreeNode;
+import view.tree.model.MyTreeNode;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

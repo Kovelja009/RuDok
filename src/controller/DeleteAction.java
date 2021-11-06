@@ -1,7 +1,7 @@
 package controller;
 
 import view.MainFrame;
-import view.tree.MyTreeNode;
+import view.tree.model.MyTreeNode;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,7 +1,7 @@
-package view.tree;
+package view.tree.controller;
 
-import model.Projekat;
 import model.RuNode;
+import view.tree.model.MyTreeNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellEditor;
@@ -36,6 +36,8 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
         if (arg0 instanceof MouseEvent)
             return ((MouseEvent) arg0).getClickCount() == 3;
         return false;
+
+//        moze i keyevent za unos sa tastature
     }
 
 
@@ -48,8 +50,7 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
         }
 
         //posle promene imena ili dijagrama treba obezbediti i promenu imena u GEDView-u
-
-
+//        dodati update() za subscribere
 
     }
 }

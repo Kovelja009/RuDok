@@ -1,12 +1,20 @@
 package model;
 
-public abstract class RuNode {
+import controller.observers.Publisher;
+import controller.observers.Subsriber;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class RuNode implements Publisher {
     private String name;
     private RuNode parent;
+    private List<Subsriber> listaSubscribera;
 
     public RuNode(String name, RuNode parent) {
         this.name = name;
         this.parent = parent;
+        listaSubscribera = new ArrayList<>();
     }
 
     public String getName() {
@@ -23,5 +31,38 @@ public abstract class RuNode {
 
     public void setParent(RuNode parent) {
         this.parent = parent;
+    }
+
+    public List<Subsriber> getListaSubscribera() {
+        return listaSubscribera;
+    }
+
+    public void setListaSubscribera(List<Subsriber> listaSubscribera) {
+        this.listaSubscribera = listaSubscribera;
+    }
+
+    @Override
+    public void addSubscriber(Subsriber subsriber) {
+        if(!listaSubscribera.contains(subsriber)){
+            listaSubscribera.add(subsriber);
+            return;
+        }
+        System.out.println("Nije moguce dodati " + subsriber);
+    }
+
+    @Override
+    public void removeSubscriber(Subsriber subsriber) {
+        if(listaSubscribera.contains(subsriber)){
+            listaSubscribera.remove(subsriber);
+            return;
+        }
+        System.out.println("Nije moguce brisanje " + subsriber);
+    }
+
+    @Override
+    public void notifySubscribers(Object notification) {
+        for(Subsriber s : listaSubscribera){
+            s.updateSubsriber(notification);
+        }
     }
 }

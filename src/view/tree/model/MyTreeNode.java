@@ -1,6 +1,7 @@
-package view.tree;
+package view.tree.model;
 
 import model.*;
+import model.workspace.*;
 
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;

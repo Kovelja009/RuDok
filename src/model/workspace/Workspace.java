@@ -1,8 +1,11 @@
-package model;
+package model.workspace;
+
+import model.RuNode;
+import model.RuNodeComposite;
 
 import java.util.List;
 
-public class Workspace extends RuNodeComposite{
+public class Workspace extends RuNodeComposite {
 
     public Workspace(String name) {
         super(name, null);

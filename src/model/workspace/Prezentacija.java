@@ -1,8 +1,11 @@
-package model;
+package model.workspace;
+
+import model.RuNode;
+import model.RuNodeComposite;
 
 import java.util.List;
 
-public class Prezentacija extends RuNodeComposite{
+public class Prezentacija extends RuNodeComposite {
     private String autor = "";
     private String urlPozadina;
 
@@ -12,7 +15,7 @@ public class Prezentacija extends RuNodeComposite{
 
     @Override
     public void addChild(RuNode child) {
-        if(child instanceof  Slide && !getChildren().contains(child)){
+        if(child instanceof Slide && !getChildren().contains(child)){
             super.addChild(child);
         }
     }

@@ -1,8 +1,9 @@
 package controller;
 
-import model.*;
+import model.RuNode;
+import model.workspace.*;
 import view.MainFrame;
-import view.tree.MyTreeNode;
+import view.tree.model.MyTreeNode;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,9 @@ public class NewAction extends AbstractRudokAction{
             }
 
             if(roditelj instanceof Prezentacija){
-                MyTreeNode deteSlide = new MyTreeNode(new Slide("Novi slide " + broj, roditelj));
+                Slide slide = new Slide("Novi slide " + broj, roditelj);
+                slide.setRedniBroj(broj);
+                MyTreeNode deteSlide = new MyTreeNode(slide);
                 roditeljTreeNode.addChild(deteSlide);
                 deteSlide.setParent(roditeljTreeNode);
 

@@ -1,6 +1,8 @@
-package view.tree;
+package view.tree.controller;
 
-import model.*;
+import model.RuNode;
+import model.workspace.*;
+import view.tree.model.MyTreeNode;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -19,28 +21,28 @@ public class MyCellRenderer extends DefaultTreeCellRenderer {
 
 
         if (node instanceof Projekat) {
-            URL imageURL = getClass().getResource("../../controller/images/folder.png");
+            URL imageURL = getClass().getResource("../../../controller/images/folder.png");
             Icon icon = null;
             if (imageURL != null)
                 icon = new ImageIcon(imageURL);
             setIcon(icon);
 
         } else if (node instanceof Prezentacija) {
-            URL imageURL = getClass().getResource("../../controller/images/presentation.png");
+            URL imageURL = getClass().getResource("../../../controller/images/presentation.png");
             Icon icon = null;
             if (imageURL != null)
                 icon = new ImageIcon(imageURL);
             setIcon(icon);
 
         } else if (node instanceof Slide) {
-            URL imageURL = getClass().getResource("../../controller/images/slide.png");
+            URL imageURL = getClass().getResource("../../../controller/images/slide.png");
             Icon icon = null;
             if (imageURL != null)
                 icon = new ImageIcon(imageURL);
             setIcon(icon);
 
         }else if (node instanceof Workspace) {
-            URL imageURL = getClass().getResource("../../controller/images/workspace.png");
+            URL imageURL = getClass().getResource("../../../controller/images/workspace.png");
             Icon icon = null;
             if (imageURL != null)
                 icon = new ImageIcon(imageURL);

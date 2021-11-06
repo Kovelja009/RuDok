@@ -1,9 +1,8 @@
-package view.tree;
+package view.tree.model;
 
-import model.Workspace;
+import model.workspace.Workspace;
 
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 public class MyTreeModel extends DefaultTreeModel {
 

@@ -1,6 +1,8 @@
-package model;
+package model.workspace;
 
-public class Slide extends RuNode{
+import model.RuNode;
+
+public class Slide extends RuNode {
     private int redniBroj;
 
     public Slide(String name, RuNode parent) {
