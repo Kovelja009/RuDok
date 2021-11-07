@@ -4,8 +4,10 @@ import model.workspace.Projekat;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
 import view.tree.view.MyTree;
+import view.workspaceView.PrezentacijaView;
 import view.workspaceView.ProjekatView;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,7 +20,7 @@ public class BrojKlikovaKontroler implements MouseListener {
             System.out.println("Kliknutno 2 puta na " + MainFrame.getInstance().getMyTree().getLastSelectedPathComponent());
             Projekat p = (Projekat) ((MyTreeNode)o).getNode();
             MainFrame.getInstance().getMainProjectView().setProjekatRuNode(p);
-            p.notifySubscribers(null);
+            MainFrame.getInstance().getMyTree().expandPath(MainFrame.getInstance().getMyTree().getSelectionPath());
 
         }
     }

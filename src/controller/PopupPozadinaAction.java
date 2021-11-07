@@ -37,15 +37,16 @@ public class PopupPozadinaAction extends AbstractRudokAction{
             JPanel panel = new JPanel();
 
             JDialog dialog = new JDialog(MainFrame.getInstance(), true);
+            dialog.setTitle("Choose background");
             JButton selectBtn = new JButton("select");
             selectBtn.addActionListener(action -> {
                 String url = "";
                 if (tglBtn1.isSelected()) {
-                    url = "images/background1.jpg";
+                    url = "../../controller/images/background1.jpg";
                 } else if (tglBtn2.isSelected()) {
-                    url = "images/background2.jpg";
+                    url = "../../controller/images/background2.jpg";
                 } else if (tglBtn3.isSelected()) {
-                    url = "images/background3.jpg";
+                    url = "../../controller/images/background3.jpg";
                 }
 
                 prez.setUrlPozadina(url);
@@ -61,7 +62,7 @@ public class PopupPozadinaAction extends AbstractRudokAction{
             dialog.pack();
             dialog.setLocationRelativeTo(MainFrame.getInstance());
             dialog.setVisible(true);
-            System.out.println("prezentacija je: " + prez.getAutor() + " " + prez.getUrlPozadina());
+            System.out.println("prezentacija je: " + prez.getName() + " " + prez.getUrlPozadina());
             return;
         }
         System.out.println("Mora biti selektovana prezentacija!!!");

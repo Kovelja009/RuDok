@@ -25,9 +25,11 @@ public class NewAction extends AbstractRudokAction{
             MyTreeNode roditeljTreeNode = (MyTreeNode)o;
             RuNode roditelj = roditeljTreeNode.getNode();
 
+            MainFrame.getInstance().getMyTree().expandPath(MainFrame.getInstance().getMyTree().getSelectionPath());
+
             int broj = roditeljTreeNode.getChildCount() + 1;
             if(roditelj instanceof Workspace){
-                MyTreeNode deteProjekat = new MyTreeNode(new Projekat("Novi projekat " + broj, roditelj));
+                MyTreeNode deteProjekat = new MyTreeNode(new Projekat("New project " + broj, roditelj));
                 roditeljTreeNode.addChild(deteProjekat);
                 deteProjekat.setParent(roditeljTreeNode);
 
@@ -35,7 +37,7 @@ public class NewAction extends AbstractRudokAction{
                 return;
             }
             if(roditelj instanceof Projekat){
-                MyTreeNode detePrezentacija = new MyTreeNode(new Prezentacija("Nova prezentacija " + broj, roditelj));
+                MyTreeNode detePrezentacija = new MyTreeNode(new Prezentacija("New presentation " + broj, roditelj));
                 roditeljTreeNode.addChild(detePrezentacija);
                 detePrezentacija.setParent(roditeljTreeNode);
 
@@ -44,7 +46,7 @@ public class NewAction extends AbstractRudokAction{
             }
 
             if(roditelj instanceof Prezentacija){
-                Slide slide = new Slide("Novi slide " + broj, roditelj);
+                Slide slide = new Slide("New slide " + broj, roditelj);
                 slide.setRedniBroj(broj);
                 MyTreeNode deteSlide = new MyTreeNode(slide);
                 roditeljTreeNode.addChild(deteSlide);

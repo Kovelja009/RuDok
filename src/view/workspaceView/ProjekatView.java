@@ -1,14 +1,22 @@
 package view.workspaceView;
 
 import controller.observers.Subsriber;
+import model.RuNode;
+import model.workspace.Prezentacija;
 import model.workspace.Projekat;
+import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjekatView extends JPanel implements Subsriber {
     private Projekat projekatRuNode;
-    private JLabel imeProjekta = new JLabel();
+    private JLabel imeProjekta;
+    private JTabbedPane prezentacijaTabbenPane; // ubaciti da radi
+    private List<PrezentacijaView> prezentacijaViewList;
+
 
     public ProjekatView(Projekat projekatRuNode){
         this.projekatRuNode = projekatRuNode;
@@ -19,8 +27,14 @@ public class ProjekatView extends JPanel implements Subsriber {
     }
 
     public ProjekatView(){
-        imeProjekta = new JLabel();
-        this.add(imeProjekta);
+        imeProjekta = new JLabel("No projects selected");
+        imeProjekta.setPreferredSize(new Dimension(30,30));
+        prezentacijaTabbenPane = new JTabbedPane();
+        this.setLayout(new BorderLayout());
+        this.add(imeProjekta, BorderLayout.NORTH);
+        this.add(prezentacijaTabbenPane, BorderLayout.CENTER);
+
+        prezentacijaViewList = new ArrayList<>();
     }
 
     public Projekat getProjekatRuNode() {
@@ -28,14 +42,95 @@ public class ProjekatView extends JPanel implements Subsriber {
     }
 
     public void setProjekatRuNode(Projekat projekatRuNode) {
+        if(this.getProjekatRuNode() != null){
+        this.getProjekatRuNode().removeAllSubscribers();
+        }
+
+        List<PrezentacijaView> brisanje = new ArrayList<>(prezentacijaViewList);
+        prezentacijaViewList.removeAll(brisanje);
+
         this.projekatRuNode = projekatRuNode;
-        this.imeProjekta.setText(projekatRuNode.getName());
-        this.projekatRuNode.addSubscriber(this);
+        prezentacijaTabbenPane.removeAll();
+
+        if(projekatRuNode != null){
+            napraviPrezentacije();
+
+            this.projekatRuNode.addSubscriber(this);
+            updateSubsriber(projekatRuNode, "ime");
+        }else{
+            updateSubsriber(null,"prazan");
+        }
     }
 
+    private void napraviPrezentacije(){
+
+        for(RuNode p : projekatRuNode.getChildren()){
+            if(p instanceof Prezentacija){
+                PrezentacijaView prezView = new PrezentacijaView((Prezentacija) p);
+                prezentacijaViewList.add(prezView);
+                JScrollPane scrollPane = new JScrollPane(prezView, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                prezentacijaTabbenPane.addTab(prezView.getPrezentacijaRuNode().getName(), scrollPane);
+            }
+        }
+    }
+
+
+    private void checkDeleteing(Prezentacija bris){
+        PrezentacijaView brisanje = null;
+
+        for(PrezentacijaView p : prezentacijaViewList){
+            if(p.getPrezentacijaRuNode().equals(bris)){
+                prezentacijaTabbenPane.removeTabAt(prezentacijaViewList.indexOf(p));
+                System.out.println("Izbacena " + p.getPrezentacijaRuNode().getName());
+                brisanje = p;
+                break;
+            }
+        }
+        if(brisanje != null){
+        prezentacijaViewList.remove(brisanje);
+        }
+
+    }
+
+    private void checkAdding(Prezentacija dodavanje){
+        PrezentacijaView prezView = new PrezentacijaView(dodavanje);
+        JScrollPane pane = new JScrollPane(prezView,  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        prezentacijaViewList.add(prezView);
+        prezentacijaTabbenPane.addTab(prezView.getPrezentacijaRuNode().getName(), pane);
+        System.out.println("Dodata " + dodavanje.getName());
+    }
+
+
     @Override
-    public void updateSubsriber(Object notification) {
-        this.imeProjekta.setText(projekatRuNode.getName());
+    public void updateSubsriber(Object notification, String message) {
+        if(notification == null && message.equals("prazan")){
+            this.imeProjekta.setText("No projects selected");
+        }
+
+        if(notification instanceof Projekat && message.equals("ime")){
+            this.imeProjekta.setText(((Projekat)notification).getName());
+        }
+        if(notification instanceof Prezentacija && message.equals("dodavanje")){
+            checkAdding((Prezentacija) notification);
+
+        }
+        if(notification instanceof Prezentacija && message.equals("brisanje")){
+            checkDeleteing((Prezentacija) notification);
+
+        }
+
+
+        if(notification instanceof Prezentacija && message.equals("ime taba")){
+            for(int i = 0; i < prezentacijaViewList.size(); i++){
+                if(prezentacijaViewList.get(i).getPrezentacijaRuNode().equals(notification)){
+                    prezentacijaTabbenPane.setTitleAt(i, ((Prezentacija)notification).getName());
+                    break;
+                }
+            }
+
+        }
 //        this.validate();
     }
+
+
 }

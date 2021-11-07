@@ -2,6 +2,7 @@ package view.workspaceView;
 
 import controller.observers.Subsriber;
 import model.RuNode;
+import model.workspace.Prezentacija;
 import model.workspace.Slide;
 
 import javax.swing.*;
@@ -9,13 +10,20 @@ import java.awt.*;
 
 public class SlideView extends JPanel implements Subsriber {
     private Slide slideRuNode;
+    private ImagePanel imgPanel;
 
     public SlideView(Slide slideRuNode){
         this.slideRuNode = slideRuNode;
+        this.slideRuNode.addSubscriber(this);
+//        this.slideRuNode.getParent().addSubscriber(this); baca izuzetke kada je aktivirano
 
-        this.setBackground(Color.RED);
+        imgPanel = new ImagePanel(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
+        this.add(imgPanel);
         JLabel brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         this.add(brojSlajda);
+
+        this.setMinimumSize(new Dimension(300, 300));
+
     }
 
     public Slide getSlideRuNode() {
@@ -23,11 +31,29 @@ public class SlideView extends JPanel implements Subsriber {
     }
 
     public void setSlideRuNode(Slide slideRuNode) {
+        this.slideRuNode.removeSubscriber(this);
+//        this.slideRuNode.getParent().removeSubscriber(this);
         this.slideRuNode = slideRuNode;
+        this.slideRuNode.addSubscriber(this);
+//        this.slideRuNode.getParent().addSubscriber(this);
     }
 
     @Override
-    public void updateSubsriber(Object notification) {
-        System.out.println("Update SlideView");
+    public void updateSubsriber(Object notification, String message) {
+//        System.out.println("Update SlideView");
+
+        if(notification instanceof Prezentacija && message.equals("promena pozadine")){
+//            System.out.println("SlideVIew update backgroud ");
+                this.setBackground(Color.GREEN);
+        }
+
+    }
+
+    public ImagePanel getImgPanel() {
+        return imgPanel;
+    }
+
+    public void setImgPanel(ImagePanel imgPanel) {
+        this.imgPanel = imgPanel;
     }
 }

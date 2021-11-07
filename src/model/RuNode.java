@@ -23,6 +23,7 @@ public abstract class RuNode implements Publisher {
 
     public void setName(String name) {
         this.name = name;
+        this.notifySubscribers(this, "ime");
     }
 
     public RuNode getParent() {
@@ -60,9 +61,15 @@ public abstract class RuNode implements Publisher {
     }
 
     @Override
-    public void notifySubscribers(Object notification) {
+    public void removeAllSubscribers() {
+        List<Subsriber> brisanje = new ArrayList<>(listaSubscribera);
+        listaSubscribera.removeAll(brisanje);
+    }
+
+    @Override
+    public void notifySubscribers(Object notification, String message) {
         for(Subsriber s : listaSubscribera){
-            s.updateSubsriber(notification);
+            s.updateSubsriber(notification, message);
         }
     }
 }

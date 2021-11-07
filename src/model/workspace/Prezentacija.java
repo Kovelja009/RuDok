@@ -6,11 +6,12 @@ import model.RuNodeComposite;
 import java.util.List;
 
 public class Prezentacija extends RuNodeComposite {
-    private String autor = "";
+    private String autor = "Unknown author";
     private String urlPozadina;
 
     public Prezentacija(String name, RuNode parent) {
         super(name, parent);
+        urlPozadina = "../../controller/images/background1.jpg";
     }
 
     @Override
@@ -42,7 +43,15 @@ public class Prezentacija extends RuNodeComposite {
     }
 
     public void setAutor(String autor) {
+
         this.autor = autor;
+        notifySubscribers(this, "promena autora");
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+        ((Projekat)(getParent())).sasvimObicnaEmisija(this);
     }
 
     public String getUrlPozadina() {
@@ -51,5 +60,6 @@ public class Prezentacija extends RuNodeComposite {
 
     public void setUrlPozadina(String urlPozadina) {
         this.urlPozadina = urlPozadina;
+        this.notifySubscribers(urlPozadina, "promena pozadine");
     }
 }

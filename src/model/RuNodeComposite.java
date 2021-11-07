@@ -15,10 +15,12 @@ public abstract class RuNodeComposite extends RuNode {
         if(!children.contains(child)){
             children.add(child);
         }
+        notifySubscribers(child, "dodavanje");
     }
 
     public void removeChild(RuNode child){
         children.remove(child);
+        notifySubscribers(child, "brisanje");
     }
 
     public List<RuNode> getChildren() {
