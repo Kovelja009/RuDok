@@ -26,13 +26,15 @@ public class PopupAutorAction extends AbstractRudokAction{
             Prezentacija prez = (Prezentacija) ((MyTreeNode) o).getNode();
 
             Object input = JOptionPane.showInputDialog(MainFrame.getInstance(), "Unesi autora", "Odabir autora", JOptionPane.QUESTION_MESSAGE);
-            String autorStr = "";
             if (input != null) {
-                    autorStr = input.toString();
-            }
-            if(!autorStr.equals("")){
+                    String autorStr = input.toString();
+                    if(autorStr.equals("")){
+                        ErrorFactory.getInstance().generateError("Can't leave name empty", "Warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                 prez.setAutor(autorStr);
             }
+
             return;
         }
         ErrorFactory.getInstance().generateError("Must select presentation for author", "Information", JOptionPane.INFORMATION_MESSAGE);
