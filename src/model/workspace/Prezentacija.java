@@ -45,7 +45,7 @@ public class Prezentacija extends RuNodeComposite {
     public void setAutor(String autor) {
 
         this.autor = autor;
-        notifySubscribers(this, "promena autora");
+        notifySubcribers(this, "promena autora");
     }
 
     @Override
@@ -60,6 +60,6 @@ public class Prezentacija extends RuNodeComposite {
 
     public void setUrlPozadina(String urlPozadina) {
         this.urlPozadina = urlPozadina;
-        this.notifySubscribers(urlPozadina, "promena pozadine");
+        this.notifySubcribers(urlPozadina, "promena pozadine");
     }
 }

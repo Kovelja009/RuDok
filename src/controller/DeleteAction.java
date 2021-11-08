@@ -1,5 +1,6 @@
 package controller;
 
+import controller.errorHandler.ErrorFactory;
 import model.workspace.Projekat;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
@@ -23,12 +24,12 @@ public class DeleteAction extends AbstractRudokAction{
             MyTreeNode childTreeNode = (MyTreeNode) o;
             MyTreeNode parentTreeNode = (MyTreeNode) childTreeNode.getParent();
             if(parentTreeNode == null){
-            System.out.println("Nije moguce izbrisati " + childTreeNode);
-            return;
+                ErrorFactory.getInstance().generateError("Can't delete workspace", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
             }
-                if(childTreeNode.getNode().equals(MainFrame.getInstance().getMainProjectView().getProjekatRuNode())){
-                    MainFrame.getInstance().getMainProjectView().setProjekatRuNode(null);
-                }
+            if(childTreeNode.getNode().equals(MainFrame.getInstance().getMainProjectView().getProjekatRuNode())){
+                MainFrame.getInstance().getMainProjectView().setProjekatRuNode(null);
+            }
 
             parentTreeNode.removeChild(childTreeNode);
             SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());

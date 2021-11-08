@@ -4,7 +4,6 @@ import controller.observers.Subsriber;
 import model.RuNode;
 import model.workspace.Prezentacija;
 import model.workspace.Projekat;
-import view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class ProjekatView extends JPanel implements Subsriber {
     private Projekat projekatRuNode;
     private JLabel imeProjekta;
-    private JTabbedPane prezentacijaTabbenPane; // ubaciti da radi
+    private JTabbedPane prezentacijaTabbedPane; // ubaciti da radi
     private List<PrezentacijaView> prezentacijaViewList;
 
 
@@ -29,10 +28,10 @@ public class ProjekatView extends JPanel implements Subsriber {
     public ProjekatView(){
         imeProjekta = new JLabel("No projects selected");
         imeProjekta.setPreferredSize(new Dimension(30,30));
-        prezentacijaTabbenPane = new JTabbedPane();
+        prezentacijaTabbedPane = new JTabbedPane();
         this.setLayout(new BorderLayout());
         this.add(imeProjekta, BorderLayout.NORTH);
-        this.add(prezentacijaTabbenPane, BorderLayout.CENTER);
+        this.add(prezentacijaTabbedPane, BorderLayout.CENTER);
 
         prezentacijaViewList = new ArrayList<>();
     }
@@ -43,14 +42,14 @@ public class ProjekatView extends JPanel implements Subsriber {
 
     public void setProjekatRuNode(Projekat projekatRuNode) {
         if(this.getProjekatRuNode() != null){
-        this.getProjekatRuNode().removeAllSubscribers();
+        this.getProjekatRuNode().removeAllSubcribers();
         }
 
         List<PrezentacijaView> brisanje = new ArrayList<>(prezentacijaViewList);
         prezentacijaViewList.removeAll(brisanje);
 
         this.projekatRuNode = projekatRuNode;
-        prezentacijaTabbenPane.removeAll();
+        prezentacijaTabbedPane.removeAll();
 
         if(projekatRuNode != null){
             napraviPrezentacije();
@@ -69,7 +68,7 @@ public class ProjekatView extends JPanel implements Subsriber {
                 PrezentacijaView prezView = new PrezentacijaView((Prezentacija) p);
                 prezentacijaViewList.add(prezView);
                 JScrollPane scrollPane = new JScrollPane(prezView, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-                prezentacijaTabbenPane.addTab(prezView.getPrezentacijaRuNode().getName(), scrollPane);
+                prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), scrollPane);
             }
         }
     }
@@ -80,7 +79,7 @@ public class ProjekatView extends JPanel implements Subsriber {
 
         for(PrezentacijaView p : prezentacijaViewList){
             if(p.getPrezentacijaRuNode().equals(bris)){
-                prezentacijaTabbenPane.removeTabAt(prezentacijaViewList.indexOf(p));
+                prezentacijaTabbedPane.removeTabAt(prezentacijaViewList.indexOf(p));
                 System.out.println("Izbacena " + p.getPrezentacijaRuNode().getName());
                 brisanje = p;
                 break;
@@ -96,7 +95,7 @@ public class ProjekatView extends JPanel implements Subsriber {
         PrezentacijaView prezView = new PrezentacijaView(dodavanje);
         JScrollPane pane = new JScrollPane(prezView,  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         prezentacijaViewList.add(prezView);
-        prezentacijaTabbenPane.addTab(prezView.getPrezentacijaRuNode().getName(), pane);
+        prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), pane);
         System.out.println("Dodata " + dodavanje.getName());
     }
 
@@ -123,7 +122,7 @@ public class ProjekatView extends JPanel implements Subsriber {
         if(notification instanceof Prezentacija && message.equals("ime taba")){
             for(int i = 0; i < prezentacijaViewList.size(); i++){
                 if(prezentacijaViewList.get(i).getPrezentacijaRuNode().equals(notification)){
-                    prezentacijaTabbenPane.setTitleAt(i, ((Prezentacija)notification).getName());
+                    prezentacijaTabbedPane.setTitleAt(i, ((Prezentacija)notification).getName());
                     break;
                 }
             }

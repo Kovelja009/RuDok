@@ -26,7 +26,7 @@ public class Projekat extends RuNodeComposite {
 
     public void sasvimObicnaEmisija(Prezentacija prezentacija){
 //        ako ste dosli do ovde pogledajte Steins;Gate
-        this.notifySubscribers(prezentacija, "ime taba");
+        this.notifySubcribers(prezentacija, "ime taba");
     }
 
     @Override

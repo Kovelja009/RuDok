@@ -1,5 +1,6 @@
 package controller;
 
+import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
@@ -12,7 +13,7 @@ public class PopupAutorAction extends AbstractRudokAction{
     public PopupAutorAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
         putValue(SMALL_ICON, loadIcon("images/add_author_popup.png"));
-        putValue(NAME, "Author settings");
+        putValue(NAME, "Set author");
         putValue(SHORT_DESCRIPTION, "Opens popup where you set author of your presentation");
     }
 
@@ -29,15 +30,12 @@ public class PopupAutorAction extends AbstractRudokAction{
             if (input != null) {
                     autorStr = input.toString();
             }
-            System.out.println("Stari autor: " + prez.getAutor());
             if(!autorStr.equals("")){
                 prez.setAutor(autorStr);
             }
-            System.out.println("Novi autor: " + prez.getAutor());
             return;
         }
-        System.out.println("Selektovan je " + ((MyTreeNode) o).getNode());
-
+        ErrorFactory.getInstance().generateError("Must select presentation for author", "Information", JOptionPane.INFORMATION_MESSAGE);
     }
 
 }

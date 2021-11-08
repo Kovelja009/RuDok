@@ -15,13 +15,13 @@ public class MyTreeSelectionListener implements TreeSelectionListener{
 
             for(int i=0; i<path.getPathCount(); i++){
                 if(path.getPathComponent(i) instanceof MyTreeNode d && ((MyTreeNode)path.getPathComponent(i)).getNode() instanceof Slide){
-                //selektovan je dijagram u stablu, potreno je pronaci odgovarajuci
-                //DiagramView i postaviti ga u fokus
-                System.out.println("Selektovan MyTreeNode: "+d);
-
-                System.out.println("getPath: "+e.getPath());
-                System.out.println("getPath: "+e.getNewLeadSelectionPath());
-                break;
+                    //selektovan je dijagram u stablu, potreno je pronaci odgovarajuci
+                    //DiagramView i postaviti ga u fokus
+                    System.out.println("Selektovan MyTreeNode: "+d);
+    
+                    System.out.println("getPath: "+e.getPath());
+                    System.out.println("getPath: "+e.getNewLeadSelectionPath());
+                    break;
             }
         }
     }

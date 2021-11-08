@@ -1,5 +1,6 @@
 package controller;
 
+import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
@@ -12,7 +13,7 @@ public class PopupPozadinaAction extends AbstractRudokAction{
     public PopupPozadinaAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
         putValue(SMALL_ICON, loadIcon("images/background_popup.png"));
-        putValue(NAME, "Presentation bckg");
+        putValue(NAME, "Set background");
         putValue(SHORT_DESCRIPTION, "Opens popup where you set background for your presentation");
     }
 
@@ -65,7 +66,8 @@ public class PopupPozadinaAction extends AbstractRudokAction{
             System.out.println("prezentacija je: " + prez.getName() + " " + prez.getUrlPozadina());
             return;
         }
-        System.out.println("Mora biti selektovana prezentacija!!!");
+        ErrorFactory.getInstance().generateError("In order to add background, user must first select presentation", "Information", JOptionPane.INFORMATION_MESSAGE);
+
 
     }
 }

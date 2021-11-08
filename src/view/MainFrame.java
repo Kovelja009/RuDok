@@ -1,6 +1,9 @@
 package view;
 
 import controller.ActionManager;
+import controller.errorHandler.ErrorFactory;
+import controller.errorHandler.MyError;
+import controller.observers.Subsriber;
 import model.workspace.Projekat;
 import view.tree.view.MyTree;
 import view.tree.model.MyTreeModel;
@@ -9,7 +12,7 @@ import view.workspaceView.ProjekatView;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Subsriber {
     private static MainFrame instance = null;
     private ActionManager actionManager;
     private JMenuBar menuBar;
@@ -26,6 +29,7 @@ public class MainFrame extends JFrame {
     private void initialize(){
 
         initialiseMyTree();
+        ErrorFactory.getInstance().addSubscriber(this);
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension dim = kit.getScreenSize();
@@ -59,15 +63,6 @@ public class MainFrame extends JFrame {
         centralniSplitPane.setOneTouchExpandable(true);
 
         add(centralniSplitPane, BorderLayout.CENTER);
-
-
-
-//        try {
-//            SwingUtilities.updateComponentTreeUI(this);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
     }
 
     private void initialiseMyTree(){
@@ -82,6 +77,15 @@ public class MainFrame extends JFrame {
             instance.initialize();
         }
         return instance;
+    }
+
+
+    @Override
+    public void updateSubsriber(Object notification, String message) {
+        if(notification instanceof MyError){
+            MyError error = (MyError)notification;
+            JOptionPane.showMessageDialog(this, error.getMessage(), error.getTitle(), error.getType());
+        }
     }
 
     public ActionManager getActionManager() {

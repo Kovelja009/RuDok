@@ -1,5 +1,6 @@
 package controller;
 
+import controller.errorHandler.ErrorFactory;
 import model.RuNode;
 import model.workspace.*;
 import view.MainFrame;
@@ -14,7 +15,7 @@ public class NewAction extends AbstractRudokAction{
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
         putValue(SMALL_ICON, loadIcon("images/add_img.png"));
         putValue(NAME, "New");
-        putValue(SHORT_DESCRIPTION, "New");
+        putValue(SHORT_DESCRIPTION, "Adding new item");
     }
 
     @Override
@@ -56,12 +57,8 @@ public class NewAction extends AbstractRudokAction{
                 return;
             }
             if(roditelj instanceof Slide){
-                System.out.println("Nije moguce nista dodati na " + roditelj.getName());
+                ErrorFactory.getInstance().generateError("Slide doesn't have elements to add", "Information", JOptionPane.INFORMATION_MESSAGE);
             }
-            return;
-        }
-        if(o!= null){
-            System.out.println(o + " nije instanca MyTreeNode ili ruNode " + ((MyTreeNode)o).getNode().getName() + " nije instanca projekta!!!");
         }
     }
 }
