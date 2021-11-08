@@ -1,7 +1,10 @@
 package controller;
 
 import controller.errorHandler.ErrorFactory;
+import model.RuNode;
+import model.workspace.Prezentacija;
 import model.workspace.Projekat;
+import model.workspace.Slide;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
 
@@ -32,6 +35,17 @@ public class DeleteAction extends AbstractRudokAction{
             }
 
             parentTreeNode.removeChild(childTreeNode);
+
+            if(((MyTreeNode)o).getNode() instanceof Slide){
+                Prezentacija prez = (Prezentacija) ((MyTreeNode)o).getNode().getParent();
+                for(int i = 0; i < prez.getChildren().size(); i++){
+                    if(prez.getChildren().get(i) instanceof Slide){
+                        ((Slide)prez.getChildren().get(i)).setRedniBroj(i + 1);
+
+                    }
+                }
+            }
+
             SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
 
         }

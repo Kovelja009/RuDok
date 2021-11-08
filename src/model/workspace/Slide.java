@@ -21,6 +21,8 @@ public class Slide extends RuNode {
     }
 
     public void setRedniBroj(int redniBroj) {
+
         this.redniBroj = redniBroj;
+        notifySubcribers(this, "redni broj");
     }
 }

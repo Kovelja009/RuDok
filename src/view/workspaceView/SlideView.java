@@ -11,6 +11,7 @@ import java.awt.*;
 public class SlideView extends JPanel implements Subsriber {
     private Slide slideRuNode;
     private ImagePanel imgPanel;
+    private JLabel brojSlajda;
 
     public SlideView(Slide slideRuNode){
         this.slideRuNode = slideRuNode;
@@ -19,7 +20,7 @@ public class SlideView extends JPanel implements Subsriber {
 
         imgPanel = new ImagePanel(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
         this.add(imgPanel);
-        JLabel brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
+        brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         this.add(brojSlajda);
 
         this.setMinimumSize(new Dimension(300, 300));
@@ -40,7 +41,9 @@ public class SlideView extends JPanel implements Subsriber {
 
     @Override
     public void updateSubsriber(Object notification, String message) {
-//        System.out.println("Update SlideView");
+        if(notification instanceof Slide && message.equals("redni broj")){
+            brojSlajda.setText(String.valueOf(slideRuNode.getRedniBroj()));
+        }
 
         if(notification instanceof Prezentacija && message.equals("promena pozadine")){
 //            System.out.println("SlideVIew update backgroud ");
