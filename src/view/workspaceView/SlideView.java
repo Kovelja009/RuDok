@@ -7,24 +7,42 @@ import model.workspace.Slide;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class SlideView extends JPanel implements Subsriber {
     private Slide slideRuNode;
-    private ImagePanel imgPanel;
+    private Image image;
     private JLabel brojSlajda;
 
     public SlideView(Slide slideRuNode){
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
         ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
-
-        imgPanel = new ImagePanel(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
-        this.add(imgPanel);
+        loadImage();
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         this.add(brojSlajda);
+        this.setPreferredSize(new Dimension(700, 400));
+        this.setMaximumSize(new Dimension(700, 400));
+        this.setAlignmentX(CENTER_ALIGNMENT);
+    }
 
-        this.setMinimumSize(new Dimension(300, 300));
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+    }
 
+    private void loadImage(){
+        URL imageURL = getClass().getResource(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
+        ImageIcon icon = null;
+
+        if(imageURL != null){
+            icon = new ImageIcon(imageURL);
+        }
+        else {
+            System.err.println("Resources not found: " + ((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
+        }
+        image = icon.getImage();
     }
 
     public Slide getSlideRuNode() {
@@ -46,21 +64,11 @@ public class SlideView extends JPanel implements Subsriber {
         }
 
         if(notification instanceof String && message.equals("promena pozadine")){
-//            System.out.println("SlideVIew update backgroud ");
-                this.remove(imgPanel);
-                imgPanel = new ImagePanel((String) notification);
-                this.add(imgPanel);
+                loadImage();
                 this.validate();
                 this.repaint();
         }
 
     }
 
-    public ImagePanel getImgPanel() {
-        return imgPanel;
-    }
-
-    public void setImgPanel(ImagePanel imgPanel) {
-        this.imgPanel = imgPanel;
-    }
 }

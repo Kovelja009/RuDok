@@ -9,7 +9,8 @@ public class MyToolBar extends JToolBar {
     public MyToolBar(){
         super(SwingConstants.HORIZONTAL);
         setFloatable(true);
-        setPreferredSize(new Dimension(100, 30));
+        setPreferredSize(new Dimension(100, 35));
+
 
         add(MainFrame.getInstance().getActionManager().getNewAction());
         addSeparator();
