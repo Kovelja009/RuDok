@@ -16,7 +16,7 @@ public class SlideView extends JPanel implements Subsriber {
     public SlideView(Slide slideRuNode){
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
-//        this.slideRuNode.getParent().addSubscriber(this); baca izuzetke kada je aktivirano
+        ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
 
         imgPanel = new ImagePanel(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
         this.add(imgPanel);
@@ -33,10 +33,10 @@ public class SlideView extends JPanel implements Subsriber {
 
     public void setSlideRuNode(Slide slideRuNode) {
         this.slideRuNode.removeSubscriber(this);
-//        this.slideRuNode.getParent().removeSubscriber(this);
+        ((Prezentacija)this.slideRuNode.getParent()).removeSubscriber(this);
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
-//        this.slideRuNode.getParent().addSubscriber(this);
+        ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
     }
 
     @Override
@@ -45,9 +45,13 @@ public class SlideView extends JPanel implements Subsriber {
             brojSlajda.setText(String.valueOf(slideRuNode.getRedniBroj()));
         }
 
-        if(notification instanceof Prezentacija && message.equals("promena pozadine")){
+        if(notification instanceof String && message.equals("promena pozadine")){
 //            System.out.println("SlideVIew update backgroud ");
-                this.setBackground(Color.GREEN);
+                this.remove(imgPanel);
+                imgPanel = new ImagePanel((String) notification);
+                this.add(imgPanel);
+                this.validate();
+                this.repaint();
         }
 
     }

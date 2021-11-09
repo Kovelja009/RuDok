@@ -65,6 +65,7 @@ public class ProjekatView extends JPanel implements Subsriber {
 
         for(RuNode p : projekatRuNode.getChildren()){
             if(p instanceof Prezentacija){
+                ((Prezentacija)p).addSubscriber(this);
                 PrezentacijaView prezView = new PrezentacijaView((Prezentacija) p);
                 prezentacijaViewList.add(prezView);
                 JScrollPane scrollPane = new JScrollPane(prezView, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -79,6 +80,7 @@ public class ProjekatView extends JPanel implements Subsriber {
 
         for(PrezentacijaView p : prezentacijaViewList){
             if(p.getPrezentacijaRuNode().equals(bris)){
+                (p.getPrezentacijaRuNode()).removeSubscriber(this);
                 prezentacijaTabbedPane.removeTabAt(prezentacijaViewList.indexOf(p));
                 System.out.println("Izbacena " + p.getPrezentacijaRuNode().getName());
                 brisanje = p;
@@ -92,6 +94,8 @@ public class ProjekatView extends JPanel implements Subsriber {
     }
 
     private void checkAdding(Prezentacija dodavanje){
+
+        dodavanje.addSubscriber(this);
         PrezentacijaView prezView = new PrezentacijaView(dodavanje);
         JScrollPane pane = new JScrollPane(prezView,  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         prezentacijaViewList.add(prezView);
@@ -102,33 +106,32 @@ public class ProjekatView extends JPanel implements Subsriber {
 
     @Override
     public void updateSubsriber(Object notification, String message) {
-        if(notification == null && message.equals("prazan")){
+        if (notification == null && message.equals("prazan")) {
             this.imeProjekta.setText("No projects selected");
         }
 
-        if(notification instanceof Projekat && message.equals("ime")){
-            this.imeProjekta.setText(((Projekat)notification).getName());
+        if (notification instanceof Projekat && message.equals("ime")) {
+            this.imeProjekta.setText(((Projekat) notification).getName());
         }
-        if(notification instanceof Prezentacija && message.equals("dodavanje")){
+        if (notification instanceof Prezentacija && message.equals("dodavanje")) {
             checkAdding((Prezentacija) notification);
 
         }
-        if(notification instanceof Prezentacija && message.equals("brisanje")){
+        if (notification instanceof Prezentacija && message.equals("brisanje")) {
             checkDeleteing((Prezentacija) notification);
 
         }
 
-
-        if(notification instanceof Prezentacija && message.equals("ime taba")){
-            for(int i = 0; i < prezentacijaViewList.size(); i++){
-                if(prezentacijaViewList.get(i).getPrezentacijaRuNode().equals(notification)){
-                    prezentacijaTabbedPane.setTitleAt(i, ((Prezentacija)notification).getName());
+        if (notification instanceof Prezentacija && message.equals("ime taba")) {
+            for (int i = 0; i < prezentacijaViewList.size(); i++) {
+                if (prezentacijaViewList.get(i).getPrezentacijaRuNode().equals(notification)) {
+                    prezentacijaTabbedPane.setTitleAt(i, ((Prezentacija) notification).getName());
                     break;
                 }
             }
 
-        }
 //        this.validate();
+        }
     }
 
 

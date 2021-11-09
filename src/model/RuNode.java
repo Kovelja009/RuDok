@@ -67,9 +67,10 @@ public abstract class RuNode implements Publisher {
     }
 
     @Override
-    public void notifySubcribers(Object notification, String message) {
-        for(Subsriber s : listaSubscribera){
-            s.updateSubsriber(notification, message);
+    public synchronized void notifySubcribers(Object notification, String message) {
+
+        for(int i = 0; i < listaSubscribera.size(); i++){
+            listaSubscribera.get(i).updateSubsriber(notification, message);
         }
     }
 }

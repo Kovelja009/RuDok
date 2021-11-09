@@ -18,6 +18,7 @@ public class Prezentacija extends RuNodeComposite {
     public void addChild(RuNode child) {
         if(child instanceof Slide && !getChildren().contains(child)){
             super.addChild(child);
+            System.out.println("sdafsdf");
         }
     }
 
@@ -51,7 +52,7 @@ public class Prezentacija extends RuNodeComposite {
     @Override
     public void setName(String name) {
         super.setName(name);
-        ((Projekat)(getParent())).sasvimObicnaEmisija(this);
+        this.notifySubcribers(this, "ime taba");
     }
 
     public String getUrlPozadina() {

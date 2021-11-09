@@ -97,15 +97,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 //            proveriti da li se pozadina dodaje i na dodati slajd
             System.out.println("Dodavanje slajda");
         }
-        if(notification instanceof String && message.equals("promena pozadine")){
-            for(SlideView s : slideViewList){
-                s.remove(s.getImgPanel());
-                s.setImgPanel(new ImagePanel((String) notification));
-                s.add(s.getImgPanel());
-                System.out.println("promenjena pozadina!");
-                s.validate();
-            }
-        }
+
     }
 
     public Prezentacija getPrezentacijaRuNode() {

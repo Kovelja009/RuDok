@@ -24,11 +24,6 @@ public class Projekat extends RuNodeComposite {
         }
     }
 
-    public void sasvimObicnaEmisija(Prezentacija prezentacija){
-//        ako ste dosli do ovde pogledajte Steins;Gate
-        this.notifySubcribers(prezentacija, "ime taba");
-    }
-
     @Override
     public void setChildren(List<RuNode> children) {
         for(RuNode child : children){
