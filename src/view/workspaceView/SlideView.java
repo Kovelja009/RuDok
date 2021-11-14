@@ -18,15 +18,12 @@ public class SlideView extends JPanel implements Subsriber {
     private Slide slideRuNode;
     private Image image;
     private JLabel brojSlajda;
-    private JPanel container;
 
     public SlideView(Slide slideRuNode){
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
         ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
         setLayout(new BorderLayout());
-        container = new JPanel();
-        container.setLayout(new BorderLayout());
 
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         this.setPreferredSize(new Dimension(700, 400));
