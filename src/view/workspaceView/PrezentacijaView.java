@@ -27,11 +27,12 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
         nalepnica = new JPanel();
         nalepnica.setLayout(new BoxLayout(nalepnica, BoxLayout.Y_AXIS));
+        nalepnica.setBackground(Color.LIGHT_GRAY);
 
         this.setLayout(new BorderLayout());
         this.add(nalepnica, BorderLayout.CENTER);
         this.setMinimumSize(new Dimension(500, 400));
-
+        this.setBackground(Color.LIGHT_GRAY);
         this.add(autorlbl, BorderLayout.NORTH);
         generisanjeSlajdova();
         validate();

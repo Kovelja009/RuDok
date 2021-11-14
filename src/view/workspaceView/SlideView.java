@@ -29,7 +29,7 @@ public class SlideView extends JPanel implements Subsriber {
         this.setPreferredSize(new Dimension(700, 400));
         this.setMaximumSize(new Dimension(700, 400));
         this.add(brojSlajda, BorderLayout.SOUTH);
-        setBorder(BorderFactory.createLineBorder(Color.black,2));
+        setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,10));
     }
 
     @Override
