@@ -15,6 +15,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private Prezentacija prezentacijaRuNode;
     private JLabel autorlbl;
     private List<SlideView> slideViewList;
+    private JPanel nalepnica;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
@@ -24,13 +25,14 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
         autorlbl = new JLabel(prezentacijaRuNode.getAutor());
 
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        nalepnica = new JPanel();
+        nalepnica.setLayout(new BoxLayout(nalepnica, BoxLayout.Y_AXIS));
+
+        this.setLayout(new BorderLayout());
+        this.add(nalepnica, BorderLayout.CENTER);
         this.setMinimumSize(new Dimension(500, 400));
-        setAlignmentX(CENTER_ALIGNMENT);
 
-
-
-        this.add(autorlbl);
+        this.add(autorlbl, BorderLayout.NORTH);
         generisanjeSlajdova();
         validate();
         repaint();
@@ -44,10 +46,10 @@ public class PrezentacijaView extends JPanel implements Subsriber {
                 Slide slide = (Slide) s;
                 SlideView slideView = new SlideView(slide);
                 slideViewList.add(slideView);
-                this.add(slideView);
+                nalepnica.add(slideView);
             }
         }
-        validate();
+        revalidate();
         repaint();
     }
 
@@ -56,9 +58,9 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         for(int i = 0; i< slideViewList.size(); i++){
             if(slideViewList.get(i).getSlideRuNode().equals(sl)){
                 brisanje = slideViewList.get(i);
-                this.remove(slideViewList.get(i));
-                this.validate();
-                this.repaint();
+                nalepnica.remove(slideViewList.get(i));
+                nalepnica.revalidate();
+                nalepnica.repaint();
                 break;
             }
         }
@@ -68,9 +70,9 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private void dodavanjeSlajda(Slide sl){
         SlideView sw = new SlideView(sl);
         slideViewList.add(sw);
-        this.add(sw);
-        this.validate();
-        this.repaint();
+        nalepnica.add(sw);
+        nalepnica.revalidate();
+        nalepnica.repaint();
     }
 
     public void updateSubsriber(Object notification, String message) {

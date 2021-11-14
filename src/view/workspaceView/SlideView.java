@@ -5,31 +5,51 @@ import model.RuNode;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
 
+import javax.imageio.ImageIO;
+import javax.sql.rowset.BaseRowSet;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 public class SlideView extends JPanel implements Subsriber {
     private Slide slideRuNode;
     private Image image;
     private JLabel brojSlajda;
+    private JPanel container;
 
     public SlideView(Slide slideRuNode){
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
         ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
-        loadImage();
+        setLayout(new BorderLayout());
+        container = new JPanel();
+        container.setLayout(new BorderLayout());
+
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
-        this.add(brojSlajda);
         this.setPreferredSize(new Dimension(700, 400));
         this.setMaximumSize(new Dimension(700, 400));
-        this.setAlignmentX(CENTER_ALIGNMENT);
+        this.add(brojSlajda, BorderLayout.SOUTH);
+        setBorder(BorderFactory.createLineBorder(Color.black,2));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+
+        URL imageURL = getClass().getResource(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
+        ImageIcon icon = null;
+
+        if(imageURL != null){
+            icon = new ImageIcon(imageURL);
+        }
+        else {
+            System.err.println("Resources not found: " + ((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
+        }
+        image = icon.getImage();
+        g.drawImage(image,0,0,getWidth(),getHeight(),null);
     }
 
     private void loadImage(){

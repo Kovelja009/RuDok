@@ -11,7 +11,7 @@ public class Prezentacija extends RuNodeComposite {
 
     public Prezentacija(String name, RuNode parent) {
         super(name, parent);
-        urlPozadina = "../../controller/images/background1.jpg";
+        urlPozadina = "../../controller/images/background2.jpg";
     }
 
     @Override
