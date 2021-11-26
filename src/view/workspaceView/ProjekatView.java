@@ -68,8 +68,8 @@ public class ProjekatView extends JPanel implements Subsriber {
                 ((Prezentacija)p).addSubscriber(this);
                 PrezentacijaView prezView = new PrezentacijaView((Prezentacija) p);
                 prezentacijaViewList.add(prezView);
-                JScrollPane scrollPane = new JScrollPane(prezView, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-                prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), scrollPane);
+                JScrollPane scrollPane = new JScrollPane(prezView, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), prezView);
             }
         }
     }
