@@ -1,11 +1,10 @@
 package view.workspaceView;
 
 import controller.observers.Subsriber;
+import controller.state.StateManager;
 import model.RuNode;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,10 +19,13 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private JPanel malaNalepnica;
     private JScrollPane desniScrollPane;
     private JScrollPane leviScrollPane;
+    private StateManager stateManager;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
         malislideViewList = new ArrayList<>();
+
+        stateManager = StateManager.getInstance();
 
 
         this.prezentacijaRuNode = prezentacijaRuNode;
@@ -154,4 +156,25 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     public void setAutorlbl(JLabel autorlbl) {
         this.autorlbl = autorlbl;
     }
+
+
+    public List<SlideView> getSlideViewList() {
+        return slideViewList;
+    }
+
+    public JPanel getNalepnica() {
+        return nalepnica;
+    }
+
+    public void setSlideViewList(List<SlideView> slideViewList) {
+        this.slideViewList = slideViewList;
+    }
+
+    public void startEditState(){stateManager.setEditState();}
+    public void startPreviewState(){stateManager.setPreviewState();}
+
+    public void changeState(){
+        stateManager.getCurr().changeState(prezentacijaRuNode.getChildren());
+    }
+
 }

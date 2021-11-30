@@ -13,7 +13,7 @@ import java.util.List;
 public class ProjekatView extends JPanel implements Subsriber {
     private Projekat projekatRuNode;
     private JLabel imeProjekta;
-    private JTabbedPane prezentacijaTabbedPane; // ubaciti da radi
+    private JTabbedPane prezentacijaTabbedPane;
     private List<PrezentacijaView> prezentacijaViewList;
 
 
@@ -68,7 +68,6 @@ public class ProjekatView extends JPanel implements Subsriber {
                 ((Prezentacija)p).addSubscriber(this);
                 PrezentacijaView prezView = new PrezentacijaView((Prezentacija) p);
                 prezentacijaViewList.add(prezView);
-                JScrollPane scrollPane = new JScrollPane(prezView, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
                 prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), prezView);
             }
         }
@@ -90,16 +89,14 @@ public class ProjekatView extends JPanel implements Subsriber {
         if(brisanje != null){
         prezentacijaViewList.remove(brisanje);
         }
-
     }
 
     private void checkAdding(Prezentacija dodavanje){
 
         dodavanje.addSubscriber(this);
         PrezentacijaView prezView = new PrezentacijaView(dodavanje);
-        JScrollPane pane = new JScrollPane(prezView,  ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         prezentacijaViewList.add(prezView);
-        prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), pane);
+        prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), prezView);
         System.out.println("Dodata " + dodavanje.getName());
     }
 
@@ -134,5 +131,11 @@ public class ProjekatView extends JPanel implements Subsriber {
         }
     }
 
+    public JTabbedPane getPrezentacijaTabbedPane() {
+        return prezentacijaTabbedPane;
+    }
 
+    public void setPrezentacijaTabbedPane(JTabbedPane prezentacijaTabbedPane) {
+        this.prezentacijaTabbedPane = prezentacijaTabbedPane;
+    }
 }

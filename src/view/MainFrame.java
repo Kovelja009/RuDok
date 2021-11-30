@@ -1,10 +1,9 @@
 package view;
 
-import controller.ActionManager;
+import controller.actions.ActionManager;
 import controller.errorHandler.ErrorFactory;
 import controller.errorHandler.MyError;
 import controller.observers.Subsriber;
-import model.workspace.Projekat;
 import view.tree.view.MyTree;
 import view.tree.model.MyTreeModel;
 import view.workspaceView.ProjekatView;
@@ -20,6 +19,9 @@ public class MainFrame extends JFrame implements Subsriber {
     private JScrollPane leviScrollPane;
     private JSplitPane centralniSplitPane;
     private ProjekatView mainProjectView;
+    private JPanel editModePanel;
+    private JPanel previewModePanel;
+
 
     private MyTreeModel myTreeModel;
     private MyTree myTree;
@@ -46,8 +48,19 @@ public class MainFrame extends JFrame implements Subsriber {
         menuBar = new MyMenuBar();
         setJMenuBar(menuBar);
 
+        makeEditPane();
+        getContentPane().add(editModePanel);
+
+        previewModePanel = new PreviewPane();
+        JScrollPane scrollPane = new JScrollPane(previewModePanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    }
+
+    private void makeEditPane(){
+        editModePanel = new JPanel();
+        editModePanel.setLayout(new BorderLayout());
+
         toolBar = new MyToolBar();
-        add(toolBar, BorderLayout.NORTH);
+        editModePanel.add(toolBar, BorderLayout.NORTH);
 
 
         leviScrollPane = new JScrollPane(myTree,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -62,7 +75,7 @@ public class MainFrame extends JFrame implements Subsriber {
 
         centralniSplitPane.setOneTouchExpandable(true);
 
-        add(centralniSplitPane, BorderLayout.CENTER);
+        editModePanel.add(centralniSplitPane, BorderLayout.CENTER);
     }
 
     private void initialiseMyTree(){
@@ -119,4 +132,14 @@ public class MainFrame extends JFrame implements Subsriber {
     public void setMainProjectView(ProjekatView mainProjectView) {
         this.mainProjectView = mainProjectView;
     }
+
+    public JPanel getPreviewModePanel() {
+        return previewModePanel;
+    }
+
+    public JPanel getEditModePanel() {
+        return editModePanel;
+    }
+
+    public JMenuBar menuBarGetter(){return menuBar;}
 }

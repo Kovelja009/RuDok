@@ -1,4 +1,4 @@
-package controller;
+package controller.actions;
 
 import controller.errorHandler.ErrorFactory;
 import model.RuNode;
@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 public class NewAction extends AbstractRudokAction{
     public NewAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-        putValue(SMALL_ICON, loadIcon("images/add_img.png"));
+        putValue(SMALL_ICON, loadIcon("../images/add_img.png"));
         putValue(NAME, "New");
         putValue(SHORT_DESCRIPTION, "Adding new item");
     }

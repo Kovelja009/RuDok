@@ -1,4 +1,4 @@
-package controller;
+package controller.actions;
 
 import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 public class PopupAutorAction extends AbstractRudokAction{
     public PopupAutorAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK));
-        putValue(SMALL_ICON, loadIcon("images/add_author_popup.png"));
+        putValue(SMALL_ICON, loadIcon("../images/add_author_popup.png"));
         putValue(NAME, "Set author");
         putValue(SHORT_DESCRIPTION, "Opens popup where you set author of your presentation");
     }

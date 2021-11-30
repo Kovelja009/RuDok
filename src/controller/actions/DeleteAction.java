@@ -1,9 +1,7 @@
-package controller;
+package controller.actions;
 
 import controller.errorHandler.ErrorFactory;
-import model.RuNode;
 import model.workspace.Prezentacija;
-import model.workspace.Projekat;
 import model.workspace.Slide;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
@@ -15,7 +13,7 @@ import java.awt.event.KeyEvent;
 public class DeleteAction extends AbstractRudokAction{
     public DeleteAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK));
-        putValue(SMALL_ICON, loadIcon("images/delete.png"));
+        putValue(SMALL_ICON, loadIcon("../images/delete.png"));
         putValue(NAME, "Delete");
         putValue(SHORT_DESCRIPTION, "Deleting selected item");
     }

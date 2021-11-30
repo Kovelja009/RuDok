@@ -1,4 +1,4 @@
-package controller;
+package controller.actions;
 
 
 
@@ -8,6 +8,10 @@ public class ActionManager {
     private PopupAutorAction popupAutorAction;
     private PopupPozadinaAction popupPozadinaAction;
     private DeleteAction deleteAction;
+    private  PreviewAction previewAction;
+    private PreviousAction previousAction;
+    private NextAction nextAction;
+    private EditAction editAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -15,6 +19,10 @@ public class ActionManager {
         popupAutorAction = new PopupAutorAction();
         popupPozadinaAction = new PopupPozadinaAction();
         deleteAction = new DeleteAction();
+        previewAction = new PreviewAction();
+        previousAction = new PreviousAction();
+        nextAction = new NextAction();
+        editAction = new EditAction();
 
     }
 
@@ -22,39 +30,35 @@ public class ActionManager {
         return infoAction;
     }
 
-    public void setInfoAction(InfoAction infoAction) {
-        this.infoAction = infoAction;
-    }
-
     public NewAction getNewAction() {
         return newAction;
-    }
-
-    public void setNewAction(NewAction newAction) {
-        this.newAction = newAction;
     }
 
     public PopupAutorAction getPopupAutorAction() {
         return popupAutorAction;
     }
 
-    public void setPopupAutorAction(PopupAutorAction popupAutorAction) {
-        this.popupAutorAction = popupAutorAction;
-    }
-
     public PopupPozadinaAction getPopupPozadinaAction() {
         return popupPozadinaAction;
-    }
-
-    public void setPopupPozadinaAction(PopupPozadinaAction popupPozadinaAction) {
-        this.popupPozadinaAction = popupPozadinaAction;
     }
 
     public DeleteAction getDeleteAction() {
         return deleteAction;
     }
 
-    public void setDeleteAction(DeleteAction deleteAction) {
-        this.deleteAction = deleteAction;
+    public PreviewAction getPreviewAction() {
+        return previewAction;
+    }
+
+    public PreviousAction getPreviousAction() {
+        return previousAction;
+    }
+
+    public NextAction getNextAction() {
+        return nextAction;
+    }
+
+    public EditAction getEditAction() {
+        return editAction;
     }
 }

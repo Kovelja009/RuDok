@@ -1,4 +1,4 @@
-package controller;
+package controller.actions;
 
 import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 public class PopupPozadinaAction extends AbstractRudokAction{
     public PopupPozadinaAction(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_B, KeyEvent.CTRL_DOWN_MASK));
-        putValue(SMALL_ICON, loadIcon("images/background_popup.png"));
+        putValue(SMALL_ICON, loadIcon("../images/background_popup.png"));
         putValue(NAME, "Set background");
         putValue(SHORT_DESCRIPTION, "Opens popup where you set background for your presentation");
     }

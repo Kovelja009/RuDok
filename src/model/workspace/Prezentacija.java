@@ -18,7 +18,6 @@ public class Prezentacija extends RuNodeComposite {
     public void addChild(RuNode child) {
         if(child instanceof Slide && !getChildren().contains(child)){
             super.addChild(child);
-            System.out.println("sdafsdf");
         }
     }
 
