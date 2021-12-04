@@ -1,7 +1,6 @@
 package controller.actions;
 
 import view.MainFrame;
-import view.PreviewPane;
 import view.workspaceView.PrezentacijaView;
 
 import javax.swing.*;

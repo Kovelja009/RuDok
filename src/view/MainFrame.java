@@ -20,11 +20,9 @@ public class MainFrame extends JFrame implements Subsriber {
     private JSplitPane centralniSplitPane;
     private ProjekatView mainProjectView;
     private JPanel editModePanel;
-    private JPanel previewModePanel;
-
-
     private MyTreeModel myTreeModel;
     private MyTree myTree;
+    private Color color;
 
     private MainFrame(){}
 
@@ -51,8 +49,7 @@ public class MainFrame extends JFrame implements Subsriber {
         makeEditPane();
         getContentPane().add(editModePanel);
 
-        previewModePanel = new PreviewPane();
-        JScrollPane scrollPane = new JScrollPane(previewModePanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        color = Color.RED;
     }
 
     private void makeEditPane(){
@@ -133,13 +130,17 @@ public class MainFrame extends JFrame implements Subsriber {
         this.mainProjectView = mainProjectView;
     }
 
-    public JPanel getPreviewModePanel() {
-        return previewModePanel;
-    }
-
     public JPanel getEditModePanel() {
         return editModePanel;
     }
 
     public JMenuBar menuBarGetter(){return menuBar;}
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }

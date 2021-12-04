@@ -1,8 +1,6 @@
 package controller.actions;
 
-import controller.errorHandler.ErrorFactory;
 import view.MainFrame;
-import view.PreviewPane;
 import view.workspaceView.PrezentacijaView;
 
 import javax.swing.*;

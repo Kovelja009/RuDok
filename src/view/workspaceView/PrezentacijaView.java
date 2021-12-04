@@ -39,6 +39,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         this.prezentacijaRuNode.addSubscriber(this);
         setMinimumSize(new Dimension(500, 400));
         setLayout(new BorderLayout());
+        setBackground(Color.LIGHT_GRAY);
 
         initializeToolbar();
         generateEditToolbar();
@@ -70,6 +71,10 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         prezToolbar.removeAll();
         prezToolbar.revalidate();
         prezToolbar.add(MainFrame.getInstance().getActionManager().getPreviewAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getAddSlotAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getRemoveSlotAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getDefaultSlotAction());
+
         prezToolbar.repaint();
     }
 
@@ -91,7 +96,8 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         contentPane.setBackground(Color.LIGHT_GRAY);
 
         previewPanel = new JPanel();
-        previewPanel.setLayout(new CardLayout());
+        previewPanel.setLayout(new CardLayout(120,10));
+        previewPanel.setBackground(Color.LIGHT_GRAY);
     }
 
     public void generateContentPaneEditMode(){
@@ -130,17 +136,15 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         for(RuNode s : prezentacijaRuNode.getChildren()){
             if(s instanceof Slide){
                 Slide slide = (Slide) s;
-                SlideView slideView = new SlideView(slide);
+                SlideView slideView = new SlideView(slide, 1);
                 slideViewList.add(slideView);
                 nalepnica.add(slideView);
 
-                SlideView malislideView = new SlideView(slide);
+                SlideView malislideView = new SlideView(slide, 0);
                 malislideViewList.add(malislideView);
-                malislideView.setPreferredSize(new Dimension(175,100));
-                malislideView.setMaximumSize(new Dimension(175,100));
                 malaNalepnica.add(malislideView);
 
-                SlideView preView = new SlideView(slide);
+                SlideView preView = new SlideView(slide, 0);
                 previewList.add(preView);
                 previewPanel.add(preView);
             }
@@ -180,13 +184,13 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     }
 
     private void dodavanjeSlajda(Slide sl){
-        SlideView sw = new SlideView(sl);
+        SlideView sw = new SlideView(sl, 1);
         slideViewList.add(sw);
         nalepnica.add(sw);
         nalepnica.revalidate();
         nalepnica.repaint();
 
-        SlideView sw1 = new SlideView(sl);
+        SlideView sw1 = new SlideView(sl, 0);
         malislideViewList.add(sw1);
         sw1.setPreferredSize(new Dimension(175,100));
         sw1.setMaximumSize(new Dimension(175,100));
@@ -194,7 +198,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         malaNalepnica.revalidate();
         malaNalepnica.repaint();
 
-        SlideView sw2 = new SlideView(sl);
+        SlideView sw2 = new SlideView(sl, 0);
         previewList.add(sw2);
         previewPanel.add(sw2);
         previewPanel.revalidate();

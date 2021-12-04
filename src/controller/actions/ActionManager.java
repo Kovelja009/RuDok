@@ -12,6 +12,10 @@ public class ActionManager {
     private PreviousAction previousAction;
     private NextAction nextAction;
     private EditAction editAction;
+    private AddSlotAction addSlotAction;
+    private RemoveSlotAction removeSlotAction;
+    private DefaultSlotAction defaultSlotAction;
+    private ColorPickerAction colorPickerAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -23,6 +27,10 @@ public class ActionManager {
         previousAction = new PreviousAction();
         nextAction = new NextAction();
         editAction = new EditAction();
+        addSlotAction = new AddSlotAction();
+        removeSlotAction = new RemoveSlotAction();
+        defaultSlotAction = new DefaultSlotAction();
+        colorPickerAction = new ColorPickerAction();
 
     }
 
@@ -60,5 +68,21 @@ public class ActionManager {
 
     public EditAction getEditAction() {
         return editAction;
+    }
+
+    public AddSlotAction getAddSlotAction() {
+        return addSlotAction;
+    }
+
+    public RemoveSlotAction getRemoveSlotAction() {
+        return removeSlotAction;
+    }
+
+    public DefaultSlotAction getDefaultSlotAction() {
+        return defaultSlotAction;
+    }
+
+    public ColorPickerAction getColorPickerAction() {
+        return colorPickerAction;
     }
 }

@@ -1,7 +1,7 @@
 package controller.state;
 
-import controller.state.concrete.EditState;
-import controller.state.concrete.PreviewState;
+import controller.state.concreteState.EditState;
+import controller.state.concreteState.PreviewState;
 
 public class StateManager {
     private static StateManager instance = null;

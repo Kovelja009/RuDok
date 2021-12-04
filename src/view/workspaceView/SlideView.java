@@ -1,33 +1,45 @@
 package view.workspaceView;
 
+import controller.listeners.MouseChecker;
 import controller.observers.Subsriber;
-import model.RuNode;
+import controller.state.SlotStateManager;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
+import model.workspace.Slot;
+import view.MainFrame;
 
-import javax.imageio.ImageIO;
-import javax.sql.rowset.BaseRowSet;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SlideView extends JPanel implements Subsriber {
     private Slide slideRuNode;
     private Image image;
     private JLabel brojSlajda;
+    private List<SlotView> slotViewList;
+    private SlotStateManager slotStateManager;
 
-    public SlideView(Slide slideRuNode){
+    public SlideView(Slide slideRuNode, int velicina){
+        slotViewList = new ArrayList<>();
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
         ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
+        slotStateManager = SlotStateManager.getInstance();
         setLayout(new BorderLayout());
 
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
-        this.setPreferredSize(new Dimension(700, 400));
-        this.setMaximumSize(new Dimension(700, 400));
+        if(velicina == 1){
+            addMouseListener(new MouseChecker(this));
+            this.setPreferredSize(new Dimension(700, 400));
+            this.setMaximumSize(new Dimension(700, 400));
+        }else{
+            this.setPreferredSize(new Dimension(175,100));
+            this.setMaximumSize(new Dimension(175,100));
+        }
+
+
         this.add(brojSlajda, BorderLayout.SOUTH);
         setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,10));
     }
@@ -39,14 +51,18 @@ public class SlideView extends JPanel implements Subsriber {
         URL imageURL = getClass().getResource(((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
         ImageIcon icon = null;
 
-        if(imageURL != null){
+        if(imageURL != null)
             icon = new ImageIcon(imageURL);
-        }
-        else {
+        else
             System.err.println("Resources not found: " + ((Prezentacija)slideRuNode.getParent()).getUrlPozadina());
-        }
+
         image = icon.getImage();
         g.drawImage(image,0,0,getWidth(),getHeight(),null);
+
+        for(SlotView s: slotViewList){
+            s.paint((Graphics2D) g);
+        }
+
     }
 
     private void loadImage(){
@@ -85,7 +101,39 @@ public class SlideView extends JPanel implements Subsriber {
                 this.validate();
                 this.repaint();
         }
+        if(notification instanceof Slot && message.equals("dodavanje slota")){
+            SlotView sw = new SlotView((Slot) notification);
+            slotViewList.add(sw);
+            repaint();
+        }
+        if(notification instanceof Slot && message.equals("brisanje slota")){
+            SlotView brisanje = null;
+            for(SlotView sv : slotViewList){
+                if(sv.getSlot().equals((Slot) notification)){
+                    brisanje = sv;
+                    break;
+                }
+            }
+            slotViewList.remove(brisanje);
+            repaint();
+        }
+    }
 
+    public void startAddState(){
+        slotStateManager.setAddState();
+    }
+
+    public void startRemoveState(){
+        slotStateManager.setRemoveState();
+    }
+
+    public void startDefaultState(){
+        slotStateManager.setDefaultSlotState();
+    }
+
+    public void modify(int x, int y){
+        Color c = MainFrame.getInstance().getColor();
+        slotStateManager.getCurr().changeSlot(x,y, 120, 120, slotViewList, slideRuNode, c.getRed(), c.getGreen(), c.getBlue());
     }
 
 }
