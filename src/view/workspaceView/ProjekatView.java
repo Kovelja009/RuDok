@@ -21,7 +21,6 @@ public class ProjekatView extends JPanel implements Subsriber {
         this.projekatRuNode = projekatRuNode;
         imeProjekta.setText(projekatRuNode.getName());
         this.add(imeProjekta);
-
         this.projekatRuNode.addSubscriber(this);
     }
 
@@ -53,7 +52,6 @@ public class ProjekatView extends JPanel implements Subsriber {
 
         if(projekatRuNode != null){
             napraviPrezentacije();
-
             this.projekatRuNode.addSubscriber(this);
             updateSubsriber(projekatRuNode, "ime");
         }else{

@@ -56,8 +56,5 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
             node.setName(e.getActionCommand());
         }
 
-        //posle promene imena ili dijagrama treba obezbediti i promenu imena u GEDView-u
-//        dodati update() za subscribere
-
     }
 }

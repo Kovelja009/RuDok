@@ -17,7 +17,6 @@ public class BrojKlikovaKontroler implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         Object o = MainFrame.getInstance().getMyTree().getLastSelectedPathComponent();
         if(e.getClickCount() == 2 && o instanceof MyTreeNode && ((MyTreeNode)o).getNode() instanceof Projekat){
-            System.out.println("Kliknutno 2 puta na " + MainFrame.getInstance().getMyTree().getLastSelectedPathComponent());
             Projekat p = (Projekat) ((MyTreeNode)o).getNode();
             MainFrame.getInstance().getMainProjectView().setProjekatRuNode(p);
             MainFrame.getInstance().getMyTree().expandPath(MainFrame.getInstance().getMyTree().getSelectionPath());

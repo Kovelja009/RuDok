@@ -8,5 +8,5 @@ import javax.swing.*;
 import java.util.List;
 
 public interface State {
-    void changeState(List<RuNode> slideList);
+    void changeState();
 }

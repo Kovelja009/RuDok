@@ -9,18 +9,18 @@ import view.workspaceView.PrezentacijaView;
 import view.workspaceView.SlideView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EditState implements State {
 
     @Override
-    public void changeState(List<RuNode> slideList) {
-        MainFrame.getInstance().getContentPane().removeAll();
-        MainFrame.getInstance().getContentPane().revalidate();
-        MainFrame.getInstance().setJMenuBar(MainFrame.getInstance().menuBarGetter());
-        MainFrame.getInstance().getContentPane().add(MainFrame.getInstance().getEditModePanel());
+    public void changeState() {
+        int indexOfTab = MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedIndex();
+        PrezentacijaView pw =  (PrezentacijaView) (MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getComponentAt(indexOfTab));
 
-        MainFrame.getInstance().repaint();
+        pw.generateEditToolbar();
+        pw.generateContentPaneEditMode();
     }
 }

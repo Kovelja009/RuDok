@@ -5,6 +5,8 @@ import controller.state.StateManager;
 import model.RuNode;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
+import view.MainFrame;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,38 +17,96 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private JLabel autorlbl;
     private List<SlideView> slideViewList;
     private List<SlideView> malislideViewList;
+    private List<SlideView> previewList;
     private JPanel nalepnica;
     private JPanel malaNalepnica;
     private JScrollPane desniScrollPane;
     private JScrollPane leviScrollPane;
     private StateManager stateManager;
+    private JToolBar prezToolbar;
+    private JPanel contentPane;
+    private JPanel previewPanel;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
         malislideViewList = new ArrayList<>();
+        previewList = new ArrayList<>();
 
         stateManager = StateManager.getInstance();
 
 
         this.prezentacijaRuNode = prezentacijaRuNode;
         this.prezentacijaRuNode.addSubscriber(this);
+        setMinimumSize(new Dimension(500, 400));
+        setLayout(new BorderLayout());
+
+        initializeToolbar();
+        generateEditToolbar();
 
         autorlbl = new JLabel(prezentacijaRuNode.getAutor());
 
-
         generateMalaNalepnica();
         generateNalepnica();
+        initializeContentPane();
+        generateContentPaneEditMode();
 
-        this.setLayout(new BorderLayout());
-        this.add(desniScrollPane, BorderLayout.CENTER);
-        this.add(leviScrollPane, BorderLayout.WEST);
-        this.setMinimumSize(new Dimension(500, 400));
-        this.setBackground(Color.LIGHT_GRAY);
-        this.add(autorlbl, BorderLayout.NORTH);
+        add(prezToolbar, BorderLayout.NORTH);
+        add(contentPane, BorderLayout.CENTER);
+        add(autorlbl, BorderLayout.SOUTH);
+
         generisanjeSlajdova();
         revalidate();
         repaint();
 
+    }
+
+    private void initializeToolbar(){
+        prezToolbar = new JToolBar();
+        prezToolbar.setOrientation(SwingConstants.HORIZONTAL);
+        prezToolbar.setFloatable(false);
+    }
+
+    public void generateEditToolbar(){
+        prezToolbar.removeAll();
+        prezToolbar.revalidate();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getPreviewAction());
+        prezToolbar.repaint();
+    }
+
+    public void generatePreviewToolbar(){
+        prezToolbar.removeAll();
+        prezToolbar.revalidate();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getPreviousAction());
+        prezToolbar.addSeparator();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getEditAction());
+        prezToolbar.addSeparator();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getNextAction());
+        prezToolbar.repaint();
+    }
+
+    private void initializeContentPane(){
+        contentPane = new JPanel();
+        contentPane.setLayout(new BorderLayout());
+        contentPane.setMinimumSize(new Dimension(500, 400));
+        contentPane.setBackground(Color.LIGHT_GRAY);
+
+        previewPanel = new JPanel();
+        previewPanel.setLayout(new CardLayout());
+    }
+
+    public void generateContentPaneEditMode(){
+        contentPane.removeAll();
+        contentPane.revalidate();
+        contentPane.add(desniScrollPane, BorderLayout.CENTER);
+        contentPane.add(leviScrollPane, BorderLayout.WEST);
+        contentPane.repaint();
+    }
+
+    public void generateContentPanePreviewMode(){
+        contentPane.removeAll();
+        contentPane.revalidate();
+        contentPane.add(previewPanel);
+        contentPane.repaint();
     }
 
     private void generateNalepnica(){
@@ -79,6 +139,10 @@ public class PrezentacijaView extends JPanel implements Subsriber {
                 malislideView.setPreferredSize(new Dimension(175,100));
                 malislideView.setMaximumSize(new Dimension(175,100));
                 malaNalepnica.add(malislideView);
+
+                SlideView preView = new SlideView(slide);
+                previewList.add(preView);
+                previewPanel.add(preView);
             }
         }
         revalidate();
@@ -88,6 +152,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private void brisanjeSlajda(Slide sl){
         SlideView brisanje = null;
         SlideView brisanje2 = null;
+        SlideView brisanje3 = null;
         for(int i = 0; i< slideViewList.size(); i++){
             if(slideViewList.get(i).getSlideRuNode().equals(sl)){
                 brisanje = slideViewList.get(i);
@@ -101,11 +166,17 @@ public class PrezentacijaView extends JPanel implements Subsriber {
                 malaNalepnica.revalidate();
                 malaNalepnica.repaint();
 
+                brisanje3 = previewList.get(i);
+                previewPanel.remove(previewList.get(i));
+                previewPanel.revalidate();
+                previewPanel.repaint();
+
                 break;
             }
         }
         slideViewList.remove(brisanje);
         malislideViewList.remove(brisanje2);
+        previewList.remove(brisanje3);
     }
 
     private void dodavanjeSlajda(Slide sl){
@@ -122,11 +193,17 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         malaNalepnica.add(sw1);
         malaNalepnica.revalidate();
         malaNalepnica.repaint();
+
+        SlideView sw2 = new SlideView(sl);
+        previewList.add(sw2);
+        previewPanel.add(sw2);
+        previewPanel.revalidate();
+        previewPanel.repaint();
     }
 
     public void updateSubsriber(Object notification, String message) {
         if(notification instanceof Prezentacija && message.equals("promena autora")){
-            autorlbl.setText(((Prezentacija) notification).getAutor());
+            autorlbl.setText("Author: " + ((Prezentacija) notification).getAutor());
         }
 
         if(notification instanceof Slide && message.equals("brisanje")){
@@ -166,6 +243,10 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         return nalepnica;
     }
 
+    public JPanel getPreviewPanel() {
+        return previewPanel;
+    }
+
     public void setSlideViewList(List<SlideView> slideViewList) {
         this.slideViewList = slideViewList;
     }
@@ -174,7 +255,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     public void startPreviewState(){stateManager.setPreviewState();}
 
     public void changeState(){
-        stateManager.getCurr().changeState(prezentacijaRuNode.getChildren());
+        stateManager.getCurr().changeState();
     }
 
 }

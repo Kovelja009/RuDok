@@ -20,10 +20,6 @@ public class PreviewAction extends AbstractRudokAction{
     public void actionPerformed(ActionEvent e) {
 
         int indexOfTab = MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedIndex();
-        if( indexOfTab == -1){
-            ErrorFactory.getInstance().generateError("Must open project which has one presentation in focus", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
 
         PrezentacijaView pw =  (PrezentacijaView) (MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getComponentAt(indexOfTab));
         if(pw.getSlideViewList().size() == 0){
