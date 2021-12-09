@@ -28,7 +28,6 @@ public class AddSlotAction extends AbstractRudokAction{
             return;
         }
 
-        for(SlideView sv : pw.getSlideViewList())
-            sv.startAddState();
+            pw.startAddState();
     }
 }

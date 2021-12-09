@@ -9,21 +9,12 @@ public class StateManager {
     private EditState editState;
     private PreviewState previewState;
 
-    private StateManager(){}
-
-    private void initilaize(){
+    public StateManager(){
         editState = new EditState();
         previewState = new PreviewState();
         curr = editState;
     }
 
-    public static StateManager getInstance(){
-        if(instance == null){
-            instance = new StateManager();
-            instance.initilaize();
-        }
-        return instance;
-    }
 
     public State getCurr() {
         return curr;

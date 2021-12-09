@@ -2,12 +2,9 @@ package view.workspaceView;
 
 import controller.listeners.MouseChecker;
 import controller.observers.Subsriber;
-import controller.state.SlotStateManager;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
 import model.workspace.Slot;
-import view.MainFrame;
-
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
@@ -19,19 +16,19 @@ public class SlideView extends JPanel implements Subsriber {
     private Image image;
     private JLabel brojSlajda;
     private List<SlotView> slotViewList;
-    private SlotStateManager slotStateManager;
+    private int velicina;
 
-    public SlideView(Slide slideRuNode, int velicina){
+    public SlideView(Slide slideRuNode, int velicina, PrezentacijaView pw){
         slotViewList = new ArrayList<>();
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
         ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
-        slotStateManager = SlotStateManager.getInstance();
         setLayout(new BorderLayout());
+        this.velicina = velicina;
 
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         if(velicina == 1){
-            addMouseListener(new MouseChecker(this));
+            addMouseListener(new MouseChecker(pw));
             this.setPreferredSize(new Dimension(700, 400));
             this.setMaximumSize(new Dimension(700, 400));
         }else{
@@ -59,9 +56,8 @@ public class SlideView extends JPanel implements Subsriber {
         image = icon.getImage();
         g.drawImage(image,0,0,getWidth(),getHeight(),null);
 
-        for(SlotView s: slotViewList){
+        for(SlotView s: slotViewList)
             s.paint((Graphics2D) g);
-        }
 
     }
 
@@ -103,13 +99,19 @@ public class SlideView extends JPanel implements Subsriber {
         }
         if(notification instanceof Slot && message.equals("dodavanje slota")){
             SlotView sw = new SlotView((Slot) notification);
+            if(velicina == 0){
+                sw.setWidth(sw.getWidth()/4);
+                sw.setHeight(sw.getHeight()/4);
+                sw.setX(sw.getX()/4);
+                sw.setY(sw.getY()/4);
+            }
             slotViewList.add(sw);
             repaint();
         }
         if(notification instanceof Slot && message.equals("brisanje slota")){
             SlotView brisanje = null;
             for(SlotView sv : slotViewList){
-                if(sv.getSlot().equals((Slot) notification)){
+                if(sv.getSlot().equals(notification)){
                     brisanje = sv;
                     break;
                 }
@@ -119,21 +121,7 @@ public class SlideView extends JPanel implements Subsriber {
         }
     }
 
-    public void startAddState(){
-        slotStateManager.setAddState();
+    public List<SlotView> getSlotViewList() {
+        return slotViewList;
     }
-
-    public void startRemoveState(){
-        slotStateManager.setRemoveState();
-    }
-
-    public void startDefaultState(){
-        slotStateManager.setDefaultSlotState();
-    }
-
-    public void modify(int x, int y){
-        Color c = MainFrame.getInstance().getColor();
-        slotStateManager.getCurr().changeSlot(x,y, 120, 120, slotViewList, slideRuNode, c.getRed(), c.getGreen(), c.getBlue());
-    }
-
 }

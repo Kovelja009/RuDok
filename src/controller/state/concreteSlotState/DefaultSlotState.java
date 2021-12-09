@@ -6,9 +6,9 @@ import view.workspaceView.SlotView;
 
 import java.util.List;
 
-public class DefaultSlotState implements StateSlot {
+public class DefaultSlotState extends StateSlot {
     @Override
-    public void changeSlot(int x, int y, int height, int widht, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
+    public void mousePressed(int x, int y, int height, int widht, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
         System.out.println("Default Slot State");
     }
 }

@@ -7,11 +7,11 @@ import view.workspaceView.SlotView;
 
 import java.util.List;
 
-public class AddState implements StateSlot {
+public class AddState extends StateSlot {
     @Override
-    public void changeSlot(int x, int y, int height, int widht, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
-        System.out.printf("Dodavanje slota");
-        Slot slot = new Slot(x, y, height, widht, red, green, blue);
+    public void mousePressed(int x, int y, int height, int width, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
+        System.out.print("Dodavanje slota");
+        Slot slot = new Slot(x, y, height, width, red, green, blue);
         slide.addSlot(slot);
     }
 }

@@ -6,20 +6,20 @@ import model.workspace.Slot;
 import view.workspaceView.SlotView;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class RemoveState implements StateSlot {
+public class RemoveState extends StateSlot {
     @Override
-    public void changeSlot(int x, int y, int height, int widht, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
+    public void mousePressed(int x, int y, int height, int widht, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
 
         Point p = new Point(x, y);
 
         Slot obrisi = null;
-        for(SlotView sw : slotViewList){
-            if(sw.elementAt(p)){
-                obrisi = sw.getSlot();
-                System.out.printf("brisanje slota ");
+        for(int i = slotViewList.size() - 1; i >= 0; i--){
+            if(slotViewList.get(i).elementAt(p)){
+                obrisi = slotViewList.get(i).getSlot();
+                System.out.print("brisanje slota ");
+                break;
             }
         }
 

@@ -1,6 +1,7 @@
 package view.workspaceView;
 
 import controller.observers.Subsriber;
+import controller.state.SlotStateManager;
 import controller.state.StateManager;
 import model.RuNode;
 import model.workspace.Prezentacija;
@@ -26,14 +27,15 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private JToolBar prezToolbar;
     private JPanel contentPane;
     private JPanel previewPanel;
+    private SlotStateManager slotStateManager;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
         malislideViewList = new ArrayList<>();
         previewList = new ArrayList<>();
 
-        stateManager = StateManager.getInstance();
-
+        stateManager = new StateManager();
+        slotStateManager = new SlotStateManager();
 
         this.prezentacijaRuNode = prezentacijaRuNode;
         this.prezentacijaRuNode.addSubscriber(this);
@@ -136,15 +138,15 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         for(RuNode s : prezentacijaRuNode.getChildren()){
             if(s instanceof Slide){
                 Slide slide = (Slide) s;
-                SlideView slideView = new SlideView(slide, 1);
+                SlideView slideView = new SlideView(slide, 1, this);
                 slideViewList.add(slideView);
                 nalepnica.add(slideView);
 
-                SlideView malislideView = new SlideView(slide, 0);
+                SlideView malislideView = new SlideView(slide, 0, this);
                 malislideViewList.add(malislideView);
                 malaNalepnica.add(malislideView);
 
-                SlideView preView = new SlideView(slide, 0);
+                SlideView preView = new SlideView(slide, 0, this);
                 previewList.add(preView);
                 previewPanel.add(preView);
             }
@@ -184,21 +186,19 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     }
 
     private void dodavanjeSlajda(Slide sl){
-        SlideView sw = new SlideView(sl, 1);
+        SlideView sw = new SlideView(sl, 1, this);
         slideViewList.add(sw);
         nalepnica.add(sw);
         nalepnica.revalidate();
         nalepnica.repaint();
 
-        SlideView sw1 = new SlideView(sl, 0);
+        SlideView sw1 = new SlideView(sl, 0, this);
         malislideViewList.add(sw1);
-        sw1.setPreferredSize(new Dimension(175,100));
-        sw1.setMaximumSize(new Dimension(175,100));
         malaNalepnica.add(sw1);
         malaNalepnica.revalidate();
         malaNalepnica.repaint();
 
-        SlideView sw2 = new SlideView(sl, 0);
+        SlideView sw2 = new SlideView(sl, 0, this);
         previewList.add(sw2);
         previewPanel.add(sw2);
         previewPanel.revalidate();
@@ -260,6 +260,34 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
     public void changeState(){
         stateManager.getCurr().changeState();
+    }
+
+    public void startAddState(){
+        slotStateManager.setAddState();
+    }
+
+    public void startRemoveState(){
+        slotStateManager.setRemoveState();
+    }
+
+    public void startDefaultState(){
+        slotStateManager.setDefaultSlotState();
+    }
+
+    public void mousePressed(int x, int y){
+        Color c = MainFrame.getInstance().getColor();
+        for(SlideView sw : slideViewList)
+            slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw.getSlotViewList(), sw.getSlideRuNode(), c.getRed(), c.getGreen(), c.getBlue());
+    }
+
+    public void mouseDragged(int x, int y){
+        for(SlideView sw : slideViewList)
+            slotStateManager.getCurr().mouseDragged(x,y,getHeight()/7, getWidth()/7, sw.getSlotViewList());
+    }
+
+    public void mouseReleased(int x, int y){
+        for(SlideView sw : slideViewList)
+            slotStateManager.getCurr().mouseReleased(x,y,getHeight()/7, getWidth()/7, sw.getSlotViewList());
     }
 
 }

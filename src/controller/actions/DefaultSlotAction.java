@@ -27,8 +27,6 @@ public class DefaultSlotAction extends AbstractRudokAction{
             ErrorFactory.getInstance().generateError("Must select presentation with at least one slide", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        for(SlideView sv : pw.getSlideViewList())
-            sv.startDefaultState();
+         pw.startDefaultState();
     }
 }

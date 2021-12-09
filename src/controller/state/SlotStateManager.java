@@ -11,21 +11,11 @@ public class SlotStateManager {
     private RemoveState removeState;
     private DefaultSlotState defaultSlotState;
 
-    private SlotStateManager(){}
-
-    private void initilaize(){
+    public SlotStateManager(){
         addState = new AddState();
         removeState = new RemoveState();
         defaultSlotState = new DefaultSlotState();
         curr = defaultSlotState;
-    }
-
-    public static SlotStateManager getInstance(){
-        if(instance == null){
-            instance = new SlotStateManager();
-            instance.initilaize();
-        }
-        return instance;
     }
 
     public StateSlot getCurr() {

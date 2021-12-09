@@ -94,7 +94,7 @@ public class ProjekatView extends JPanel implements Subsriber {
         dodavanje.addSubscriber(this);
         PrezentacijaView prezView = new PrezentacijaView(dodavanje);
         prezentacijaViewList.add(prezView);
-        prezentacijaTabbedPane.addTab(prezView.getPrezentacijaRuNode().getName(), prezView);
+        prezentacijaTabbedPane.addTab(dodavanje.getName(), prezView);
         System.out.println("Dodata " + dodavanje.getName());
     }
 
