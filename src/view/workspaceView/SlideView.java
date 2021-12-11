@@ -28,7 +28,7 @@ public class SlideView extends JPanel implements Subsriber {
 
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         if(velicina == 1){
-            addMouseListener(new MouseChecker(pw));
+            addMouseListener(new MouseChecker(pw, this));
             this.setPreferredSize(new Dimension(700, 400));
             this.setMaximumSize(new Dimension(700, 400));
         }else{

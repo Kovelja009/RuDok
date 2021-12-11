@@ -17,13 +17,6 @@ public class ProjekatView extends JPanel implements Subsriber {
     private List<PrezentacijaView> prezentacijaViewList;
 
 
-    public ProjekatView(Projekat projekatRuNode){
-        this.projekatRuNode = projekatRuNode;
-        imeProjekta.setText(projekatRuNode.getName());
-        this.add(imeProjekta);
-        this.projekatRuNode.addSubscriber(this);
-    }
-
     public ProjekatView(){
         imeProjekta = new JLabel("No projects selected");
         imeProjekta.setPreferredSize(new Dimension(30,30));

@@ -146,7 +146,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
                 malislideViewList.add(malislideView);
                 malaNalepnica.add(malislideView);
 
-                SlideView preView = new SlideView(slide, 0, this);
+                SlideView preView = new SlideView(slide, 2, this);
                 previewList.add(preView);
                 previewPanel.add(preView);
             }
@@ -198,7 +198,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         malaNalepnica.revalidate();
         malaNalepnica.repaint();
 
-        SlideView sw2 = new SlideView(sl, 0, this);
+        SlideView sw2 = new SlideView(sl, 2, this);
         previewList.add(sw2);
         previewPanel.add(sw2);
         previewPanel.revalidate();
@@ -274,10 +274,9 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         slotStateManager.setDefaultSlotState();
     }
 
-    public void mousePressed(int x, int y){
+    public void mousePressed(int x, int y, SlideView sw){
         Color c = MainFrame.getInstance().getColor();
-        for(SlideView sw : slideViewList)
-            slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw.getSlotViewList(), sw.getSlideRuNode(), c.getRed(), c.getGreen(), c.getBlue());
+        slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw.getSlotViewList(), sw.getSlideRuNode(), c.getRed(), c.getGreen(), c.getBlue());
     }
 
     public void mouseDragged(int x, int y){
