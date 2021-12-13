@@ -6,7 +6,7 @@ import model.RuNodeComposite;
 import java.util.List;
 
 public class Prezentacija extends RuNodeComposite {
-    private String autor = "Author: unknown";
+    private String autor = "unknown";
     private String urlPozadina;
 
     public Prezentacija(String name, RuNode parent) {

@@ -46,7 +46,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         initializeToolbar();
         generateEditToolbar();
 
-        autorlbl = new JLabel(prezentacijaRuNode.getAutor());
+        autorlbl = new JLabel("Author: " + prezentacijaRuNode.getAutor());
 
         generateMalaNalepnica();
         generateNalepnica();

@@ -16,7 +16,7 @@ public class MouseChecker extends MouseAdapter {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
 
         if (e.getButton()==MouseEvent.BUTTON1){
             pw.mousePressed(e.getX(), e.getY(), sw);
@@ -24,4 +24,6 @@ public class MouseChecker extends MouseAdapter {
         }
 
     }
+
+
 }
