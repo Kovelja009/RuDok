@@ -46,32 +46,3 @@ public class NewAction extends AbstractRudokAction{
         }
     }
 }
-
-
-//            if(roditelj instanceof Workspace){
-//                    MyTreeNode deteProjekat = new MyTreeNode(new Projekat("New project " + broj, roditelj));
-//                    roditeljTreeNode.addChild(deteProjekat);
-//                    deteProjekat.setParent(roditeljTreeNode);
-//
-//                    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
-//                    return;
-//                    }
-//                    if(roditelj instanceof Projekat){
-//                    MyTreeNode detePrezentacija = new MyTreeNode(new Prezentacija("New presentation " + broj, roditelj));
-//                    roditeljTreeNode.addChild(detePrezentacija);
-//                    detePrezentacija.setParent(roditeljTreeNode);
-//
-//                    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
-//                    return;
-//                    }
-//
-//                    if(roditelj instanceof Prezentacija){
-//                    Slide slide = new Slide("New slide " + broj, roditelj);
-//                    slide.setRedniBroj(broj);
-//                    MyTreeNode deteSlide = new MyTreeNode(slide);
-//                    roditeljTreeNode.addChild(deteSlide);
-//                    deteSlide.setParent(roditeljTreeNode);
-//
-//                    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
-//                    return;
-//                    }

@@ -1,6 +1,12 @@
 package model.workspace;
 
-public class Slot {
+import controller.observers.Publisher;
+import controller.observers.Subsriber;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Slot implements Publisher {
     private int x;
     private int y;
     private int height;
@@ -8,6 +14,8 @@ public class Slot {
     private int red;
     private int green;
     private int blue;
+    private List<Subsriber> subsriberList;
+    private boolean selected = false;
 
     public Slot(int x, int y, int height, int width, int red, int green, int blue) {
         this.x = x;
@@ -17,6 +25,14 @@ public class Slot {
         this.red = red;
         this.green = green;
         this.blue = blue;
+        subsriberList = new ArrayList<>();
+    }
+
+    public void setPos(int x, int y){
+        this.x = x;
+        this.y = y;
+        notifySubcribers(this, "Position changed");
+
     }
 
     public int getX() {
@@ -61,5 +77,34 @@ public class Slot {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    @Override
+    public void addSubscriber(Subsriber subsriber) {
+        subsriberList.add(subsriber);
+    }
+
+    @Override
+    public void removeSubscriber(Subsriber subsriber) {
+        subsriberList.remove(subsriber);
+    }
+
+    @Override
+    public void removeAllSubcribers() {
+        subsriberList.clear();
+    }
+
+    @Override
+    public void notifySubcribers(Object notification, String message) {
+        for(int i = 0; i < subsriberList.size(); i++)
+            subsriberList.get(i).updateSubsriber(notification, message);
     }
 }

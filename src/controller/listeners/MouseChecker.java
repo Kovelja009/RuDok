@@ -22,8 +22,13 @@ public class MouseChecker extends MouseAdapter {
             pw.mousePressed(e.getX(), e.getY(), sw);
             System.out.println(": " + pw.getName());
         }
-
     }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        pw.mouseDragged(e.getX(), e.getY(), sw);
+    }
+
 
 
 }

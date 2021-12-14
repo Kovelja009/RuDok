@@ -3,7 +3,6 @@ package controller.actions;
 import controller.errorHandler.ErrorFactory;
 import view.MainFrame;
 import view.workspaceView.PrezentacijaView;
-import view.workspaceView.SlideView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

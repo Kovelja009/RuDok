@@ -17,6 +17,7 @@ public class SlideView extends JPanel implements Subsriber {
     private JLabel brojSlajda;
     private List<SlotView> slotViewList;
     private int velicina;
+    private SlotView selectedSlotView;
 
     public SlideView(Slide slideRuNode, int velicina, PrezentacijaView pw){
         slotViewList = new ArrayList<>();
@@ -28,7 +29,9 @@ public class SlideView extends JPanel implements Subsriber {
 
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
         if(velicina == 1){
-            addMouseListener(new MouseChecker(pw, this));
+            MouseChecker mouseChecker = new MouseChecker(pw, this);
+            addMouseListener(mouseChecker);
+            addMouseMotionListener(mouseChecker);
             this.setPreferredSize(new Dimension(700, 400));
             this.setMaximumSize(new Dimension(700, 400));
         }else{
@@ -106,6 +109,7 @@ public class SlideView extends JPanel implements Subsriber {
                 sw.setY(sw.getY()/4);
             }
             slotViewList.add(sw);
+            sw.getSlot().addSubscriber(this);
             repaint();
         }
         if(notification instanceof Slot && message.equals("brisanje slota")){
@@ -113,15 +117,37 @@ public class SlideView extends JPanel implements Subsriber {
             for(SlotView sv : slotViewList){
                 if(sv.getSlot().equals(notification)){
                     brisanje = sv;
+                    sv.getSlot().removeSubscriber(this);
                     break;
                 }
             }
             slotViewList.remove(brisanje);
             repaint();
         }
+
+        if(notification instanceof Slot && message.equals("Position changed")){
+            if(velicina == 0){
+                for(SlotView slotView : slotViewList){
+                    if(slotView.getSlot().equals(notification)){
+                        slotView.setX(slotView.getX()/4);
+                        slotView.setY(slotView.getY()/4);
+                        break;
+                    }
+                }
+            }
+            repaint();
+        }
     }
 
     public List<SlotView> getSlotViewList() {
         return slotViewList;
+    }
+
+    public SlotView getSelectedSlotView() {
+        return selectedSlotView;
+    }
+
+    public void setSelectedSlotView(SlotView selectedSlotView) {
+        this.selectedSlotView = selectedSlotView;
     }
 }

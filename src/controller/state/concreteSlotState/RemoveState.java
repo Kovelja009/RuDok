@@ -3,6 +3,7 @@ package controller.state.concreteSlotState;
 import controller.state.StateSlot;
 import model.workspace.Slide;
 import model.workspace.Slot;
+import view.workspaceView.SlideView;
 import view.workspaceView.SlotView;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class RemoveState extends StateSlot {
     @Override
-    public void mousePressed(int x, int y, int height, int widht, List<SlotView> slotViewList, Slide slide, int red, int green, int blue) {
+    public void mousePressed(int x, int y, int height, int widht, List<SlotView> slotViewList, SlideView slideView, Slide slide, int red, int green, int blue) {
 
         Point p = new Point(x, y);
 

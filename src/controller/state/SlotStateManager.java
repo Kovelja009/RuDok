@@ -23,7 +23,6 @@ public class SlotStateManager {
     }
 
     public void setAddState() {curr = addState;}
-
     public void setRemoveState() {
         curr = removeState;
     }

@@ -1,10 +1,11 @@
 package view.workspaceView;
 
+import controller.observers.Subsriber;
 import model.workspace.Slot;
 
 import java.awt.*;
 
-public class SlotView {
+public class SlotView implements Subsriber {
     private Slot slot;
     private Shape shape;
     private int height;
@@ -15,6 +16,7 @@ public class SlotView {
 
     public SlotView(Slot slot) {
         this.slot = slot;
+        slot.addSubscriber(this);
         this.height = slot.getHeight();
         this.width = slot.getWidth();
         this.x = slot.getX();
@@ -46,6 +48,13 @@ public class SlotView {
 
     public void setShape(Shape shape) {
         this.shape = shape;
+    }
+
+    @Override
+    public void updateSubsriber(Object notification, String message) {
+        this.x = slot.getX();
+        this.y = slot.getY();
+        ((Rectangle)shape).setLocation(x, y);
     }
 
     public int getHeight() {

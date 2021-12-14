@@ -85,4 +85,5 @@ public class ActionManager {
     public ColorPickerAction getColorPickerAction() {
         return colorPickerAction;
     }
+
 }

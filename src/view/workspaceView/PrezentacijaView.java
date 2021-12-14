@@ -276,17 +276,11 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
     public void mousePressed(int x, int y, SlideView sw){
         Color c = MainFrame.getInstance().getColor();
-        slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw.getSlotViewList(), sw.getSlideRuNode(), c.getRed(), c.getGreen(), c.getBlue());
+        slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw.getSlotViewList(), sw, sw.getSlideRuNode(), c.getRed(), c.getGreen(), c.getBlue());
     }
 
-    public void mouseDragged(int x, int y){
-        for(SlideView sw : slideViewList)
-            slotStateManager.getCurr().mouseDragged(x,y,getHeight()/7, getWidth()/7, sw.getSlotViewList());
-    }
-
-    public void mouseReleased(int x, int y){
-        for(SlideView sw : slideViewList)
-            slotStateManager.getCurr().mouseReleased(x,y,getHeight()/7, getWidth()/7, sw.getSlotViewList());
+    public void mouseDragged(int x, int y, SlideView sw){
+        slotStateManager.getCurr().mouseDragged(x,y,getHeight()/7, getWidth()/7, sw.getSlotViewList(), sw, sw.getSlideRuNode());
     }
 
 }
