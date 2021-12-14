@@ -73,9 +73,13 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         prezToolbar.removeAll();
         prezToolbar.revalidate();
         prezToolbar.add(MainFrame.getInstance().getActionManager().getPreviewAction());
+        prezToolbar.addSeparator();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getColorPickerAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getAddSlotAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getRemoveSlotAction());
-        prezToolbar.add(MainFrame.getInstance().getActionManager().getDefaultSlotAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getSelectSlotAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getDragSlotAction());
+
 
         prezToolbar.repaint();
     }
@@ -255,6 +259,12 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         this.slideViewList = slideViewList;
     }
 
+    public void changeColor(Color color){
+        slotStateManager.setColor(color);
+    }
+
+    public Color getColor(){return slotStateManager.getColor();}
+
     public void startEditState(){stateManager.setEditState();}
     public void startPreviewState(){stateManager.setPreviewState();}
 
@@ -270,17 +280,18 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         slotStateManager.setRemoveState();
     }
 
-    public void startDefaultState(){
-        slotStateManager.setDefaultSlotState();
+    public void startSelectState(){
+        slotStateManager.setSelectState();
     }
 
+    public void startDragState(){slotStateManager.setDragState();}
+
     public void mousePressed(int x, int y, SlideView sw){
-        Color c = MainFrame.getInstance().getColor();
-        slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw.getSlotViewList(), sw, sw.getSlideRuNode(), c.getRed(), c.getGreen(), c.getBlue());
+        slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw);
     }
 
     public void mouseDragged(int x, int y, SlideView sw){
-        slotStateManager.getCurr().mouseDragged(x,y,getHeight()/7, getWidth()/7, sw.getSlotViewList(), sw, sw.getSlideRuNode());
+        slotStateManager.getCurr().mouseDragged(x,y,sw);
     }
 
 }

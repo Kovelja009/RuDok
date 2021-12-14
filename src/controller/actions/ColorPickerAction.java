@@ -1,7 +1,9 @@
 package controller.actions;
 
 
+import model.workspace.Prezentacija;
 import view.MainFrame;
+import view.workspaceView.PrezentacijaView;
 
 
 import javax.swing.*;
@@ -22,6 +24,6 @@ public class ColorPickerAction extends AbstractRudokAction{
         Color c = JColorChooser.showDialog(MainFrame.getInstance(), "Choose a color", Color.magenta);
 
         if(c != null)
-            MainFrame.getInstance().setColor(c);
+            ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).changeColor(c);
     }
 }

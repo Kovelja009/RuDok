@@ -72,7 +72,6 @@ public class ProjekatView extends JPanel implements Subsriber {
             if(p.getPrezentacijaRuNode().equals(bris)){
                 (p.getPrezentacijaRuNode()).removeSubscriber(this);
                 prezentacijaTabbedPane.removeTabAt(prezentacijaViewList.indexOf(p));
-                System.out.println("Izbacena " + p.getPrezentacijaRuNode().getName());
                 brisanje = p;
                 break;
             }
@@ -88,7 +87,6 @@ public class ProjekatView extends JPanel implements Subsriber {
         PrezentacijaView prezView = new PrezentacijaView(dodavanje);
         prezentacijaViewList.add(prezView);
         prezentacijaTabbedPane.addTab(dodavanje.getName(), prezView);
-        System.out.println("Dodata " + dodavanje.getName());
     }
 
 

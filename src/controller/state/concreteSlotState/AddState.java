@@ -1,18 +1,19 @@
 package controller.state.concreteSlotState;
 
 import controller.state.StateSlot;
-import model.workspace.Slide;
 import model.workspace.Slot;
+import view.MainFrame;
+import view.workspaceView.PrezentacijaView;
 import view.workspaceView.SlideView;
-import view.workspaceView.SlotView;
 
-import java.util.List;
+import java.awt.*;
 
 public class AddState extends StateSlot {
     @Override
-    public void mousePressed(int x, int y, int height, int width, List<SlotView> slotViewList, SlideView slideView,  Slide slide, int red, int green, int blue) {
-        System.out.print("Dodavanje slota");
-        Slot slot = new Slot(x, y, height, width, red, green, blue);
-        slide.addSlot(slot);
+    public void mousePressed(int x, int y, int height, int width, SlideView slideView) {
+Color c = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getColor();
+
+        Slot slot = new Slot(x, y, height, width, c.getRed(), c.getGreen(), c.getBlue());
+        slideView.getSlideRuNode().addSlot(slot);
     }
 }

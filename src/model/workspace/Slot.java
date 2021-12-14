@@ -3,6 +3,7 @@ package model.workspace;
 import controller.observers.Publisher;
 import controller.observers.Subsriber;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class Slot implements Publisher {
     private int red;
     private int green;
     private int blue;
+    private Stroke stroke = new BasicStroke();
     private List<Subsriber> subsriberList;
-    private boolean selected = false;
 
     public Slot(int x, int y, int height, int width, int red, int green, int blue) {
         this.x = x;
@@ -77,14 +78,6 @@ public class Slot implements Publisher {
 
     public void setY(int y) {
         this.y = y;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
     }
 
     @Override

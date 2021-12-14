@@ -3,8 +3,9 @@ package controller.state;
 import controller.state.concreteState.EditState;
 import controller.state.concreteState.PreviewState;
 
+import java.awt.*;
+
 public class StateManager {
-    private static StateManager instance = null;
     private State curr;
     private EditState editState;
     private PreviewState previewState;

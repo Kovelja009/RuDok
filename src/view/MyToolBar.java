@@ -21,8 +21,7 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getPopupAutorAction());
         addSeparator();
         add(MainFrame.getInstance().getActionManager().getPopupPozadinaAction());
-        addSeparator();
-        add(MainFrame.getInstance().getActionManager().getColorPickerAction());
+
 
     }
 }

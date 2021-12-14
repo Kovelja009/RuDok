@@ -20,7 +20,6 @@ public class MouseChecker extends MouseAdapter {
 
         if (e.getButton()==MouseEvent.BUTTON1){
             pw.mousePressed(e.getX(), e.getY(), sw);
-            System.out.println(": " + pw.getName());
         }
     }
 

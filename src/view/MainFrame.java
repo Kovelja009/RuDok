@@ -22,7 +22,7 @@ public class MainFrame extends JFrame implements Subsriber {
     private JPanel editModePanel;
     private MyTreeModel myTreeModel;
     private MyTree myTree;
-    private Color color;
+
 
     private MainFrame(){}
 
@@ -49,7 +49,6 @@ public class MainFrame extends JFrame implements Subsriber {
         makeEditPane();
         getContentPane().add(editModePanel);
 
-        color = Color.RED;
     }
 
     private void makeEditPane(){
@@ -136,11 +135,4 @@ public class MainFrame extends JFrame implements Subsriber {
 
     public JMenuBar menuBarGetter(){return menuBar;}
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
 }
