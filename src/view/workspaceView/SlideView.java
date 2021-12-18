@@ -34,9 +34,11 @@ public class SlideView extends JPanel implements Subsriber {
             addMouseMotionListener(mouseChecker);
             this.setPreferredSize(new Dimension(700, 400));
             this.setMaximumSize(new Dimension(700, 400));
+            brojSlajda.setFont(new Font(brojSlajda.getFont().getFontName(), brojSlajda.getFont().getStyle(), 20));
         }else{
             this.setPreferredSize(new Dimension(175,100));
             this.setMaximumSize(new Dimension(175,100));
+            brojSlajda.setFont(new Font(brojSlajda.getFont().getFontName(), brojSlajda.getFont().getStyle(), 14));
         }
 
 
@@ -107,6 +109,7 @@ public class SlideView extends JPanel implements Subsriber {
                 sw.setHeight(sw.getHeight()/4);
                 sw.setX(sw.getX()/4);
                 sw.setY(sw.getY()/4);
+                sw.setStrokeSize(sw.getStrokeSize()/3);
             }
             slotViewList.add(sw);
             sw.getSlot().addSubscriber(this);

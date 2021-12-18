@@ -17,6 +17,8 @@ public class ActionManager {
     private SelectSlotAction selectSlotAction;
     private ColorPickerAction colorPickerAction;
     private DragSlotAction dragSlotAction;
+    private DashedAction dashedAction;
+    private CircleAction circleAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -33,6 +35,8 @@ public class ActionManager {
         selectSlotAction = new SelectSlotAction();
         colorPickerAction = new ColorPickerAction();
         dragSlotAction = new DragSlotAction();
+        dashedAction = new DashedAction();
+        circleAction = new CircleAction();
 
     }
 
@@ -90,5 +94,13 @@ public class ActionManager {
 
     public DragSlotAction getDragSlotAction() {
         return dragSlotAction;
+    }
+
+    public DashedAction getDashedAction() {
+        return dashedAction;
+    }
+
+    public CircleAction getCircleAction() {
+        return circleAction;
     }
 }

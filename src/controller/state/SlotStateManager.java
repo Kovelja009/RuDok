@@ -14,6 +14,8 @@ public class SlotStateManager {
     private SelectState selectState;
     private DragState dragState;
     private Color color = new Color(24, 35, 234, 150);
+    private int strokeSize = 1;
+    private int strokeType = 0;
 
     public SlotStateManager(){
         addState = new AddState();
@@ -42,5 +44,21 @@ public class SlotStateManager {
 
     public void setColor(Color color) {
         this.color = new Color(color.getRed(), color.getGreen(), color.getBlue(), 150);
+    }
+
+    public int getStrokeSize() {
+        return strokeSize;
+    }
+
+    public void setStrokeSize(int strokeSize) {
+        this.strokeSize = strokeSize;
+    }
+
+    public int getStrokeType() {
+        return strokeType;
+    }
+
+    public void setStrokeType(int strokeType) {
+        this.strokeType = strokeType;
     }
 }

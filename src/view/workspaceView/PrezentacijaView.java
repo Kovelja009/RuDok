@@ -1,5 +1,6 @@
 package view.workspaceView;
 
+import controller.listeners.AnotherBoringListener;
 import controller.observers.Subsriber;
 import controller.state.SlotStateManager;
 import controller.state.StateManager;
@@ -28,6 +29,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private JPanel contentPane;
     private JPanel previewPanel;
     private SlotStateManager slotStateManager;
+    private JTextField strokeSizeTF;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
@@ -67,6 +69,11 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         prezToolbar = new JToolBar();
         prezToolbar.setOrientation(SwingConstants.HORIZONTAL);
         prezToolbar.setFloatable(false);
+        strokeSizeTF = new JTextField("Enter size of stroke");
+        strokeSizeTF.addFocusListener(new AnotherBoringListener());
+        strokeSizeTF.setMaximumSize(new Dimension(120, 50));
+        strokeSizeTF.setBackground(new Color(77, 7, 141));
+        strokeSizeTF.setForeground(new Color(68, 215, 69));
     }
 
     public void generateEditToolbar(){
@@ -74,11 +81,16 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         prezToolbar.revalidate();
         prezToolbar.add(MainFrame.getInstance().getActionManager().getPreviewAction());
         prezToolbar.addSeparator();
-        prezToolbar.add(MainFrame.getInstance().getActionManager().getColorPickerAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getAddSlotAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getRemoveSlotAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getSelectSlotAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getDragSlotAction());
+        prezToolbar.addSeparator();
+        prezToolbar.addSeparator();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getColorPickerAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getDashedAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getCircleAction());
+        prezToolbar.add(strokeSizeTF);
 
 
         prezToolbar.repaint();
@@ -234,36 +246,19 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         this.prezentacijaRuNode.addSubscriber(this);
     }
 
-    public JLabel getAutorlbl() {
-        return autorlbl;
-    }
-
-    public void setAutorlbl(JLabel autorlbl) {
-        this.autorlbl = autorlbl;
-    }
-
-
-    public List<SlideView> getSlideViewList() {
-        return slideViewList;
-    }
-
-    public JPanel getNalepnica() {
-        return nalepnica;
-    }
-
-    public JPanel getPreviewPanel() {
-        return previewPanel;
-    }
-
-    public void setSlideViewList(List<SlideView> slideViewList) {
-        this.slideViewList = slideViewList;
-    }
-
     public void changeColor(Color color){
         slotStateManager.setColor(color);
     }
 
     public Color getColor(){return slotStateManager.getColor();}
+
+    public int getStrokeSize(){return slotStateManager.getStrokeSize();}
+
+    public void setStrokeSize(int strokeSize){slotStateManager.setStrokeSize(strokeSize);}
+
+    public int getStrokeType(){return slotStateManager.getStrokeType();}
+
+    public void setStrokeType(int strokeType){slotStateManager.setStrokeType(strokeType);}
 
     public void startEditState(){stateManager.setEditState();}
     public void startPreviewState(){stateManager.setPreviewState();}
@@ -294,4 +289,36 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         slotStateManager.getCurr().mouseDragged(x,y,sw);
     }
 
+    public JLabel getAutorlbl() {
+        return autorlbl;
+    }
+
+    public void setAutorlbl(JLabel autorlbl) {
+        this.autorlbl = autorlbl;
+    }
+
+
+    public List<SlideView> getSlideViewList() {
+        return slideViewList;
+    }
+
+    public JPanel getNalepnica() {
+        return nalepnica;
+    }
+
+    public JPanel getPreviewPanel() {
+        return previewPanel;
+    }
+
+    public void setSlideViewList(List<SlideView> slideViewList) {
+        this.slideViewList = slideViewList;
+    }
+
+    public void setStrokeSizeTF(JTextField strokeSize) {
+        this.strokeSizeTF = strokeSize;
+    }
+
+    public JTextField getStrokeSizeTF() {
+        return strokeSizeTF;
+    }
 }

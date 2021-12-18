@@ -5,6 +5,7 @@ import view.workspaceView.SlideView;
 import view.workspaceView.SlotView;
 
 import java.awt.*;
+import java.util.List;
 
 public class SelectState extends StateSlot {
 
@@ -12,9 +13,13 @@ public class SelectState extends StateSlot {
     public void mousePressed(int x, int y, int height, int width, SlideView slideView) {
         Point pos = new Point(x, y);
 
-        for(SlotView sw : slideView.getSlotViewList()){
-            if(sw.elementAt(pos))
-                slideView.setSelectedSlotView(sw);
+        List<SlotView> swList = slideView.getSlotViewList();
+        for(int i = swList.size()-1; i >= 0; i--){
+            if(swList.get(i).elementAt(pos)){
+                slideView.setSelectedSlotView(swList.get(i));
+                return;
+            }
+
         }
     }
 

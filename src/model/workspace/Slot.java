@@ -3,7 +3,6 @@ package model.workspace;
 import controller.observers.Publisher;
 import controller.observers.Subsriber;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,8 @@ public class Slot implements Publisher {
     private int red;
     private int green;
     private int blue;
-    private Stroke stroke = new BasicStroke();
+    private int strokeSize;
+    private int strokeType;
     private List<Subsriber> subsriberList;
 
     public Slot(int x, int y, int height, int width, int red, int green, int blue) {
@@ -64,20 +64,20 @@ public class Slot implements Publisher {
         return blue;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public int getStrokeSize() {
+        return strokeSize;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setStrokeSize(int strokeSize) {
+        this.strokeSize = strokeSize;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public int getStrokeType() {
+        return strokeType;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setStrokeType(int strokeType) {
+        this.strokeType = strokeType;
     }
 
     @Override
