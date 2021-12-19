@@ -29,7 +29,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private JPanel contentPane;
     private JPanel previewPanel;
     private SlotStateManager slotStateManager;
-    private JTextField strokeSizeTF;
+    private JSlider slider;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
@@ -65,15 +65,25 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
     }
 
+    private void initializeSlider(){
+        slider=new JSlider(1,10);
+        slider.setPaintTrack(true);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        slider.setMajorTickSpacing(1);
+        slider.setMinorTickSpacing(1);
+        slider.setMaximumSize(new Dimension(200,60));
+        slider.setBackground(new Color(0x4D078D));
+        slider.setForeground(new Color(0x44D745));
+        AnotherBoringListener abl = new AnotherBoringListener();
+        slider.addChangeListener(abl);
+    }
+
     private void initializeToolbar(){
         prezToolbar = new JToolBar();
         prezToolbar.setOrientation(SwingConstants.HORIZONTAL);
         prezToolbar.setFloatable(false);
-        strokeSizeTF = new JTextField("Enter size of stroke");
-        strokeSizeTF.addFocusListener(new AnotherBoringListener());
-        strokeSizeTF.setMaximumSize(new Dimension(120, 50));
-        strokeSizeTF.setBackground(new Color(77, 7, 141));
-        strokeSizeTF.setForeground(new Color(68, 215, 69));
+        initializeSlider();
     }
 
     public void generateEditToolbar(){
@@ -90,7 +100,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         prezToolbar.add(MainFrame.getInstance().getActionManager().getColorPickerAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getDashedAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getCircleAction());
-        prezToolbar.add(strokeSizeTF);
+        prezToolbar.add(slider);
 
 
         prezToolbar.repaint();
@@ -314,11 +324,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         this.slideViewList = slideViewList;
     }
 
-    public void setStrokeSizeTF(JTextField strokeSize) {
-        this.strokeSizeTF = strokeSize;
-    }
-
-    public JTextField getStrokeSizeTF() {
-        return strokeSizeTF;
+    public JSlider getSlider() {
+        return slider;
     }
 }

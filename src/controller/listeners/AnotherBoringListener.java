@@ -4,21 +4,15 @@ import view.MainFrame;
 import view.workspaceView.PrezentacijaView;
 
 import javax.swing.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class AnotherBoringListener extends FocusAdapter {
+
+public class AnotherBoringListener implements ChangeListener {
 
     @Override
-    public void focusGained(FocusEvent e) {
-        JTextField tf = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getStrokeSizeTF();
-        if (tf.getText().equals("Enter size of stroke"))
-            tf.setText("");
-    }
-    @Override
-    public void focusLost(FocusEvent e) {
-        JTextField tf = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getStrokeSizeTF();
-        if (tf.getText().isEmpty())
-            tf.setText("Enter size of stroke");
+    public void stateChanged(ChangeEvent e) {
+        PrezentacijaView pw = (PrezentacijaView) MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent();
+        pw.setStrokeSize(pw.getSlider().getValue());
     }
 }

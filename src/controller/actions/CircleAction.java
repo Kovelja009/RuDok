@@ -18,8 +18,8 @@ public class CircleAction extends AbstractRudokAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        super.setStroke();
         PrezentacijaView pw = ((PrezentacijaView) MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent());
+        pw.setStrokeSize(pw.getSlider().getValue());
         pw.setStrokeType(0);
 
     }
