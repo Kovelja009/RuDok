@@ -41,6 +41,18 @@ public class SlideView extends JPanel implements Subsriber {
             brojSlajda.setFont(new Font(brojSlajda.getFont().getFontName(), brojSlajda.getFont().getStyle(), 14));
         }
 
+        for(Slot slot: slideRuNode.getSlotList()){
+            SlotView sw = new SlotView(slot);
+            if(velicina == 0){
+                sw.setWidth(sw.getWidth()/4);
+                sw.setHeight(sw.getHeight()/4);
+                sw.setX(sw.getX()/4);
+                sw.setY(sw.getY()/4);
+                sw.setStrokeSize(sw.getStrokeSize()/3);
+            }
+            slotViewList.add(sw);
+            sw.getSlot().addSubscriber(this);
+        }
 
         this.add(brojSlajda, BorderLayout.SOUTH);
         setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,10));
