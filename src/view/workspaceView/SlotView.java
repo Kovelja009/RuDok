@@ -13,6 +13,7 @@ public class SlotView implements Subsriber {
     private int x;
     private int y;
     private int strokeSize;
+    private boolean selected = false;
 
 
     public SlotView(Slot slot) {
@@ -33,6 +34,8 @@ public class SlotView implements Subsriber {
             g.setStroke(new BasicStroke(strokeSize));
         else
             g.setStroke(new BasicStroke(strokeSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[]{9}, 0));
+        if(selected)
+            g.drawString("selected", x, y);
         g.drawRect(x, y, width, height);
     }
 
@@ -101,5 +104,9 @@ public class SlotView implements Subsriber {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }
