@@ -11,9 +11,9 @@ public class Projekat extends RuNodeComposite {
     }
 
     @Override
-    public void addChild(RuNode child) {
+    public void addChild(RuNode child, int broj) {
         if(child instanceof Prezentacija && !getChildren().contains(child)){
-            super.addChild(child);
+            super.addChild(child, broj);
         }
     }
 

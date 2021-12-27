@@ -19,6 +19,8 @@ public class ActionManager {
     private DragSlotAction dragSlotAction;
     private DashedAction dashedAction;
     private CircleAction circleAction;
+    private UndoAction undoAction;
+    private RedoAction redoAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -37,7 +39,8 @@ public class ActionManager {
         dragSlotAction = new DragSlotAction();
         dashedAction = new DashedAction();
         circleAction = new CircleAction();
-
+        undoAction = new UndoAction();
+        redoAction = new RedoAction();
     }
 
     public InfoAction getInfoAction() {
@@ -102,5 +105,13 @@ public class ActionManager {
 
     public CircleAction getCircleAction() {
         return circleAction;
+    }
+
+    public UndoAction getUndoAction() {
+        return undoAction;
+    }
+
+    public RedoAction getRedoAction() {
+        return redoAction;
     }
 }

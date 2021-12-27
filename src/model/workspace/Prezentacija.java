@@ -15,9 +15,9 @@ public class Prezentacija extends RuNodeComposite {
     }
 
     @Override
-    public void addChild(RuNode child) {
+    public void addChild(RuNode child, int broj) {
         if(child instanceof Slide && !getChildren().contains(child)){
-            super.addChild(child);
+            super.addChild(child, broj);
         }
     }
 

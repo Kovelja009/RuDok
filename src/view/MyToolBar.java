@@ -13,14 +13,15 @@ public class MyToolBar extends JToolBar {
 
 
         add(MainFrame.getInstance().getActionManager().getNewAction());
-        addSeparator();
         add(MainFrame.getInstance().getActionManager().getDeleteAction());
-        addSeparator();
-        add(MainFrame.getInstance().getActionManager().getInfoAction());
-        addSeparator();
+        addSeparator(new Dimension(15,50));
+        add(MainFrame.getInstance().getActionManager().getUndoAction());
+        add(MainFrame.getInstance().getActionManager().getRedoAction());
+        addSeparator(new Dimension(15,50));
         add(MainFrame.getInstance().getActionManager().getPopupAutorAction());
-        addSeparator();
         add(MainFrame.getInstance().getActionManager().getPopupPozadinaAction());
+        addSeparator(new Dimension(15,50));
+        add(MainFrame.getInstance().getActionManager().getInfoAction());
 
 
     }

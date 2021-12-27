@@ -1,6 +1,7 @@
 package view;
 
 import controller.actions.ActionManager;
+import controller.commands.CommandManager;
 import controller.errorHandler.ErrorFactory;
 import controller.errorHandler.MyError;
 import controller.observers.Subsriber;
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame implements Subsriber {
     private JPanel editModePanel;
     private MyTreeModel myTreeModel;
     private MyTree myTree;
+    private CommandManager commandManager;
 
 
     private MainFrame(){}
@@ -30,6 +32,7 @@ public class MainFrame extends JFrame implements Subsriber {
 
         initialiseMyTree();
         ErrorFactory.getInstance().addSubscriber(this);
+        commandManager = new CommandManager();
 
         Toolkit kit = Toolkit.getDefaultToolkit();
         Dimension dim = kit.getScreenSize();
@@ -101,38 +104,15 @@ public class MainFrame extends JFrame implements Subsriber {
         return actionManager;
     }
 
-    public void setActionManager(ActionManager actionManager) {
-        this.actionManager = actionManager;
-    }
-
-    public MyTreeModel getMyTreeModel() {
-        return myTreeModel;
-    }
-
-    public void setMyTreeModel(MyTreeModel myTreeModel) {
-        this.myTreeModel = myTreeModel;
-    }
-
     public MyTree getMyTree() {
         return myTree;
-    }
-
-    public void setMyTree(MyTree myTree) {
-        this.myTree = myTree;
     }
 
     public ProjekatView getMainProjectView() {
         return mainProjectView;
     }
 
-    public void setMainProjectView(ProjekatView mainProjectView) {
-        this.mainProjectView = mainProjectView;
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
-
-    public JPanel getEditModePanel() {
-        return editModePanel;
-    }
-
-    public JMenuBar menuBarGetter(){return menuBar;}
-
 }

@@ -11,9 +11,9 @@ public abstract class RuNodeComposite extends RuNode {
         children = new ArrayList<>();
     }
 
-    public void addChild(RuNode child){
+    public void addChild(RuNode child, int broj){
         if(!children.contains(child)){
-            children.add(child);
+            children.add(broj,child);
         }
         notifySubcribers(child, "dodavanje");
     }

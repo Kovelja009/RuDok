@@ -3,6 +3,7 @@ package view.tree.model;
 import model.*;
 import model.workspace.*;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -18,23 +19,21 @@ public class MyTreeNode implements TreeNode {
         node = ruNode;
         children = new ArrayList<>();
     }
-// da li treba override-ovati sve metode iz DefaultMutableTreeNode tako da odgovaraju nasem modelu ili ne?
-
 
     @Override
     public TreeNode getChildAt(int childIndex) {
         if(childIndex >= 0 && childIndex < children.size()){
             return children.get(childIndex);
         }
-
-        System.out.println("Nije moguce pristupiti indexu " + childIndex + " TreeNoda " + this);
         return null;
     }
 
-    public void addChild(TreeNode child){
+    public void addChild(TreeNode child, int broj){
         if(node instanceof RuNodeComposite){
-            children.add(child);
-            ((RuNodeComposite)node).addChild(((MyTreeNode)child).getNode());
+            if(broj > getChildCount())
+                broj = getChildCount();
+            children.add(broj, child);
+            ((RuNodeComposite)node).addChild(((MyTreeNode)child).getNode(), broj);
         }
     }
 
@@ -63,19 +62,6 @@ public class MyTreeNode implements TreeNode {
                 parent = parentt;
                 node.setParent(((MyTreeNode)parentt).getNode());
         }
-
-//        else if(node instanceof Prezentacija && ((MyTreeNode)parentt).getNode() instanceof Projekat){
-//            parent = parentt;
-//            node.setParent(((MyTreeNode)parentt).getNode());
-//        }
-//
-//        else if(node instanceof Slide && ((MyTreeNode)parentt).getNode() instanceof Prezentacija){
-//            parent = parentt;
-//            node.setParent(((MyTreeNode)parentt).getNode());
-//        }
-//        else{
-//        System.out.println("Nije moguce setovati parenta " + parentt.toString() + " u MyTreeNode " + this);
-//        }
     }
 
     @Override

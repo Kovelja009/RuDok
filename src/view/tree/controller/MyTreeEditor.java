@@ -1,5 +1,6 @@
 package view.tree.controller;
 
+import controller.commands.NameCommand;
 import controller.errorHandler.ErrorFactory;
 import model.RuNode;
 import model.workspace.Projekat;
@@ -53,7 +54,7 @@ public class MyTreeEditor extends DefaultTreeCellEditor implements ActionListene
                 ErrorFactory.getInstance().generateError("Can't leave name empty", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            node.setName(e.getActionCommand());
+            MainFrame.getInstance().getCommandManager().addCommand(new NameCommand(node.getName(), e.getActionCommand(), node));
         }
 
     }

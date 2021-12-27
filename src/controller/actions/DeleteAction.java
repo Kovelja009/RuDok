@@ -1,5 +1,7 @@
 package controller.actions;
 
+import controller.commands.AddCommand;
+import controller.commands.RemoveCommand;
 import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
@@ -28,24 +30,7 @@ public class DeleteAction extends AbstractRudokAction{
                 ErrorFactory.getInstance().generateError("Can't delete workspace", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(childTreeNode.getNode().equals(MainFrame.getInstance().getMainProjectView().getProjekatRuNode())){
-                MainFrame.getInstance().getMainProjectView().setProjekatRuNode(null);
-            }
-
-            parentTreeNode.removeChild(childTreeNode);
-
-            if(((MyTreeNode)o).getNode() instanceof Slide){
-                Prezentacija prez = (Prezentacija) ((MyTreeNode)o).getNode().getParent();
-                for(int i = 0; i < prez.getChildren().size(); i++){
-                    if(prez.getChildren().get(i) instanceof Slide){
-                        ((Slide)prez.getChildren().get(i)).setRedniBroj(i + 1);
-
-                    }
-                }
-            }
-
-            SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
-
+            MainFrame.getInstance().getCommandManager().addCommand(new RemoveCommand(parentTreeNode, childTreeNode));
         }
     }
 }

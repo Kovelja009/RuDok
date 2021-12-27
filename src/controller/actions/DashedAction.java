@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 public class DashedAction extends AbstractRudokAction{
     public DashedAction(){
-        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK));
         putValue(SMALL_ICON, loadIcon("../images/dashed.png"));
         putValue(NAME, "Dashed stroke");
         putValue(SHORT_DESCRIPTION, "Chooses dashed stroke");
