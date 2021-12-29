@@ -2,6 +2,7 @@ package view.workspaceView;
 
 import controller.listeners.AnotherBoringListener;
 import controller.observers.Subsriber;
+import controller.state.EditorStateManager;
 import controller.state.SlotStateManager;
 import controller.state.StateManager;
 import model.RuNode;
@@ -24,12 +25,14 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private JPanel malaNalepnica;
     private JScrollPane desniScrollPane;
     private JScrollPane leviScrollPane;
-    private StateManager stateManager;
     private JToolBar prezToolbar;
     private JPanel contentPane;
     private JPanel previewPanel;
-    private SlotStateManager slotStateManager;
     private JSlider slider;
+    private StateManager stateManager;
+    private SlotStateManager slotStateManager;
+    private EditorStateManager editorStateManager;
+    private SlotView selectedSlotView;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
@@ -38,6 +41,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
         stateManager = new StateManager();
         slotStateManager = new SlotStateManager();
+        editorStateManager = new EditorStateManager();
 
         this.prezentacijaRuNode = prezentacijaRuNode;
         this.prezentacijaRuNode.addSubscriber(this);
@@ -89,17 +93,25 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     public void generateEditToolbar(){
         prezToolbar.removeAll();
         prezToolbar.revalidate();
+
         prezToolbar.add(MainFrame.getInstance().getActionManager().getPreviewAction());
+        prezToolbar.addSeparator();
         prezToolbar.addSeparator();
         prezToolbar.add(MainFrame.getInstance().getActionManager().getAddSlotAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getRemoveSlotAction());
+        prezToolbar.addSeparator();
         prezToolbar.add(MainFrame.getInstance().getActionManager().getSelectSlotAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getDragSlotAction());
         prezToolbar.addSeparator();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getTextAction());
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getPictureAction());
+        prezToolbar.addSeparator();
+        prezToolbar.add(MainFrame.getInstance().getActionManager().getEditorAction());
         prezToolbar.addSeparator();
         prezToolbar.add(MainFrame.getInstance().getActionManager().getColorPickerAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getDashedAction());
         prezToolbar.add(MainFrame.getInstance().getActionManager().getCircleAction());
+        prezToolbar.addSeparator();
         prezToolbar.add(slider);
 
 
@@ -271,11 +283,18 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     public void setStrokeType(int strokeType){slotStateManager.setStrokeType(strokeType);}
 
     public void startEditState(){stateManager.setEditState();}
+
     public void startPreviewState(){stateManager.setPreviewState();}
 
     public void changeState(){
         stateManager.getCurr().changeState();
     }
+
+    public void startTextState(){editorStateManager.setTextState();}
+
+    public void startPictureState(){editorStateManager.setPictureState();}
+
+    public String getType(){return editorStateManager.getCurr().getType();}
 
     public void startAddState(){
         slotStateManager.setAddState();
@@ -299,32 +318,24 @@ public class PrezentacijaView extends JPanel implements Subsriber {
         slotStateManager.getCurr().mouseDragged(x,y,sw);
     }
 
-    public JLabel getAutorlbl() {
-        return autorlbl;
-    }
-
-    public void setAutorlbl(JLabel autorlbl) {
-        this.autorlbl = autorlbl;
-    }
-
 
     public List<SlideView> getSlideViewList() {
         return slideViewList;
-    }
-
-    public JPanel getNalepnica() {
-        return nalepnica;
     }
 
     public JPanel getPreviewPanel() {
         return previewPanel;
     }
 
-    public void setSlideViewList(List<SlideView> slideViewList) {
-        this.slideViewList = slideViewList;
-    }
-
     public JSlider getSlider() {
         return slider;
+    }
+
+    public SlotView getSelectedSlotView() {
+        return selectedSlotView;
+    }
+
+    public void setSelectedSlotView(SlotView selectedSlotView) {
+        this.selectedSlotView = selectedSlotView;
     }
 }

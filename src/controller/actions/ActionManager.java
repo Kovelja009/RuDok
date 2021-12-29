@@ -21,6 +21,10 @@ public class ActionManager {
     private CircleAction circleAction;
     private UndoAction undoAction;
     private RedoAction redoAction;
+    private PictureAction pictureAction;
+    private TextAction textAction;
+    private EditorAction editorAction;
+    private SaveSlotChangeAction saveSlotChangeAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -41,6 +45,10 @@ public class ActionManager {
         circleAction = new CircleAction();
         undoAction = new UndoAction();
         redoAction = new RedoAction();
+        pictureAction = new PictureAction();
+        textAction = new TextAction();
+        editorAction = new EditorAction();
+        saveSlotChangeAction = new SaveSlotChangeAction();
     }
 
     public InfoAction getInfoAction() {
@@ -113,5 +121,21 @@ public class ActionManager {
 
     public RedoAction getRedoAction() {
         return redoAction;
+    }
+
+    public PictureAction getPictureAction() {
+        return pictureAction;
+    }
+
+    public TextAction getTextAction() {
+        return textAction;
+    }
+
+    public EditorAction getEditorAction() {
+        return editorAction;
+    }
+
+    public SaveSlotChangeAction getSaveSlotChangeAction() {
+        return saveSlotChangeAction;
     }
 }

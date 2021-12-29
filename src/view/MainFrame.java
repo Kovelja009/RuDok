@@ -5,9 +5,13 @@ import controller.commands.CommandManager;
 import controller.errorHandler.ErrorFactory;
 import controller.errorHandler.MyError;
 import controller.observers.Subsriber;
+import view.editor_dialogs.AbstractDialog;
+import view.editor_dialogs.PictureDialog;
+import view.editor_dialogs.TextDialog;
 import view.tree.view.MyTree;
 import view.tree.model.MyTreeModel;
 import view.workspaceView.ProjekatView;
+import view.workspaceView.SlotView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +28,9 @@ public class MainFrame extends JFrame implements Subsriber {
     private MyTreeModel myTreeModel;
     private MyTree myTree;
     private CommandManager commandManager;
-
+    private PictureDialog pictureDialog;
+    private TextDialog textDialog;
+    private AbstractDialog currentDialog;
 
     private MainFrame(){}
 
@@ -51,7 +57,8 @@ public class MainFrame extends JFrame implements Subsriber {
 
         makeEditPane();
         getContentPane().add(editModePanel);
-
+        pictureDialog = new PictureDialog(this);
+        textDialog = new TextDialog(this);
     }
 
     private void makeEditPane(){
@@ -114,5 +121,16 @@ public class MainFrame extends JFrame implements Subsriber {
 
     public CommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public AbstractDialog getCurrentDialog() {
+        return currentDialog;
+    }
+
+    public void setCurrentDialog(SlotView selected) {
+        if(selected.getSlot().getSlotType().equals("text"))
+            currentDialog = textDialog;
+        if(selected.getSlot().getSlotType().equals("picture"))
+            currentDialog = pictureDialog;
     }
 }

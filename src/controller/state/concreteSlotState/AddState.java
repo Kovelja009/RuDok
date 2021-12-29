@@ -16,8 +16,8 @@ Color c = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPre
         int strokeSize = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getStrokeSize();
         int strokeType = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getStrokeType();
 
-
-        Slot slot = new Slot(x, y, height, width, c.getRed(), c.getGreen(), c.getBlue());
+        String type = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getType();
+        Slot slot = new Slot(x, y, height, width, c.getRed(), c.getGreen(), c.getBlue(), type);
         slot.setStrokeSize(strokeSize);
         slot.setStrokeType(strokeType);
         slideView.getSlideRuNode().addSlot(slot);

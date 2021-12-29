@@ -15,14 +15,11 @@ public class SelectState extends StateSlot {
 
         List<SlotView> swList = slideView.getSlotViewList();
         for(int i = swList.size()-1; i >= 0; i--){
-
             if(swList.get(i).elementAt(pos)){
-                slideView.setSelectedSlotView(swList.get(i));
-                swList.get(i).setSelected(true);
+                slideView.setSelectedSlotView(swList.get(i), slideView);
                 slideView.repaint();
-                continue;
+                break;
             }
-            swList.get(i).setSelected(false);
         }
     }
 

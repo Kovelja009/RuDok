@@ -18,18 +18,33 @@ public class SlideView extends JPanel implements Subsriber {
     private List<SlotView> slotViewList;
     private int velicina;
     private SlotView selectedSlotView;
+    private PrezentacijaView parent;
 
     public SlideView(Slide slideRuNode, int velicina, PrezentacijaView pw){
         slotViewList = new ArrayList<>();
         this.slideRuNode = slideRuNode;
         this.slideRuNode.addSubscriber(this);
-        ((Prezentacija)this.slideRuNode.getParent()).addSubscriber(this);
+        this.slideRuNode.getParent().addSubscriber(this);
         setLayout(new BorderLayout());
         this.velicina = velicina;
+        this.parent = pw;
 
         brojSlajda = new JLabel(String.valueOf(slideRuNode.getRedniBroj()));
+        setup();
+
+        for(Slot slot: slideRuNode.getSlotList()){
+            SlotView sw = makeSlotView(slot);
+            slotViewList.add(sw);
+            sw.getSlot().addSubscriber(this);
+        }
+
+        this.add(brojSlajda, BorderLayout.SOUTH);
+        setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,10));
+    }
+
+    private void setup(){
         if(velicina == 1){
-            MouseChecker mouseChecker = new MouseChecker(pw, this);
+            MouseChecker mouseChecker = new MouseChecker(parent, this);
             addMouseListener(mouseChecker);
             addMouseMotionListener(mouseChecker);
             this.setPreferredSize(new Dimension(700, 400));
@@ -40,22 +55,24 @@ public class SlideView extends JPanel implements Subsriber {
             this.setMaximumSize(new Dimension(175,100));
             brojSlajda.setFont(new Font(brojSlajda.getFont().getFontName(), brojSlajda.getFont().getStyle(), 14));
         }
+    }
 
-        for(Slot slot: slideRuNode.getSlotList()){
-            SlotView sw = new SlotView(slot);
-            if(velicina == 0){
-                sw.setWidth(sw.getWidth()/4);
-                sw.setHeight(sw.getHeight()/4);
-                sw.setX(sw.getX()/4);
-                sw.setY(sw.getY()/4);
-                sw.setStrokeSize(sw.getStrokeSize()/3);
-            }
-            slotViewList.add(sw);
-            sw.getSlot().addSubscriber(this);
+    private SlotView makeSlotView(Slot slot){
+        SlotView sw = null;
+        if(velicina == 2)
+            sw = new SlotView(slot, true);
+        else
+            sw = new SlotView(slot, false);
+        if(velicina == 1)
+            sw.setRight(true);
+        if(velicina == 0){
+            sw.setWidth(sw.getWidth()/4);
+            sw.setHeight(sw.getHeight()/4);
+            sw.setX(sw.getX()/4);
+            sw.setY(sw.getY()/4);
+            sw.setStrokeSize(sw.getStrokeSize()/3);
         }
-
-        this.add(brojSlajda, BorderLayout.SOUTH);
-        setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY,10));
+        return sw;
     }
 
     @Override
@@ -115,14 +132,7 @@ public class SlideView extends JPanel implements Subsriber {
                 this.repaint();
         }
         if(notification instanceof Slot && message.equals("dodavanje slota")){
-            SlotView sw = new SlotView((Slot) notification);
-            if(velicina == 0){
-                sw.setWidth(sw.getWidth()/4);
-                sw.setHeight(sw.getHeight()/4);
-                sw.setX(sw.getX()/4);
-                sw.setY(sw.getY()/4);
-                sw.setStrokeSize(sw.getStrokeSize()/3);
-            }
+            SlotView sw = makeSlotView((Slot) notification);
             slotViewList.add(sw);
             sw.getSlot().addSubscriber(this);
             repaint();
@@ -162,7 +172,9 @@ public class SlideView extends JPanel implements Subsriber {
         return selectedSlotView;
     }
 
-    public void setSelectedSlotView(SlotView selectedSlotView) {
+    public void setSelectedSlotView(SlotView selectedSlotView, SlideView slideView) {
         this.selectedSlotView = selectedSlotView;
+        parent.setSelectedSlotView(selectedSlotView);
+        parent.repaint();
     }
 }

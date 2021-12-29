@@ -16,9 +16,12 @@ public class Slot implements Publisher {
     private int blue;
     private int strokeSize;
     private int strokeType;
+    private String slotType;
+    private String text = "";
+
     private List<Subsriber> subsriberList;
 
-    public Slot(int x, int y, int height, int width, int red, int green, int blue) {
+    public Slot(int x, int y, int height, int width, int red, int green, int blue, String slotType) {
         this.x = x;
         this.y = y;
         this.height = height;
@@ -27,6 +30,7 @@ public class Slot implements Publisher {
         this.green = green;
         this.blue = blue;
         subsriberList = new ArrayList<>();
+        this.slotType = slotType;
     }
 
     public void setPos(int x, int y){
@@ -80,6 +84,18 @@ public class Slot implements Publisher {
         this.strokeType = strokeType;
     }
 
+    public String getSlotType() {
+        return slotType;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public void addSubscriber(Subsriber subsriber) {
         subsriberList.add(subsriber);
@@ -100,4 +116,6 @@ public class Slot implements Publisher {
         for(int i = 0; i < subsriberList.size(); i++)
             subsriberList.get(i).updateSubsriber(notification, message);
     }
+
+
 }
