@@ -34,7 +34,7 @@ public class ProjekatView extends JPanel implements Subsriber {
 
     public void setProjekatRuNode(Projekat projekatRuNode) {
         if(this.getProjekatRuNode() != null){
-        this.getProjekatRuNode().removeAllSubcribers();
+        this.getProjekatRuNode().removeSubscriber(this);
         }
 
         List<PrezentacijaView> brisanje = new ArrayList<>(prezentacijaViewList);
@@ -67,12 +67,13 @@ public class ProjekatView extends JPanel implements Subsriber {
 
     private void checkDeleteing(Prezentacija bris){
         PrezentacijaView brisanje = null;
-
+        System.out.println("Stigla notifikacija");
         for(PrezentacijaView p : prezentacijaViewList){
             if(p.getPrezentacijaRuNode().equals(bris)){
                 (p.getPrezentacijaRuNode()).removeSubscriber(this);
                 prezentacijaTabbedPane.removeTabAt(prezentacijaViewList.indexOf(p));
                 brisanje = p;
+                System.out.println("Usao za: " + projekatRuNode.getName());
                 break;
             }
         }

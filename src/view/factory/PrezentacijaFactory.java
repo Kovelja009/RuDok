@@ -7,6 +7,7 @@ public class PrezentacijaFactory extends AbstractNodeFactory{
 
     @Override
     protected RuNode createNode(RuNode parent, int num) {
-        return new Prezentacija("Prezentacija " + num, parent);
+        Prezentacija prezentacija = new Prezentacija("Prezentacija " + num, parent);
+        return prezentacija;
     }
 }

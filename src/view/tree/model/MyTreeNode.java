@@ -2,8 +2,8 @@ package view.tree.model;
 
 import model.*;
 import model.workspace.*;
+import view.MainFrame;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -13,11 +13,14 @@ public class MyTreeNode implements TreeNode {
     private RuNode node;
     private List<TreeNode> children;
     private TreeNode parent;
+    private List<TreeNode> shared;
+    private boolean sharedNode = false;
 
 
     public MyTreeNode(RuNode ruNode){
         node = ruNode;
         children = new ArrayList<>();
+        shared = new ArrayList<>();
     }
 
     @Override
@@ -32,15 +35,66 @@ public class MyTreeNode implements TreeNode {
         if(node instanceof RuNodeComposite){
             if(broj > getChildCount())
                 broj = getChildCount();
-            children.add(broj, child);
+            if(!children.contains(child))
+                children.add(broj, child);
             ((RuNodeComposite)node).addChild(((MyTreeNode)child).getNode(), broj);
         }
     }
 
     public void removeChild(TreeNode child){
             children.remove(child);
-            if(node instanceof RuNodeComposite)
-                ((RuNodeComposite) node).removeChild(((MyTreeNode)child).getNode());
+        if(node instanceof RuNodeComposite)
+            ((RuNodeComposite) node).removeChild(((MyTreeNode)child).getNode());
+        if(((MyTreeNode)child).isShared()){
+            safeDeleting((MyTreeNode) child);
+        }
+    }
+
+    public void safeDeleting(MyTreeNode child){
+        MyTreeNode workspaceTreeNode = (MyTreeNode) MainFrame.getInstance().getMyTree().getModel().getRoot();
+        for(TreeNode project : workspaceTreeNode.getChildren()){
+            if(((MyTreeNode)project).containSharing((MyTreeNode) child)){
+                ((MyTreeNode) project).removeShared((MyTreeNode) child, (MyTreeNode) project);
+                ((RuNodeComposite)((MyTreeNode) project).getNode()).removeChild(child.getNode());
+            }
+
+        }
+    }
+
+    public void removeShared(MyTreeNode myTreeNode, MyTreeNode parent){
+        for(TreeNode dete : children){
+            if(((MyTreeNode)dete).getNode() == myTreeNode.getNode()){
+                children.remove(dete);
+                ((RuNodeComposite)parent.getNode()).removeChild(myTreeNode.getNode());
+                System.out.println("uklonjen share-ovan");
+                break;
+            }
+        }
+    }
+
+    public MyTreeNode findShared(MyTreeNode myTreeNode){
+        for(TreeNode dete : children){
+            if(((MyTreeNode)dete).getNode() == myTreeNode.getNode()){
+                return ((MyTreeNode)dete);
+            }
+        }
+        return null;
+    }
+
+    public boolean isShared(){
+        return sharedNode;
+    }
+
+    public void setSharedNode(boolean sharedNode) {
+        this.sharedNode = sharedNode;
+    }
+
+    public boolean containSharing(MyTreeNode treeNode){
+        for(TreeNode child : children){
+            if(((MyTreeNode)child).getNode() == treeNode.getNode())
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -95,5 +149,13 @@ public class MyTreeNode implements TreeNode {
 
     public void setNode(RuNode node) {
         this.node = node;
+    }
+
+    public List<TreeNode> getChildren() {
+        return children;
+    }
+
+    public List<TreeNode> getShared() {
+        return shared;
     }
 }

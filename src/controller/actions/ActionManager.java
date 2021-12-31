@@ -25,6 +25,7 @@ public class ActionManager {
     private TextAction textAction;
     private EditorAction editorAction;
     private SaveSlotChangeAction saveSlotChangeAction;
+    private SharedAction sharedAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -49,6 +50,7 @@ public class ActionManager {
         textAction = new TextAction();
         editorAction = new EditorAction();
         saveSlotChangeAction = new SaveSlotChangeAction();
+        sharedAction = new SharedAction();
     }
 
     public InfoAction getInfoAction() {
@@ -137,5 +139,9 @@ public class ActionManager {
 
     public SaveSlotChangeAction getSaveSlotChangeAction() {
         return saveSlotChangeAction;
+    }
+
+    public SharedAction getSharedAction() {
+        return sharedAction;
     }
 }

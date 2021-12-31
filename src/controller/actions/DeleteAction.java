@@ -5,6 +5,7 @@ import controller.commands.RemoveCommand;
 import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
 import model.workspace.Slide;
+import model.workspace.Workspace;
 import view.MainFrame;
 import view.tree.model.MyTreeNode;
 
@@ -26,7 +27,7 @@ public class DeleteAction extends AbstractRudokAction{
         if(o instanceof MyTreeNode){
             MyTreeNode childTreeNode = (MyTreeNode) o;
             MyTreeNode parentTreeNode = (MyTreeNode) childTreeNode.getParent();
-            if(parentTreeNode == null){
+            if(childTreeNode.getNode() instanceof Workspace){
                 ErrorFactory.getInstance().generateError("Can't delete workspace", "Warning", JOptionPane.WARNING_MESSAGE);
                 return;
             }

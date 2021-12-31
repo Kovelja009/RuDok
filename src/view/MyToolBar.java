@@ -14,6 +14,7 @@ public class MyToolBar extends JToolBar {
 
         add(MainFrame.getInstance().getActionManager().getNewAction());
         add(MainFrame.getInstance().getActionManager().getDeleteAction());
+        add(MainFrame.getInstance().getActionManager().getSharedAction());
         addSeparator(new Dimension(15,50));
         add(MainFrame.getInstance().getActionManager().getUndoAction());
         add(MainFrame.getInstance().getActionManager().getRedoAction());

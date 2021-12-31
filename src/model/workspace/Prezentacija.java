@@ -3,15 +3,18 @@ package model.workspace;
 import model.RuNode;
 import model.RuNodeComposite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Prezentacija extends RuNodeComposite {
     private String autor = "unknown";
     private String urlPozadina;
+    private List<Projekat> sharedProjects;
 
     public Prezentacija(String name, RuNode parent) {
         super(name, parent);
         urlPozadina = "../../controller/images/background2.jpg";
+        sharedProjects = new ArrayList<>();
     }
 
     @Override
@@ -19,6 +22,15 @@ public class Prezentacija extends RuNodeComposite {
         if(child instanceof Slide && !getChildren().contains(child)){
             super.addChild(child, broj);
         }
+    }
+
+    public List<Projekat> getSharedProjects() {
+        return sharedProjects;
+    }
+
+    public void addSharedProject(Projekat projekat){
+        if(!sharedProjects.contains(projekat))
+            sharedProjects.add(projekat);
     }
 
     @Override

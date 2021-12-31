@@ -49,6 +49,13 @@ public class MyCellRenderer extends DefaultTreeCellRenderer {
             setIcon(icon);
 
         }
+        if(value instanceof MyTreeNode && ((MyTreeNode) value).isShared()){
+            URL imageURL = getClass().getResource("../../../controller/images/presentationShared.png");
+            Icon icon = null;
+            if (imageURL != null)
+                icon = new ImageIcon(imageURL);
+            setIcon(icon);
+        }
 
 
 
