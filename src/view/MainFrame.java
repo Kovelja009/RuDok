@@ -15,6 +15,8 @@ import view.workspaceView.SlotView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainFrame extends JFrame implements Subsriber {
     private static MainFrame instance = null;
@@ -31,6 +33,7 @@ public class MainFrame extends JFrame implements Subsriber {
     private PictureDialog pictureDialog;
     private TextDialog textDialog;
     private AbstractDialog currentDialog;
+    private List<Character> charList;
 
     private MainFrame(){}
 
@@ -50,6 +53,8 @@ public class MainFrame extends JFrame implements Subsriber {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+        charListInit();
         actionManager = new ActionManager();
 
         menuBar = new MyMenuBar();
@@ -59,6 +64,13 @@ public class MainFrame extends JFrame implements Subsriber {
         getContentPane().add(editModePanel);
         pictureDialog = new PictureDialog(this);
         textDialog = new TextDialog(this);
+    }
+
+    private void charListInit(){
+        charList = new ArrayList<>();
+        charList.add('%');
+        charList.add('-');
+        charList.add('+');
     }
 
     private void makeEditPane(){
@@ -125,6 +137,10 @@ public class MainFrame extends JFrame implements Subsriber {
 
     public AbstractDialog getCurrentDialog() {
         return currentDialog;
+    }
+
+    public List<Character> getCharList() {
+        return charList;
     }
 
     public void setCurrentDialog(SlotView selected) {

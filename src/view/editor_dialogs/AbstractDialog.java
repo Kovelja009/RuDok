@@ -1,7 +1,6 @@
 package view.editor_dialogs;
 
 import view.MainFrame;
-import view.workspaceView.SlideView;
 import view.workspaceView.SlotView;
 
 import javax.swing.*;
@@ -17,6 +16,6 @@ public abstract class AbstractDialog extends JDialog {
     }
 
     public abstract void setModel(SlotView slotView);
-    public abstract String getData();
+    public abstract Object getData();
 
 }

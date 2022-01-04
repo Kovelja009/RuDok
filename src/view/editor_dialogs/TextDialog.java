@@ -33,11 +33,14 @@ public class TextDialog extends AbstractDialog {
     }
 
     public void setModel(SlotView slotView){
-        jTextPane.setText(slotView.getSlot().getText());
+        slotView.getSlotHandler().readContent();
+        boldEnabled = false;
+        italicEnabled = false;
+        underlineEnabled = false;
     }
 
-    public String getData(){
-        return jTextPane.getText();
+    public Object getData(){
+        return jTextPane;
     }
 
     private void initializeToolbar(){
@@ -67,7 +70,6 @@ public class TextDialog extends AbstractDialog {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println(attributeSet);
                 if (boldEnabled)
                 {
                     boldEnabled = false;
@@ -126,5 +128,9 @@ public class TextDialog extends AbstractDialog {
                 jTextPane.setCharacterAttributes(attributeSet,true);
             }
         });
+    }
+
+    public JTextPane getjTextPane() {
+        return jTextPane;
     }
 }

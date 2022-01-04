@@ -1,11 +1,9 @@
 package controller.slotHandler;
 
-import model.workspace.Prezentacija;
 import view.workspaceView.SlotView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public class PhotoHandler extends SlotHandler{
     public PhotoHandler(SlotView slotView) {
@@ -18,8 +16,8 @@ public class PhotoHandler extends SlotHandler{
     }
 
     @Override
-    public void writeContent(String content) {
-        super.slotView.getSlot().setText(content);
+    public void writeContent(Object content) {
+        super.slotView.getSlot().setText((String) content);
     }
 
     @Override

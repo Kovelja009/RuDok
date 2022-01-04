@@ -12,6 +12,6 @@ public abstract class SlotHandler {
     }
 
     public abstract String readContent();
-    public abstract void writeContent(String content);
+    public abstract void writeContent(Object content);
     public abstract void paint(Graphics g);
 }

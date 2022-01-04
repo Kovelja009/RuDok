@@ -3,14 +3,10 @@ package view.editor_dialogs;
 import controller.errorHandler.ErrorFactory;
 import view.MainFrame;
 import view.workspaceView.SlotView;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class PictureDialog extends AbstractDialog {
     private String currentText = "nesto"; // postaviti putanju trenutne slike i posle svakog JFileChooser-a
@@ -22,6 +18,7 @@ public class PictureDialog extends AbstractDialog {
         super(mainFrame);
         setTitle("Photo editor");
         slikaPanel = new ImagePanel(this);
+        slikaPanel.setPreferredSize(new Dimension((int)Toolkit.getDefaultToolkit().getScreenSize().getWidth()/ 4, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()/ 4));
         initializetoolbar();
         add(slikaPanel, BorderLayout.CENTER);
         add(toolbar, BorderLayout.EAST);
@@ -29,12 +26,12 @@ public class PictureDialog extends AbstractDialog {
     }
 
     public void setModel(SlotView slotView){
-        currentText = slotView.getSlot().getText();
-        slikaPanel.drawImage(slotView.getSlot().getText());
+        currentText = slotView.getSlotHandler().readContent();
+        slikaPanel.drawImage(currentText);
         pack();
     }
 
-    public String getData(){
+    public Object getData(){
         return currentText;
     }
 
