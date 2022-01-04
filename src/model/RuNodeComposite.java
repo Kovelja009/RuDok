@@ -13,14 +13,12 @@ public abstract class RuNodeComposite extends RuNode {
 
     public void addChild(RuNode child, int broj){
         if(!children.contains(child)){
-            System.out.println("Dodavanje na nivou RUNODA: " + child.getName());
             children.add(broj,child);
         }
         notifySubcribers(child, "dodavanje");
     }
 
     public void removeChild(RuNode child){
-        System.out.println("Brisanje na nivou RUNODA: " + child.getName());
         children.remove(child);
         notifySubcribers(child, "brisanje");
     }

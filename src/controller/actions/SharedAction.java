@@ -94,7 +94,9 @@ public class SharedAction extends AbstractRudokAction{
 
     private void generateSlides(MyTreeNode sharedPresentation, MyTreeNode original){
         for(int i = 0; i < original.getChildCount(); i++){
+            ((MyTreeNode)original.getChildren().get(i)).setSharedNode(true);
             MyTreeNode slideTreeNode = new MyTreeNode(((RuNodeComposite)original.getNode()).getChildren().get(i));
+            slideTreeNode.setSharedNode(true);
             sharedPresentation.addChild(slideTreeNode, sharedPresentation.getChildCount());
         }
     }

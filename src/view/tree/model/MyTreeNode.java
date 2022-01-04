@@ -52,12 +52,24 @@ public class MyTreeNode implements TreeNode {
 
     public void safeDeleting(MyTreeNode child){
         MyTreeNode workspaceTreeNode = (MyTreeNode) MainFrame.getInstance().getMyTree().getModel().getRoot();
-        for(TreeNode project : workspaceTreeNode.getChildren()){
-            if(((MyTreeNode)project).containSharing((MyTreeNode) child)){
-                ((MyTreeNode) project).removeShared((MyTreeNode) child, (MyTreeNode) project);
-                ((RuNodeComposite)((MyTreeNode) project).getNode()).removeChild(child.getNode());
-            }
+        if(child.getNode() instanceof Prezentacija){
+            for(TreeNode project : workspaceTreeNode.getChildren()){
+                if(((MyTreeNode)project).containSharing((MyTreeNode) child)){
+                    ((MyTreeNode) project).removeShared((MyTreeNode) child, (MyTreeNode) project);
+                    ((RuNodeComposite)((MyTreeNode) project).getNode()).removeChild(child.getNode());
+                }
 
+            }
+        }
+        if(child.getNode() instanceof Slide){
+            for(TreeNode project : workspaceTreeNode.getChildren()){
+                for(TreeNode presentation : ((MyTreeNode)project).getChildren()){
+                    if(((MyTreeNode)presentation).containSharing(child)){
+                        ((MyTreeNode) presentation).removeShared(child, (MyTreeNode) presentation);
+                        ((RuNodeComposite)((MyTreeNode) presentation).getNode()).removeChild(child.getNode());
+                    }
+                }
+            }
         }
     }
 

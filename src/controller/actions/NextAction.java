@@ -18,8 +18,6 @@ public class NextAction extends AbstractRudokAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-//        ((PreviewPane) MainFrame.getInstance().getPreviewModePanel()).getCardLayout().next(((PreviewPane) MainFrame.getInstance().getPreviewModePanel()).getCenter());
         int indexOfTab = MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedIndex();
 
         PrezentacijaView pw =  (PrezentacijaView) (MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getComponentAt(indexOfTab));
