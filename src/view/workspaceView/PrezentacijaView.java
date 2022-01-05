@@ -33,6 +33,7 @@ public class PrezentacijaView extends JPanel implements Subsriber {
     private SlotStateManager slotStateManager;
     private EditorStateManager editorStateManager;
     private SlotView selectedSlotView;
+    private boolean should = false;
 
     public PrezentacijaView(Prezentacija prezentacijaRuNode){
         slideViewList = new ArrayList<>();
@@ -298,17 +299,23 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
     public void startAddState(){
         slotStateManager.setAddState();
+        should = false;
     }
 
     public void startRemoveState(){
         slotStateManager.setRemoveState();
+        should = false;
     }
 
     public void startSelectState(){
         slotStateManager.setSelectState();
+        should = false;
     }
 
-    public void startDragState(){slotStateManager.setDragState();}
+    public void startDragState(){
+        slotStateManager.setDragState();
+        should = true;
+    }
 
     public void mousePressed(int x, int y, SlideView sw){
         slotStateManager.getCurr().mousePressed(x,y,sw.getHeight()/7, sw.getWidth()/7, sw);
@@ -337,5 +344,9 @@ public class PrezentacijaView extends JPanel implements Subsriber {
 
     public void setSelectedSlotView(SlotView selectedSlotView) {
         this.selectedSlotView = selectedSlotView;
+    }
+
+    public boolean isShould() {
+        return should;
     }
 }

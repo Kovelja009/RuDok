@@ -29,6 +29,8 @@ public class ActionManager {
     private SaveAction saveAction;
     private SaveAsAction saveAsAction;
     private OpenAction openAction;
+    private SaveWorkspaceAction saveWorkspaceAction;
+    private LoadWorkspaceAction loadWorkspaceAction;
 
     public ActionManager(){
         infoAction = new InfoAction();
@@ -57,6 +59,8 @@ public class ActionManager {
         saveAction = new SaveAction();
         saveAsAction = new SaveAsAction();
         openAction = new OpenAction();
+        saveWorkspaceAction = new SaveWorkspaceAction();
+        loadWorkspaceAction = new LoadWorkspaceAction();
     }
 
     public InfoAction getInfoAction() {
@@ -161,5 +165,13 @@ public class ActionManager {
 
     public OpenAction getOpenAction() {
         return openAction;
+    }
+
+    public SaveWorkspaceAction getSaveWorkspaceAction() {
+        return saveWorkspaceAction;
+    }
+
+    public LoadWorkspaceAction getLoadWorkspaceAction() {
+        return loadWorkspaceAction;
     }
 }

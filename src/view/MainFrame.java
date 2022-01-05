@@ -4,10 +4,13 @@ import controller.actions.ActionManager;
 import controller.commands.CommandManager;
 import controller.errorHandler.ErrorFactory;
 import controller.errorHandler.MyError;
+import controller.listeners.RuDokClosingListener;
 import controller.observers.Subsriber;
 import view.editor_dialogs.AbstractDialog;
 import view.editor_dialogs.PictureDialog;
 import view.editor_dialogs.TextDialog;
+import view.serialization.dialogs.OpeningWorkspace;
+import view.serialization.dialogs.SavingWorkspace;
 import view.tree.view.MyTree;
 import view.tree.model.MyTreeModel;
 import view.workspaceView.ProjekatView;
@@ -34,6 +37,8 @@ public class MainFrame extends JFrame implements Subsriber {
     private TextDialog textDialog;
     private AbstractDialog currentDialog;
     private List<Character> charList;
+    private SavingWorkspace sw;
+    private OpeningWorkspace ow;
 
     private MainFrame(){}
 
@@ -51,7 +56,8 @@ public class MainFrame extends JFrame implements Subsriber {
         setIconImage(img);
         setTitle("RuDok");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new RuDokClosingListener());
 
         charListInit();
         actionManager = new ActionManager();
@@ -63,13 +69,16 @@ public class MainFrame extends JFrame implements Subsriber {
         getContentPane().add(editModePanel);
         pictureDialog = new PictureDialog(this);
         textDialog = new TextDialog(this);
+
+        sw = new SavingWorkspace();
+        ow = new OpeningWorkspace();
     }
 
     private void charListInit(){
         charList = new ArrayList<>();
-        charList.add('%');
-        charList.add('-');
-        charList.add('+');
+        charList.add('~');
+        charList.add('$');
+        charList.add('|');
     }
 
     private void makeEditPane(){
@@ -147,5 +156,13 @@ public class MainFrame extends JFrame implements Subsriber {
             currentDialog = textDialog;
         if(selected.getSlot().getSlotType().equals("picture"))
             currentDialog = pictureDialog;
+    }
+
+    public SavingWorkspace getSw() {
+        return sw;
+    }
+
+    public OpeningWorkspace getOw() {
+        return ow;
     }
 }

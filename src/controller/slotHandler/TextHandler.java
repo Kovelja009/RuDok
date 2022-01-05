@@ -88,6 +88,7 @@ public class TextHandler extends SlotHandler{
         }
         System.out.println(data);
         slotView.getSlot().setText(data);
+        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
 
     @Override

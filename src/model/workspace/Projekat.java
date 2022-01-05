@@ -1,5 +1,6 @@
 package model.workspace;
 
+import controller.observers.Subsriber;
 import model.RuNode;
 import model.RuNodeComposite;
 
@@ -8,9 +9,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Projekat extends RuNodeComposite implements Serializable {
+public class Projekat extends RuNodeComposite implements Serializable, Subsriber {
     public Projekat(String name, RuNode parent) {
         super(name, parent);
+    }
+
+    @Serial
+    private Object readResolve(){
+        setChanged(false);
+        setShared(false);
+        return this;
     }
 
 
@@ -18,6 +26,8 @@ public class Projekat extends RuNodeComposite implements Serializable {
     public void addChild(RuNode child, int broj) {
         if(child instanceof Prezentacija && !getChildren().contains(child)){
             super.addChild(child, broj);
+            child.addSubscriber(this);
+            changingAction();
         }
     }
 
@@ -29,6 +39,12 @@ public class Projekat extends RuNodeComposite implements Serializable {
     }
 
     @Override
+    public void removeChild(RuNode child) {
+        super.removeChild(child);
+        changingAction();
+    }
+
+    @Override
     public void setChildren(List<RuNode> children) {
         for(RuNode child : children){
             if(!(child instanceof Prezentacija)){
@@ -36,5 +52,22 @@ public class Projekat extends RuNodeComposite implements Serializable {
             }
         }
         super.setChildren(children);
+    }
+
+    @Override
+    public void updateSubsriber(Object notification, String message) {
+        if(!message.equals("ime taba") && !message.equals("ime"))
+            changingAction();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
+    public void changingAction(){
+        setChanged(true);
+        if(!getName().endsWith("*"))
+            setName(getName()+"*");
     }
 }

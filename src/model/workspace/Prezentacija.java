@@ -1,5 +1,6 @@
 package model.workspace;
 
+import controller.observers.Subsriber;
 import model.RuNode;
 import model.RuNodeComposite;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Prezentacija extends RuNodeComposite implements Serializable {
+public class Prezentacija extends RuNodeComposite implements Serializable, Subsriber {
     private String autor = "unknown";
     private String urlPozadina;
 
@@ -21,6 +22,10 @@ public class Prezentacija extends RuNodeComposite implements Serializable {
 
     @Serial
     private Object readResolve(){
+        String ime = getName();
+        if(ime.endsWith("*"))
+            setName(ime.substring(0, ime.toCharArray().length - 1));
+
         setChanged(false);
         setShared(false);
         return this;
@@ -30,6 +35,8 @@ public class Prezentacija extends RuNodeComposite implements Serializable {
     public void addChild(RuNode child, int broj) {
         if(child instanceof Slide && !getChildren().contains(child)){
             super.addChild(child, broj);
+            child.addSubscriber(this);
+            changingAction();
         }
     }
 
@@ -38,6 +45,12 @@ public class Prezentacija extends RuNodeComposite implements Serializable {
         if(parent instanceof Projekat){
             super.setParent(parent);
         }
+    }
+
+    @Override
+    public void removeChild(RuNode child) {
+        super.removeChild(child);
+        changingAction();
     }
 
     @Override
@@ -58,6 +71,7 @@ public class Prezentacija extends RuNodeComposite implements Serializable {
 
         this.autor = autor;
         notifySubcribers(this, "promena autora");
+        changingAction();
     }
 
     @Override
@@ -73,7 +87,18 @@ public class Prezentacija extends RuNodeComposite implements Serializable {
     public void setUrlPozadina(String urlPozadina) {
         this.urlPozadina = urlPozadina;
         this.notifySubcribers(urlPozadina, "promena pozadine");
+        changingAction();
     }
 
+    @Override
+    public void updateSubsriber(Object notification, String message) {
+        changingAction();
+    }
 
+    public void changingAction(){
+        setChanged(true);
+        if(!getName().endsWith("*"))
+            setName(getName()+"*");
+        notifySubcribers(this, "changing");
+    }
 }

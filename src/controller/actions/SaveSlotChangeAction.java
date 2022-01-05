@@ -4,6 +4,7 @@ import view.MainFrame;
 import view.workspaceView.PrezentacijaView;
 import view.workspaceView.SlotView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class SaveSlotChangeAction extends AbstractRudokAction{
@@ -17,5 +18,6 @@ public class SaveSlotChangeAction extends AbstractRudokAction{
         SlotView selected = ((PrezentacijaView)MainFrame.getInstance().getMainProjectView().getPrezentacijaTabbedPane().getSelectedComponent()).getSelectedSlotView();
         selected.getSlotHandler().writeContent(MainFrame.getInstance().getCurrentDialog().getData());
         MainFrame.getInstance().getCurrentDialog().setVisible(false);
+        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
 }

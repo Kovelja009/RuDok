@@ -1,6 +1,8 @@
 package controller.commands;
 
 import model.RuNode;
+import model.workspace.Prezentacija;
+import model.workspace.Projekat;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -19,6 +21,7 @@ public class NameCommand extends AbstractCommand{
     @Override
     public void doCommand() {
         node.setName(newName);
+        check(node);
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
 
     }
@@ -26,7 +29,15 @@ public class NameCommand extends AbstractCommand{
     @Override
     public void undoCommand() {
         node.setName(oldName);
+        check(node);
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
 
+    }
+
+    private void check(RuNode node){
+        if(node instanceof Projekat)
+            ((Projekat)node).changingAction();
+        if(node instanceof Prezentacija)
+            ((Prezentacija)node).changingAction();
     }
 }

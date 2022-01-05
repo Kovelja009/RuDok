@@ -1,12 +1,13 @@
 package model.workspace;
 
+import controller.observers.Subsriber;
 import model.RuNode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Slide extends RuNode implements Serializable {
+public class Slide extends RuNode implements Serializable, Subsriber {
     private int redniBroj;
     private List<Slot> slotList;
 
@@ -35,6 +36,8 @@ public class Slide extends RuNode implements Serializable {
     public void addSlot(Slot slot){
         slotList.add(slot);
         notifySubcribers(slot, "dodavanje slota");
+        slot.addSubscriber(this);
+
     }
 
     public void removeSlot(Slot slot){
@@ -48,5 +51,12 @@ public class Slide extends RuNode implements Serializable {
 
     public void setSlotList(List<Slot> slotList) {
         this.slotList = slotList;
+    }
+
+    @Override
+    public void updateSubsriber(Object notification, String message) {
+        if(message.equals("content change")){
+            notifySubcribers(this, "content change");
+        }
     }
 }

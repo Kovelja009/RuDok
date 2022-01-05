@@ -1,5 +1,6 @@
 package controller.slotHandler;
 
+import view.MainFrame;
 import view.workspaceView.SlotView;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class PhotoHandler extends SlotHandler{
     @Override
     public void writeContent(Object content) {
         super.slotView.getSlot().setText((String) content);
+        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
 
     @Override

@@ -16,12 +16,13 @@ public abstract class RuNode implements Publisher, Serializable {
     private transient List<Subsriber> listaSubscribera;
     private boolean shared = false;
     private File file;
-    private transient boolean changed = true;
+    private transient boolean changed;
 
     public RuNode(String name, RuNode parent) {
         this.name = name;
         this.parent = parent;
         listaSubscribera = new ArrayList<>();
+        changed = true;
     }
 
     public String getName() {

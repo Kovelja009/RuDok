@@ -102,6 +102,7 @@ public class Slot implements Publisher, Serializable {
 
     public void setText(String text) {
         this.text = text;
+        notifySubcribers(this, "content change");
     }
 
     @Override

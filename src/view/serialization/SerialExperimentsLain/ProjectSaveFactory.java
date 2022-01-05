@@ -33,11 +33,17 @@ public class ProjectSaveFactory extends SaveFactory{
 
         ObjectOutputStream os;
         try {
-            os = new ObjectOutputStream(new FileOutputStream(projectFile));
-            os.writeObject(projekat);
+
+            String ime = projekat.getName();
+            if(ime.endsWith("*")){
+                projekat.setName(ime.substring(0, ime.toCharArray().length - 1));
+            }
             projekat.setFile(projectFile);
             projekat.setChanged(false);
-            System.out.println("Uspesno serijalizovan" + projekat.getName());
+            os = new ObjectOutputStream(new FileOutputStream(projectFile));
+            os.writeObject(projekat);
+            System.out.println("Uspesno serijalizovan " + projekat.getName());
+            SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
         } catch (IOException e1) {
             e1.printStackTrace();
         }

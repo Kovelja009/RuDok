@@ -35,11 +35,15 @@ public class PresentationSaveFactory extends SaveFactory{
 
         ObjectOutputStream os;
         try {
-            os = new ObjectOutputStream(new FileOutputStream(presentationFile));
-            os.writeObject(presentation);
             presentation.setFile(presentationFile);
             presentation.setChanged(false);
+            String ime = presentation.getName();
+            if(ime.endsWith("*"))
+                presentation.setName(ime.substring(0, ime.toCharArray().length - 1));
+            os = new ObjectOutputStream(new FileOutputStream(presentationFile));
+            os.writeObject(presentation);
             System.out.println("Uspesno serijalizovan " + presentation.getName());
+            SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
         } catch (IOException e1) {
             e1.printStackTrace();
         }

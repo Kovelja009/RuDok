@@ -1,8 +1,10 @@
 package controller.listeners;
 
+import view.MainFrame;
 import view.workspaceView.PrezentacijaView;
 import view.workspaceView.SlideView;
 
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,12 +22,17 @@ public class MouseChecker extends MouseAdapter {
 
         if (e.getButton()==MouseEvent.BUTTON1){
             pw.mousePressed(e.getX(), e.getY(), sw);
+            SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         pw.mouseDragged(e.getX(), e.getY(), sw);
+        if(pw.isShould())
+            pw.getPrezentacijaRuNode().changingAction();
+        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
+
     }
 
 

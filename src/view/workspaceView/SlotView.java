@@ -95,6 +95,7 @@ public class SlotView implements Subsriber {
         this.x = slot.getX();
         this.y = slot.getY();
         ((Rectangle)shape).setLocation(x, y);
+        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
 
     public int getHeight() {
