@@ -3,10 +3,12 @@ package model.workspace;
 import controller.observers.Publisher;
 import controller.observers.Subsriber;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Slot implements Publisher {
+public class Slot implements Publisher, Serializable {
     private int x;
     private int y;
     private int height;
@@ -19,7 +21,7 @@ public class Slot implements Publisher {
     private String slotType;
     private String text = "";
 
-    private List<Subsriber> subsriberList;
+    private transient List<Subsriber> subsriberList;
 
     public Slot(int x, int y, int height, int width, int red, int green, int blue, String slotType) {
         this.x = x;
@@ -31,6 +33,12 @@ public class Slot implements Publisher {
         this.blue = blue;
         subsriberList = new ArrayList<>();
         this.slotType = slotType;
+    }
+
+    @Serial
+    private Object readResolve(){
+        subsriberList = new ArrayList<>();
+        return this;
     }
 
     public void setPos(int x, int y){

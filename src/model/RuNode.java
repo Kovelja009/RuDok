@@ -3,13 +3,20 @@ package model;
 import controller.observers.Publisher;
 import controller.observers.Subsriber;
 
+import javax.swing.event.EventListenerList;
+import java.io.File;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RuNode implements Publisher {
+public abstract class RuNode implements Publisher, Serializable {
     private String name;
     private RuNode parent;
-    private List<Subsriber> listaSubscribera;
+    private transient List<Subsriber> listaSubscribera;
+    private boolean shared = false;
+    private File file;
+    private transient boolean changed = true;
 
     public RuNode(String name, RuNode parent) {
         this.name = name;
@@ -42,8 +49,18 @@ public abstract class RuNode implements Publisher {
         this.listaSubscribera = listaSubscribera;
     }
 
+    public boolean isShared() {
+        return shared;
+    }
+
+    public void setShared(boolean shared) {
+        this.shared = shared;
+    }
+
     @Override
     public void addSubscriber(Subsriber subsriber) {
+        if(listaSubscribera == null)
+            listaSubscribera = new ArrayList<>();
         if(!listaSubscribera.contains(subsriber)){
             listaSubscribera.add(subsriber);
             return;
@@ -70,5 +87,21 @@ public abstract class RuNode implements Publisher {
     public synchronized void notifySubcribers(Object notification, String message) {
         for(int i = 0; i < listaSubscribera.size(); i++)
             listaSubscribera.get(i).updateSubsriber(notification, message);
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
     }
 }

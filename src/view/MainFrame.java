@@ -53,7 +53,6 @@ public class MainFrame extends JFrame implements Subsriber {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         charListInit();
         actionManager = new ActionManager();
 

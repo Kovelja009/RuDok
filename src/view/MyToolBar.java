@@ -11,7 +11,10 @@ public class MyToolBar extends JToolBar {
         setFloatable(true);
         setPreferredSize(new Dimension(100, 35));
 
-
+        add(MainFrame.getInstance().getActionManager().getSaveAction());
+        add(MainFrame.getInstance().getActionManager().getSaveAsAction());
+        add(MainFrame.getInstance().getActionManager().getOpenAction());
+        addSeparator(new Dimension(15,50));
         add(MainFrame.getInstance().getActionManager().getNewAction());
         add(MainFrame.getInstance().getActionManager().getDeleteAction());
         add(MainFrame.getInstance().getActionManager().getSharedAction());

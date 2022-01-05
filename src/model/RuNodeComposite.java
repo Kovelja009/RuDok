@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class RuNodeComposite extends RuNode {
+public abstract class RuNodeComposite extends RuNode implements Serializable {
     private List<RuNode> children;
 
     public RuNodeComposite(String name, RuNode parent) {

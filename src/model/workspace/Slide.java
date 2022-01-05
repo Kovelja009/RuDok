@@ -2,10 +2,11 @@ package model.workspace;
 
 import model.RuNode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Slide extends RuNode {
+public class Slide extends RuNode implements Serializable {
     private int redniBroj;
     private List<Slot> slotList;
 

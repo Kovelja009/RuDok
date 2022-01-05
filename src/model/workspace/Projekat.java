@@ -3,12 +3,16 @@ package model.workspace;
 import model.RuNode;
 import model.RuNodeComposite;
 
+import java.io.Serial;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Projekat extends RuNodeComposite {
+public class Projekat extends RuNodeComposite implements Serializable {
     public Projekat(String name, RuNode parent) {
         super(name, parent);
     }
+
 
     @Override
     public void addChild(RuNode child, int broj) {

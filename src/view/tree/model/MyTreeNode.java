@@ -94,11 +94,12 @@ public class MyTreeNode implements TreeNode {
     }
 
     public boolean isShared(){
-        return sharedNode;
+        return node.isShared();
     }
 
     public void setSharedNode(boolean sharedNode) {
         this.sharedNode = sharedNode;
+        node.setShared(sharedNode);
     }
 
     public boolean containSharing(MyTreeNode treeNode){

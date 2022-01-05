@@ -3,18 +3,27 @@ package model.workspace;
 import model.RuNode;
 import model.RuNodeComposite;
 
+import java.io.File;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Prezentacija extends RuNodeComposite {
+public class Prezentacija extends RuNodeComposite implements Serializable {
     private String autor = "unknown";
     private String urlPozadina;
-    private List<Projekat> sharedProjects;
+
 
     public Prezentacija(String name, RuNode parent) {
         super(name, parent);
         urlPozadina = "../../controller/images/background2.jpg";
-        sharedProjects = new ArrayList<>();
+    }
+
+    @Serial
+    private Object readResolve(){
+        setChanged(false);
+        setShared(false);
+        return this;
     }
 
     @Override
@@ -22,15 +31,6 @@ public class Prezentacija extends RuNodeComposite {
         if(child instanceof Slide && !getChildren().contains(child)){
             super.addChild(child, broj);
         }
-    }
-
-    public List<Projekat> getSharedProjects() {
-        return sharedProjects;
-    }
-
-    public void addSharedProject(Projekat projekat){
-        if(!sharedProjects.contains(projekat))
-            sharedProjects.add(projekat);
     }
 
     @Override
@@ -74,4 +74,6 @@ public class Prezentacija extends RuNodeComposite {
         this.urlPozadina = urlPozadina;
         this.notifySubcribers(urlPozadina, "promena pozadine");
     }
+
+
 }

@@ -147,9 +147,10 @@ public class TextHandler extends SlotHandler{
                     font = new Font("Ariel", Font.ITALIC, 11);
                 }else{
                     font = new Font("Ariel", Font.PLAIN, 11);
+                    x+=1;
                 }
 
-                x += 7;
+                x += 5;
                 g.setFont(font);
                 g.drawString(""+ ch, x, y);
             }
