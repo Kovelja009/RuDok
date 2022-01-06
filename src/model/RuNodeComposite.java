@@ -17,6 +17,7 @@ public abstract class RuNodeComposite extends RuNode implements Serializable {
             children.add(broj,child);
         }
         notifySubcribers(child, "dodavanje");
+        System.out.println("poslata notif add");
     }
 
     public void removeChild(RuNode child){

@@ -56,8 +56,10 @@ public class Projekat extends RuNodeComposite implements Serializable, Subsriber
 
     @Override
     public void updateSubsriber(Object notification, String message) {
-        if(!message.equals("ime taba") && !message.equals("ime"))
+        if(!message.equals("ime taba") && (!message.equals("ime") && notification instanceof Prezentacija)){
+            System.out.println("primljena poruka u projektu");
             changingAction();
+        }
     }
 
     @Override

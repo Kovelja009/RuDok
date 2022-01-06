@@ -1,6 +1,8 @@
 package view.serialization.dialogs;
 
 import view.MainFrame;
+import view.serialization.SerialExperimentsLain.MetaSerializationFactory;
+import view.serialization.SerialExperimentsLain.SaveFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +15,10 @@ public class OpeningWorkspace extends JDialog{
         setLocationRelativeTo(MainFrame.getInstance());
         setLayout(new BorderLayout());
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setTitle("Loading other workspace");
+        setTitle("Loading workspace");
         JToolBar toolbar = new JToolBar();
         toolbar.setFloatable(false);
-        JButton noBtn = new JButton("no");
+        JButton noBtn = new JButton("previous");
         initializeBtn(noBtn);
         initializeToolbar(toolbar, noBtn);
         add(toolbar);
@@ -27,7 +29,9 @@ public class OpeningWorkspace extends JDialog{
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("no");
+                SaveFactory openFactory = MetaSerializationFactory.returnOpenFactory(null);
+                if(!(openFactory == null))
+                    openFactory.open(null, true);
                 MainFrame.getInstance().getOw().dispose();
             }
         });
@@ -35,7 +39,6 @@ public class OpeningWorkspace extends JDialog{
 
     private void initializeToolbar(JToolBar toolbar, JButton noBtn){
         toolbar.setPreferredSize(new Dimension(200, 30));
-        toolbar.addSeparator(new Dimension(45, 50));
         toolbar.add(MainFrame.getInstance().getActionManager().getLoadWorkspaceAction());
         toolbar.addSeparator(new Dimension(50, 50));
         toolbar.add(noBtn);

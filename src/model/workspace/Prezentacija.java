@@ -93,6 +93,7 @@ public class Prezentacija extends RuNodeComposite implements Serializable, Subsr
     @Override
     public void updateSubsriber(Object notification, String message) {
         changingAction();
+        System.out.println("primljena poruka u prezentaciji");
     }
 
     public void changingAction(){

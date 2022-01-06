@@ -32,6 +32,7 @@ public abstract class RuNode implements Publisher, Serializable {
     public void setName(String name) {
         this.name = name;
         this.notifySubcribers(this, "ime");
+        System.out.println("poslata notif name");
     }
 
     public RuNode getParent() {
@@ -86,6 +87,8 @@ public abstract class RuNode implements Publisher, Serializable {
 
     @Override
     public synchronized void notifySubcribers(Object notification, String message) {
+        if(listaSubscribera == null)
+            listaSubscribera = new ArrayList<>();
         for(int i = 0; i < listaSubscribera.size(); i++)
             listaSubscribera.get(i).updateSubsriber(notification, message);
     }

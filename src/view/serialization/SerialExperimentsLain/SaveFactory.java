@@ -3,29 +3,38 @@ package view.serialization.SerialExperimentsLain;
 import model.RuNode;
 import model.workspace.Prezentacija;
 import model.workspace.Projekat;
+import model.workspace.Slide;
 import view.tree.model.MyTreeNode;
 
 public abstract class SaveFactory {
-    public abstract void save(RuNode saveNode);
-    public abstract void saveAs(RuNode saveNode);
-    public abstract void open(MyTreeNode locTreeNode);
+    protected boolean shouldSave = true;
+
+    public void save(RuNode saveNode, boolean isClosing){}
+    public void saveAs(RuNode saveNode){}
+    public void open(MyTreeNode locTreeNode, boolean isContext){}
 
     protected void generateSlides(MyTreeNode presTreeNode){
         Prezentacija p = (Prezentacija) presTreeNode.getNode();
         for(RuNode s : p.getChildren()){
-            MyTreeNode slideTree = new MyTreeNode(s);
-            presTreeNode.getChildren().add(slideTree);
+            Slide slide = (Slide) s;
+            MyTreeNode slideTree = new MyTreeNode(slide);
             slideTree.setParent(presTreeNode);
+            presTreeNode.addChild(slideTree, presTreeNode.getChildCount());
         }
     }
 
     protected void generatePresentations(MyTreeNode projTreeNode){
         Projekat p = (Projekat) projTreeNode.getNode();
         for(RuNode pr : p.getChildren()){
-            MyTreeNode presTreeNode = new MyTreeNode(pr);
-            projTreeNode.getChildren().add(presTreeNode);
+            Prezentacija prez = (Prezentacija) pr;
+            MyTreeNode presTreeNode = new MyTreeNode(prez);
+            projTreeNode.addChild(presTreeNode, projTreeNode.getChildCount());
             presTreeNode.setParent(projTreeNode);
             generateSlides(presTreeNode);
         }
+    }
+
+    public boolean isShouldSave() {
+        return shouldSave;
     }
 }

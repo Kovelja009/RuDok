@@ -12,7 +12,7 @@ import java.io.*;
 
 public class PresentationSaveFactory extends SaveFactory{
     @Override
-    public void save(RuNode saveNode) {
+    public void save(RuNode saveNode, boolean isClosing) {
         Prezentacija presentation = (Prezentacija) saveNode;
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new PresentationFIleFilter());
@@ -78,7 +78,7 @@ public class PresentationSaveFactory extends SaveFactory{
     }
 
     @Override
-    public void open(MyTreeNode locTreeNode) {
+    public void open(MyTreeNode locTreeNode, boolean isContext) {
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new PresentationFIleFilter());
 

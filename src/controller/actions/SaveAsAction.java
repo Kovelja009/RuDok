@@ -3,6 +3,7 @@ package controller.actions;
 import controller.errorHandler.ErrorFactory;
 import model.workspace.Prezentacija;
 import model.workspace.Projekat;
+import model.workspace.Workspace;
 import view.MainFrame;
 import view.serialization.PresentationFIleFilter;
 import view.serialization.ProjectFileFilter;
@@ -33,14 +34,11 @@ public class SaveAsAction extends AbstractRudokAction{
 
         MyTreeNode myTreeNode = (MyTreeNode) o;
 
-//        if(myTreeNode.getNode() instanceof Projekat){
-//            projectSaveAs((Projekat)myTreeNode.getNode());
-//            return;
-//        }
-//        if(myTreeNode.getNode() instanceof Prezentacija){
-//            presentationSaveAs((Prezentacija) myTreeNode.getNode());
-//            return;
-//        }
+        if(myTreeNode.getNode() instanceof Workspace){
+            ErrorFactory.getInstance().generateError("Must select either project or presentation", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
 
         SaveFactory saveFactory = MetaSerializationFactory.returnSaveFactory(myTreeNode);
         if(saveFactory == null){
@@ -48,13 +46,5 @@ public class SaveAsAction extends AbstractRudokAction{
             return;
         }
         saveFactory.saveAs(myTreeNode.getNode());
-    }
-
-    private void projectSaveAs(Projekat project){
-
-    }
-
-    private void presentationSaveAs(Prezentacija presentation){
-
     }
 }

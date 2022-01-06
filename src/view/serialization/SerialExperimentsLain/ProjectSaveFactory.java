@@ -11,7 +11,7 @@ import java.io.*;
 
 public class ProjectSaveFactory extends SaveFactory{
     @Override
-    public void save(RuNode saveNode) {
+    public void save(RuNode saveNode, boolean isClosing) {
         Projekat projekat = (Projekat) saveNode;
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new ProjectFileFilter());
@@ -75,7 +75,7 @@ public class ProjectSaveFactory extends SaveFactory{
     }
 
     @Override
-    public void open(MyTreeNode locTreeNode) {
+    public void open(MyTreeNode locTreeNode, boolean isContext) {
         JFileChooser jfc = new JFileChooser();
         jfc.setFileFilter(new ProjectFileFilter());
 

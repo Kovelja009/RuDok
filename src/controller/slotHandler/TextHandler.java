@@ -93,12 +93,6 @@ public class TextHandler extends SlotHandler{
 
     @Override
     public void paint(Graphics g) {
-//        g.setFont(new Font("Ariel", Font.ITALIC, 25));
-//        int old_posX = slotView.getX() + 10;
-//        int old_posY = slotView.getY() + 10;
-//        g.drawString(slotView.getSlot().getText(), old_posX, old_posY);
-//        g.setFont(new Font("Ariel", Font.ITALIC, 7));
-//        g.drawString("proba", old_posX + 7*slotView.getSlot().getText().length(), old_posY);
         boolean isB = false;
         boolean isIt = false;
         boolean isUn = false;

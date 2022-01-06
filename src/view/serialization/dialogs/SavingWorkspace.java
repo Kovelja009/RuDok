@@ -8,12 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SavingWorkspace extends JDialog {
+    private boolean shouldSave = true;
     public SavingWorkspace(){
         setModal(true);
         setLocationRelativeTo(MainFrame.getInstance());
         setLayout(new BorderLayout());
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setTitle("Saving workspace");
+        setTitle("Save current workspace");
         JToolBar toolbar = new JToolBar();
         toolbar.setFloatable(false);
         JButton noBtn = new JButton("no");
@@ -28,6 +29,7 @@ public class SavingWorkspace extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("noooooo");
+                MainFrame.getInstance().getSw().setShouldSave(true);
                 MainFrame.getInstance().getSw().dispose();
             }
         });
@@ -39,5 +41,13 @@ public class SavingWorkspace extends JDialog {
         toolbar.add(MainFrame.getInstance().getActionManager().getSaveWorkspaceAction());
         toolbar.addSeparator(new Dimension(50, 50));
         toolbar.add(noBtn);
+    }
+
+    public boolean isShouldSave() {
+        return shouldSave;
+    }
+
+    public void setShouldSave(boolean shouldSave) {
+        this.shouldSave = shouldSave;
     }
 }

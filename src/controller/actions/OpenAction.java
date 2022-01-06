@@ -1,25 +1,15 @@
 package controller.actions;
 
 import controller.errorHandler.ErrorFactory;
-import model.RuNode;
-import model.workspace.Prezentacija;
-import model.workspace.Projekat;
-import model.workspace.Workspace;
 import view.MainFrame;
 import view.serialization.SerialExperimentsLain.MetaSerializationFactory;
 import view.serialization.SerialExperimentsLain.SaveFactory;
 import view.serialization.dialogs.OpenDialog;
-import view.serialization.PresentationFIleFilter;
-import view.serialization.ProjectFileFilter;
 import view.tree.model.MyTreeNode;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 
 public class OpenAction extends AbstractRudokAction{
     public OpenAction(){
@@ -50,7 +40,7 @@ public class OpenAction extends AbstractRudokAction{
             return;
         }
 
-        openFactory.open(selectedTreeNode);
+        openFactory.open(selectedTreeNode, false);
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
 
