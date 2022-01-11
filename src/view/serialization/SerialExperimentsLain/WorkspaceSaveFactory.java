@@ -112,11 +112,15 @@ public class WorkspaceSaveFactory extends SaveFactory{
                 System.out.println(e.getMessage());
             }
 
-
+            if(p!= null){
             MyTreeNode projTreeNode = new MyTreeNode(p);
+            p.setChanged(true);
             projTreeNode.setParent(parentTree);
             generatePresentations(projTreeNode);
             parentTree.addChild(projTreeNode, parentTree.getChildCount());
+            }else {
+                System.out.println("neuspesno ucitavanje projekta");
+            }
         } catch (IOException e1) {
             System.out.println(e1.getMessage());
         }

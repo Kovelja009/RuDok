@@ -17,6 +17,5 @@ public class RedoAction extends AbstractRudokAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         MainFrame.getInstance().getCommandManager().doCommand();
-        System.out.println("Redo - button");
     }
 }

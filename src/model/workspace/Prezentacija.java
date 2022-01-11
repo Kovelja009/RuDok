@@ -26,7 +26,7 @@ public class Prezentacija extends RuNodeComposite implements Serializable, Subsr
         if(ime.endsWith("*"))
             setName(ime.substring(0, ime.toCharArray().length - 1));
 
-        setChanged(false);
+        setChanged(true);
         setShared(false);
         return this;
     }

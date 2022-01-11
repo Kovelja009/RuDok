@@ -16,7 +16,7 @@ public class Projekat extends RuNodeComposite implements Serializable, Subsriber
 
     @Serial
     private Object readResolve(){
-        setChanged(false);
+        setChanged(true);
         setShared(false);
         return this;
     }

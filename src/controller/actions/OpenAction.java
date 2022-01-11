@@ -29,11 +29,6 @@ public class OpenAction extends AbstractRudokAction{
             return;
         }
 
-//        if(selectedTreeNode.getNode() instanceof Workspace)
-//            openProject(selectedTreeNode);
-//        else
-//            openPresentation(selectedTreeNode);
-
         SaveFactory openFactory = MetaSerializationFactory.returnOpenFactory(selectedTreeNode);
         if(openFactory == null){
             ErrorFactory.getInstance().generateError("Must select valid node", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -43,31 +38,4 @@ public class OpenAction extends AbstractRudokAction{
         openFactory.open(selectedTreeNode, false);
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
-
-//    private void openProject(MyTreeNode locTreeNode){
-//
-//    }
-//
-//    private void openPresentation(MyTreeNode locTreeNode){
-//
-//    }
-//
-//    protected void generateSlides(MyTreeNode presTreeNode){
-//        Prezentacija p = (Prezentacija) presTreeNode.getNode();
-//        for(RuNode s : p.getChildren()){
-//            MyTreeNode slideTree = new MyTreeNode(s);
-//            presTreeNode.getChildren().add(slideTree);
-//            slideTree.setParent(presTreeNode);
-//        }
-//    }
-//
-//    protected void generatePresentations(MyTreeNode projTreeNode){
-//        Projekat p = (Projekat) projTreeNode.getNode();
-//        for(RuNode pr : p.getChildren()){
-//            MyTreeNode presTreeNode = new MyTreeNode(pr);
-//            projTreeNode.getChildren().add(presTreeNode);
-//            presTreeNode.setParent(projTreeNode);
-//            generateSlides(presTreeNode);
-//        }
-//    }
 }

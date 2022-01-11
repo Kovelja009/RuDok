@@ -27,6 +27,7 @@ public abstract class SaveFactory {
         Projekat p = (Projekat) projTreeNode.getNode();
         for(RuNode pr : p.getChildren()){
             Prezentacija prez = (Prezentacija) pr;
+            prez.setChanged(true);
             MyTreeNode presTreeNode = new MyTreeNode(prez);
             projTreeNode.addChild(presTreeNode, projTreeNode.getChildCount());
             presTreeNode.setParent(projTreeNode);
