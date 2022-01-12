@@ -92,9 +92,11 @@ public class SlotView implements Subsriber {
 
     @Override
     public void updateSubsriber(Object notification, String message) {
-        this.x = slot.getX();
-        this.y = slot.getY();
-        ((Rectangle)shape).setLocation(x, y);
+        if(!message.equals("content change")){
+            this.x = slot.getX();
+            this.y = slot.getY();
+            ((Rectangle)shape).setLocation(x, y);
+        }
         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getMyTree());
     }
 
