@@ -22,8 +22,10 @@ public class SharedAction extends AbstractRudokAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         MyTreeNode treeNode = (MyTreeNode) MainFrame.getInstance().getMyTree().getLastSelectedPathComponent();
-        if (!(treeNode.getNode() instanceof Prezentacija)){
+
+        if (treeNode == null || !(treeNode.getNode() instanceof Prezentacija)){
             ErrorFactory.getInstance().generateError("Must select presentation in order to share it", "Error", JOptionPane.ERROR_MESSAGE);
         return;
         }
